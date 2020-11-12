@@ -5,7 +5,7 @@ import { DayVal } from './dayVal';
 import { registration} from './registration';
 import { MoneyVal } from './moneyVal';
 import { regionsReducer } from './regions';
-import {messages } from './messages';
+import {messages } from './messages'
 import {stepregistration} from './stepregistration';
 import {loading} from './loading';
 import { createForms } from 'react-redux-form';
@@ -20,7 +20,7 @@ export const ConfigureStore = () => {
       stepregistration: stepregistration,
       regionsReducer: regionsReducer,
       loading: loading,
-      ...createForms({registration: RegistrationStep1, codeConfirm: "", registration2: RegistrationStep2, 
+      ...createForms({registration: RegistrationStep1, codeConfirm: "", registration2: RegistrationStep2,
       registration3: "", oplata: "", feedback: ""})
     }),
     applyMiddleware(thunk, logger),

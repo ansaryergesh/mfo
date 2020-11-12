@@ -1,4 +1,4 @@
-import * as ActionTypes from './actions/ActionTypes';
+import * as ActionTypes from '../actions/ActionTypes'
 
 export const registration = (state = '', action) => {
   const { type } = action;

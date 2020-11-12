@@ -1,4 +1,4 @@
-import * as ActionTypes from './actions/ActionTypes';
+import * as ActionTypes from '../actions/ActionTypes'
 
 export const DayVal = (state = '61', action) => {
   const { type } = action;
