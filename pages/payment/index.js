@@ -2,12 +2,16 @@ import React from 'react';
 // import Link from 'next/link'
 // import { Control, Errors, Form,actions } from 'react-redux-form';
 // import { connect } from 'react-redux';
-import {iin, required} from '../../defaults/validations';
-import { oplata } from '../../redux/actions/ActionCreators';
+import {iinValidation, requiredd} from '../../defaults/validations';
 import InputMask from "react-input-mask";
 import Spinner from 'react-spinner-material';
 import swal from "sweetalert";
-
+import * as Yup from 'yup';
+import MaskedInput from 'react-text-mask';
+import axios from 'axios'
+import { Formik, Form,  Field  } from 'formik';
+const maskIin = [/\d/,/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,/\d/,/\d/,/\d/,];
+import Head from 'next/head';
 const mapStateToProps = state => {
   return {
     oplata: state.oplata,
@@ -24,9 +28,12 @@ const IinMask = (props) => <InputMask mask="999999999999" maskChar=" " className
 class Payment extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      btnLoading: false,
+    };
     this.handleSubmit = this.handleSubmit.bind(this);
-    // this.handleChecking = this.handleChecking.bind(this);
   }
+
   handleSubmit(values) {
     swal("Проверьте ваши данные", {
       text: `Проверьте ваши данные
@@ -42,26 +49,31 @@ class Payment extends React.Component {
     }).then(value=>{
       switch (value) {
         case "catch":
-          this.props.oplata(values)
+          this.setState({
+            btnLoading: true,
+          });
+           axios.post(`https://api.money-men.kz/api/make_payment123`, values)
+            .then((response) => {
+              this.setState({
+                btnLoading: false
+              })
+              location.replace(response.data[0] + "?" + response.data[1])
+            })
+            .catch((error) => {
+              console.log(error)
+              this.setState({
+                btnLoading: false
+              })
+            });
         case "cancel":
           break
       }
     })
   }
-
-  // handleChecking(val) {
-  //   localStorage.clear();
-  //   localStorage.setItem('step','final');
-  //   val.push('/thanks').then(() => localStorage.clear())
-  //   // localStorage.clear();
-  // }
-
-  componentDidMount() {
-    // this.props.resetOplata();
-  }
   render() {
     return (
         <div>
+          <Head>Деньги</Head>
              <section className="otherPages">
         <div className="container">
           <section className="oplata row">
@@ -70,34 +82,54 @@ class Payment extends React.Component {
               <p>После нажатия кнопки оплатить вы будете перенаправлены на страницу оплаты</p>
             </div>
             <div className="col-lg-6 oplate--form">
-              {/* <Form model="oplata" className="oplataform" onSubmit={(values) => this.handleSubmit(values)}>
-                <div className="input-group">
-                  <label htmlFor="iin">
-                    <h2>Ваш ИИН:</h2>
+            <Formik
+              initialValues={{
+                iin: '',
+                amount: '',
+              }}
+              onSubmit={values => {
+                // same shape as initial values
+                this.handleSubmit(values)
+              }}
+            >
+                 {({ errors, touched, isValidating, isSubmitting }) => (
+              <Form className="oplataform">
+                <div className='input-group'>
+                  <label htmlFor='iin'>
+                    <h2>Ваш ИИН: </h2>
                   </label>
-                  <Control  name="iid" model="oplata.iin" component={IinMask} placeholder="Вводить сюда" validators={{iin}}/>
-                  <Errors  className='text-danger' model='oplata.iin' show='touched'
-                      messages={{
-                       iin: 'Неправильный ИИН ',
-										}}
-										/>
+                  <Field
+                    name="iin"
+                    validate={iinValidation}
+                    render={({ field }) => (
+                      <MaskedInput
+                        {...field}
+                        mask={maskIin}
+                        id="iin"
+                        placeholder="Вводить сюда"
+                        type="text"
+                      />
+                    )}
+                  />
+                  {errors.iin && touched.iin && <div className='text-danger'>{errors.iin}</div>}
+
                 </div>
-                <div className="input-group">
-                  <label htmlFor="amount">
-                    <h2>Сумма:</h2>
+                <div className='input-group'>
+                  <label htmlFor='iin'>
+                    <h2>Сумма: </h2>
                   </label>
-                  <Control.text  name="amount" model="oplata.amount" type="number" placeholder="Вводить сюда" validators={{required}}/>
-                  <Errors  className='text-danger' model='oplata.amount' show='touched'
-                      messages={{
-                       required: 'Введите сумму ',
-									}}/>
+                  <Field name='amount' validate={requiredd} type='number' placeholder="Вводить сюда"/>
+                  {errors.amount && touched.amount && <div className='text-danger'>{errors.amount}</div>}
                 </div>
+
                 <div className="buttonForm">
-                {this.props.loading === true ?
+                {this.state.btnLoading === true ?
 								 <Spinner className="loading" size={200} spinnerColor={"#ef2221"} spinnerWidth={2} visible={true} /> :
                  <button className=" oplataform--button" type="submit">Внести оплату</button>}
                 </div>
-              </Form> */}
+                </Form>
+                  )}
+            </Formik>
             </div>
           </section>
         </div>
@@ -106,5 +138,4 @@ class Payment extends React.Component {
     );}
 }
 
-// export default (connect(mapStateToProps,mapDispatchToProps)(Payment));
 export default Payment;

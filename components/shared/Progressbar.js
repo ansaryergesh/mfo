@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link'
-import {changingMoney, changingDay} from '../../redux/actions/ActionCreators';
+import {changingMoney, changingDay} from '../../store/actions/ActionCreators';
 var scrollToElement = require('scroll-to-element');
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
@@ -136,5 +136,5 @@ class ProgressBar extends Component {
         )
     }
 }
-export default ProgressBar;
-// export default (connect(mapStateToProps,mapDispatchToProps)(ProgressBar));
+// export default ProgressBar;
+export default (connect(mapStateToProps,mapDispatchToProps)(ProgressBar));

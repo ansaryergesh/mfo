@@ -1,12 +1,29 @@
-export const requiredd = (val) => {
-    let error;
-    if(!val) {
-      error = 'Поле обязательно для заполнения'
-    }
-    return error;
-}
 
 export const required = (val) => val && val.length;
+export const validEmail = (val) => /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
+export const acceptCirrilic = val => {
+    var falsy = /[a-zA-Z0-9_"*/]/i.test(val)
+    if(falsy === false) {
+        return true
+    }
+    return false;
+}
+export const confirmPassword  = (allValues) => {
+    if(null || allValues.password) {
+        if(allValues.password === allValues.password_confirmation) {
+            return true
+        }
+    }
+    return false;
+}
+export const checkAlphabet = (val) => 	/[a-zA-Z0-9_]/i.test(val);
+export const passwordCheck = (val)=> {
+	if(val && val.length < 5) return false;
+	if(!val) return false;
+	return true
+}
+
+
 export const iin = (val) =>  {
 	if(val && val.length!==12) return false;
 	if(!val) return false;
@@ -29,119 +46,8 @@ export const iin = (val) =>  {
 	return true;
 }
 
-export const validEmaill = (val) => {
-    let error;
-    let emailvalid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-    if(!val) {
-        return false
-    }
-    if(!emailvalid) {
-        return false
-    }
-}
-export const validEmail = (val) => {
-    let error;
-    let emailvalid = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(val);
-    if(!val) {
-        error = 'Поле обязательно для заполнения'
-    }
-    if(val) {
-        if(!emailvalid) {
-            error ='Неправильный email'
-        }
-    }
-    return error;
-}
-export const acceptCirrilic = val => {
-    var falsy = /[a-zA-Z0-9_"*/]/i.test(val)
-    let error;
-    if(!val ) {
-        error = 'Поле обязательно для заполнения'
-    }
-    if(val) {
-        if(falsy === true) {
-            error = 'Нужно вводить только на кириллице'
-        }
-    }
-
-    return error;
-}
-export const acceptCirrilicOnly = val => {
-    var falsy = /[a-zA-Z0-9_"*/]/i.test(val)
-    let error;
-    if(val) {
-      if(falsy === true) {
-        error = 'Нужно вводить только на кириллице'
-      }
-    }
-    return error;
-}
-
-export const checkAlphabet = (val) => /[a-zA-Z0-9_]/i.test(val);
-export const passwordCheck = (val)=> {
-    let error;
-    if(!val) {
-        error = 'Поле обязательно для заполнения'
-    }
-	if(val && val.length < 5)  error = 'Пароль должен быть не меньше 5 символов';
-	return error;
-}
-export const validateConfirmPassword = (pass, value) => {
-    let error = "";
-    if (pass && value) {
-      if (pass !== value) {
-        error = "Password not matched";
-      }
-    }
-    return error;
-  };
-// export const iin = (val) =>  {
-//     let error;
-// 	if(val && val.length!==12);
-// 	if(!val) return false;
-// 	var b1 = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ];
-// 	var b2 = [ 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 2 ];
-// 	var a = [];
-// 	var controll = 0;
-// 	for(var i=0; i<12; i++){
-// 		a[i] = parseInt(val.substring(i, i+1));
-// 		if(i<11) controll += a[i]*b1[i];
-// 	}
-// 	controll = controll % 11;
-// 	if(controll==10) {
-//         controll = 0;
-//         for(var i=0; i<11; i++)
-//         controll += a[i]*b2[i];
-//         controll = controll % 11;
-//     }
-// 	if(controll!=a[11]) return false;
-// 	return true;
-// }
-export const iinValidation = (val) =>  {
-    let error;
-	if(val && val.length!==12) error = 'Заполните все поля';
-	var b1 = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ];
-	var b2 = [ 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 2 ];
-	var a = [];
-	var controll = 0;
-	for(var i=0; i<12; i++){
-		a[i] = parseInt(val.substring(i, i+1));
-		if(i<11) controll += a[i]*b1[i];
-	}
-	controll = controll % 11;
-	if(controll==10) {
-        controll = 0;
-        for(var i=0; i<11; i++)
-        controll += a[i]*b2[i];
-        controll = controll % 11;
-    }
-	if(controll!=a[11]) error = 'Некорректный ИИН';
-	return error;
-}
-
 
 export const phoneCheck = (val) => {
-    let error;
     var PHONE_OPERATORS = [
         {id: '7700'},
         {id: '7701'},
@@ -160,22 +66,19 @@ export const phoneCheck = (val) => {
     var phone = String(val).replace(/[^A-Z0-9]/g, ''),
         code = phone.match(/^(\d{4})(\d{3})(\d{4})$/);
     if (!code || phone.length !== 11) {
-        error = 'Ошибка в номере'
-        return false;
+        return false
     }
-    var phone_number = code[1];
 
+    var phone_number = code[1];
     var phone_operator = PHONE_OPERATORS.filter(function(item) {
         return item.id == phone_number
     });
 
     if(phone_operator.length >0){
-        error = null
+        return true
+    }else{
+        return false;
     }
-    else{
-        error = 'Нет соответствующего оператора';
-    }
-    return error
 }
 
 

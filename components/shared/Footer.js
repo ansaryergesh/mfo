@@ -28,6 +28,7 @@ const Footer = () => {
               <div className="lists">
                 <AppLink href="/conditions">Условия
                   предоставления займов</AppLink>
+                  <AppLink href="/feedback">Оставить отзыв</AppLink>
                   <AppLink href="/complaint">Оставить жалобу</AppLink>
                 <AppLink href="/moneystep">Как получить деньги</AppLink>
                 <AppLink href="/sposobi_pogashenia">Как вернуть деньги</AppLink>

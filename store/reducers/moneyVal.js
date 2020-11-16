@@ -1,4 +1,4 @@
-import * as ActionTypes from '../actions/ActionTypes'
+import * as ActionTypes from '../types'
 
 export const MoneyVal = (state = '10000', action) => {
   const { type } = action;

@@ -1,4 +1,4 @@
-import * as ActionTypes from '../actions/ActionTypes'
+import * as ActionTypes from '../types'
 export const loading = (state = false, action) => {
   const { type } = action;
   switch (type) {

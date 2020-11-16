@@ -3,14 +3,23 @@ import banner from '../img/banner.png'
 import ProgressBar from '../components/shared/ProgressBar';
 import bottomBanner from '../img/bottomBanner.png'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import { useRouter, withRouter } from "next/router";
 var scrollToElement = require('scroll-to-element');
 import Link from 'next/link'
 import queryString from 'query-string';
+
+function getUrlParameter(name) {
+  name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+  var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+  var results = regex.exec(location.search);
+  return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+};
 
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
   </Link>
+
 class Home extends React.Component {
   state = {
     collapse: ""
@@ -35,32 +44,34 @@ class Home extends React.Component {
     });
   }
   componentDidMount() {
-    // let url = this.props.location.search;
-    // let params = queryString.parse(url);
-    // if (
-    //   params.utm_source &&
-    //   params.utm_medium &&
-    //   params.utm_campaign &&
-    //   params.utm_term &&
-    //   params.clickid
-    // ) {
-    //   localStorage.clear();
-    //   localStorage.setItem("utm_source", "qaz");
-    //   localStorage.setItem("utm_medium", params.utm_medium);
-    //   localStorage.setItem("utm_campaign", params.utm_campaign);
-    //   localStorage.setItem("utm_term", params.utm_term);
-    //   localStorage.setItem("clickid", params.clickid);
-    // }
-    // if(params.utm_source) {
-    //   if(params.utm_source.includes('sms')) {
-    //     localStorage.clear();
-    //     localStorage.setItem('utm_source', params.utm_source);
-    //   }
-    // }
-    // else {
-    // }
+    if (
+      getUrlParameter('utm_source').length>0 &&
+      getUrlParameter('utm_medium').length>0 &&
+      getUrlParameter('utm_campaign').length>0 &&
+      getUrlParameter('utm_term').length>0 &&
+      getUrlParameter('clickid').length>0
+    ) {
+      localStorage.clear();
+      localStorage.setItem("utm_source", "qaz");
+      localStorage.setItem("utm_medium", getUrlParameter('utm_medium'));
+      localStorage.setItem("utm_campaign", getUrlParameter('utm_campaign'));
+      localStorage.setItem("utm_term", getUrlParameter('utm_term'));
+      localStorage.setItem("clickid", getUrlParameter('clickid'));
+    }
+    if(getUrlParameter('utm_source').length>0) {
+      if(getUrlParameter('utm_source').includes('sms')) {
+        localStorage.clear();
+        localStorage.setItem('utm_source', getUrlParameter('utm_source'));
+      }
+    }
+    else {
+    }
+  }
+  static getInitialProps({query}) {
+    return {query}
   }
   render() {
+    // console.log(this.props.query)
   return (
         <div className="">
             <div className="view">
@@ -286,5 +297,5 @@ class Home extends React.Component {
   }
 }
 
-export default Home;
+export default withRouter(Home);
 

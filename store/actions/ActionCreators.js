@@ -1,4 +1,5 @@
-import * as ActionTypes from './ActionTypes';
+import * as ActionTypes from '../types'
+import Router from 'next/router'
 
 export const changingMoney = money => ({
     type: ActionTypes.MONEY_CHANGE,
@@ -57,7 +58,7 @@ export const postRegistration = (registration) => (dispatch) => {
     dispatch(emptyMessage());
     dispatch(isLoading(true));
     registration.phone = replaceDate(registration.phone);
-    return fetch(`${process.env.REACT_APP_API_ENDPOINT}/registration_step_one`,{
+    return fetch(`https://api.money-men.kz/api/registration_step_one`,{
         method: 'POST',
         body: JSON.stringify(registration),
         headers: {
@@ -74,6 +75,7 @@ export const postRegistration = (registration) => (dispatch) => {
             throw response;
         })
         .then(response => response.json())
+        // .then(console.log(response))
         .then(response => dispatch(addRegistration(registration)))
         .then(response => dispatch(isLoading(false)))
         .then(response => dispatch(stepRegistration(1)))
@@ -110,7 +112,7 @@ export const postRegistrationCode = (registration) => (dispatch) => {
         registration.source = localStorage.getItem('utm_source') +'_1';
     }
 
-    return fetch(`${process.env.REACT_APP_API_ENDPOINT}/check_sms_code`,{
+    return fetch(`https://api.money-men.kz/api/check_sms_code`,{
         method: 'POST',
         body: JSON.stringify(registration),
         headers: {
@@ -140,7 +142,7 @@ export const postRegistrationSecond = (registration) => (dispatch) => {
     dispatch(isLoading(true));
     registration.relative_phone_number = replaceDate(registration.relative_phone_number);
     registration.additional_contact_phone = replaceDate(registration.additional_contact_phone);
-    return fetch(`${process.env.REACT_APP_API_ENDPOINT}/registration_step_two`,{
+    return fetch(`https://api.money-men.kz/api/registration_step_two`,{
         method: 'POST',
         body: JSON.stringify(registration),
         headers: {
@@ -185,10 +187,11 @@ export const addLink = link => ({
     type: "ADD_LINK",
     payload:link
 })
-export const postRegistrationThird = (registration, history) => (dispatch) => {
+
+export const postRegistrationThird = (registration) => (dispatch) => {
     dispatch(isLoading(true));
     registration.card_number = replaceDate(registration.card_number);
-    return fetch(`${process.env.REACT_APP_API_ENDPOINT}/last_step`,{
+    return fetch(`https://api.money-men.kz/api/last_step`,{
         method: 'POST',
         body: JSON.stringify(registration),
         headers: {
@@ -212,7 +215,7 @@ export const postRegistrationThird = (registration, history) => (dispatch) => {
         .then(response=> dispatch(isLoading(false)))
         // .then((response) => localStorage.setItem('step', 'final'))
         .then(response=> setTimeout(() => {localStorage.clear()},5000))
-        // .then(response => history.push('/thanks'))
+        .then(response => Router.push('/thanks'))
         .catch(r => r.json().then(e =>  dispatch(errorMessage(e.errors.id_card_number ? "Номер удостворение личности уже зарегистрирован" : "" || e.errors.iban_account || e.errors.card_number || e.errors ||  null)))).then(() => dispatch(isLoading(false)))
 }
 
@@ -247,61 +250,3 @@ export const fetchRegions = (region_id) => dispatch => {
       .then(regions => dispatch(regionsSucces(regions)))
       .catch(error => dispatch(dateFailed(error.message)));
   };
-
-export const oplata = (oplata) => (dispatch) => {
-    dispatch(isLoading(true));
-    return fetch(`${process.env.REACT_APP_API_ENDPOINT}/make_payment123`,{
-        method: 'POST',
-        body: JSON.stringify(oplata),
-        headers: {
-            'Access-Control-Allow-Origin':'*',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        credentials: 'same-origin'
-    })
-    .then(response => {
-        if (response.ok) {
-          return response;
-        }
-
-        const error = new Error(`Error ${response.status}: ${response.statusText}`);
-        error.response = response;
-        throw error;
-      },
-      error => {
-        const errmess = new Error(error.message);
-        throw errmess;
-      })
-      .then(response => response.json())
-      .then(response=>document.location.replace(response[0] + "?" + response[1]))
-      .then(response=> dispatch(isLoading(false)))
-      .catch(error => dispatch(dateFailed(error.message))).then(() => dispatch(isLoading(false)));
-}
-
-
-export const addFeedback = (feedback) => (dispatch) => {
-    dispatch(isLoading(true));
-    return fetch(`${process.env.REACT_APP_API_ENDPOINT}/send_complaint?name=${feedback.name}&iin=${feedback.iin}&email=${feedback.email}&comment=${feedback.comment}`,{
-        method: 'GET',
-        headers: {
-            'Access-Control-Allow-Origin':'*',
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        },
-        credentials: 'same-origin'
-    })
-
-    .then(response =>{
-        if(response.ok) {
-            return response;
-        }
-        throw response;
-    })
-    .then(response=> dispatch(successMessage("Успешно отправлено! Спасибо за отзыв"))).then(() =>  setTimeout(() => {
-        dispatch(emptyMessage())
-    }, 8000))
-    .then(response=> dispatch(isLoading(false)))
-    .then(response=> window.scrollTo(0,0))
-}
-
