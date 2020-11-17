@@ -7,7 +7,7 @@ import axios from 'axios'
 import {Formik, Form, ErrorMessage, FieldArray, Field} from 'formik';
 import Link from 'next/link'
 import { connect } from 'react-redux';
-import {loginUser} from '../store/actions/userAction'
+import {loginUser,fetchCurrentUser} from '../store/actions/userAction'
 import Router from 'next/router'
 import cookie from 'js-cookie';
 var scrollToElement = require('scroll-to-element');
@@ -32,6 +32,11 @@ const maskIin = [
 ];
 
 class Login extends React.Component {
+  componentDidMount() {
+    if(cookie.get('token') && !this.props.loggedIn) {
+      Router.push('/')
+    }
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -40,81 +45,20 @@ class Login extends React.Component {
       errorMessage: null,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleErrorMessage = this.handleErrorMessage.bind(this);
-    this.handleSuccessMessage = this.handleSuccessMessage.bind(this);
+    this.redirectFunc = this.redirectFunc.bind(this);
   }
 
-  handleErrorMessage(val) {
-    this.setState ({
-      errorMessage: val
-    })
+  redirectFunc() {
+    Router.push('/')
   }
 
-  handleSuccessMessage(val) {
-    this.setState ({
-      message: val
-    })
-  }
- async handleSubmit(values,e) {
+
+  handleSubmit(values) {
   //  e.preventDefault();
-   this.setState({
-    btnLoading: true,
-  });
-  await fetch('https://api.money-men.kz/api/login', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(values),
-  })
-  .then(response => {
-    if (response.ok) {
-      return response;
-    }
-
-    const error = new Error(`Error ${response.status}: ${response.statusText}`);
-    error.response = response;
-    throw error;
-  },
-    error => {
-      const errmess = new Error(error.message);
-      throw errmess;
-    })
-  .then(response => response.json())
-  .then((data)=> {
-    this.setState({
-      btnLoading: false
-    })
-    if(data && !data.access_token) {
-        ("Неправильный ИИН или пароль")
-    }
-    if(data && data.access_token) {
-      cookie.set('token', data.access_token, {expires: 2})
-      Router.push('/')
-    }
-  })
-  .catch((error) => {
-    scrollToElement('.alert-danger', {
-      offset: 0,
-        align: 'middle',
-        ease: 'outExpo',
-        duration: 600
-    });
-    console.log(error.message + 'asdasd')
-    this.setState({
-      btnLoading: false
-    })
-    if(error.message.includes('400')) {
-    this.handleErrorMessage("Неправильный ИИН или пароль")
-    }
-    else {
-      this.handleErrorMessage(error.message)
-    }
-  });
-
-
+   this.props.loginUser(values)
    console.log(values)
   }
+
   render() {
     return (
       <div>
@@ -192,7 +136,7 @@ class Login extends React.Component {
   }
 
 const mapStateToProps = ({
-  usersReducer: {
+  userReducer: {
     authenticatingUser, failedLogin, error, loggedIn,
   },
 }) => ({
@@ -202,4 +146,4 @@ const mapStateToProps = ({
   loggedIn,
 });
 
-export default Login
+export default connect(mapStateToProps, { loginUser,fetchCurrentUser })(Login);

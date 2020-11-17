@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.css';
 import Navbar from '../components/shared/Nav'
 import Footer from '../components/shared/Footer'
+import MainComponent from '../components/MainComponent'
 import { Provider } from 'react-redux'
 import React, {Fragment} from 'react'
 import {createWrapper} from "next-redux-wrapper";
@@ -41,6 +42,7 @@ class MyApp extends App {
             <Navbar/>
             <Component {...pageProps}/>
             <Footer/>
+            {/* <MainComponent/> */}
           </Provider>
       );
   }
@@ -49,6 +51,14 @@ class MyApp extends App {
 //makeStore function that returns a new store for every request
 const makeStore = () => store;
 const wrapper = createWrapper(makeStore);
+const mapStateToProps = state => ({
+  loggedIn: state.userReducer.loggedIn
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchCurrentUser: () => dispatch(actions.fetchCurrentUser()),
+});
+
 // //withRedux wrapper that passes the store to the App Component
 // // export default makeStore.withRedux(MyApp);
 export default wrapper.withRedux(MyApp);

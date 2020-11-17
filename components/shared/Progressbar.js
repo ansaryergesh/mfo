@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Link from 'next/link'
 import {changingMoney, changingDay} from '../../store/actions/ActionCreators';
 var scrollToElement = require('scroll-to-element');
+import cookie from 'js-cookie';
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
@@ -10,7 +11,8 @@ const AppLink = ({children, className, href}) =>
 const mapStateToProps = state => {
     return {
       moneyVal: state.moneyVal,
-      dayVal: state.dayVal
+      dayVal: state.dayVal,
+      userReducer: state.userReducer
     }
 }
 
@@ -41,6 +43,9 @@ class ProgressBar extends Component {
       };
 
       handleFocus() {
+
+      }
+      handleRepeatedZaim(values) {
 
       }
       open() {
@@ -102,6 +107,7 @@ class ProgressBar extends Component {
                 <p>90 дней</p>
               </div>
             </div>
+            <button className="calculator-take repeatedBtn">Получить деньги</button>
             {/* <h5 className="text-center mt-3 mb-3 availableDay" style={{display: this.props.dayVal ===30 ? 'block': 'none' }}>В данный момент Вам доступен срок между 15 и 30 днями</h5> */}
            <AppLink href="/get_money"> <button className="takebtn calculator-take" onClick={this.open}>Получить деньги</button></AppLink>
           </div>

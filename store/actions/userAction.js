@@ -2,6 +2,18 @@ import cookie from 'js-cookie';
 import Router from 'next/router';
 
 
+export const authenticatingUser = () => ({ type: 'AUTHENTICATING_USER' });
+
+export const setCurrentUser = userData => ({
+  type: 'SET_CURRENT_USER',
+  payload: userData,
+});
+
+
+export const logoutUser = () => ({
+  type: 'LOGOUT_USER',
+});
+
 export const loginUser = (values) => dispatch => {
   dispatch({ type: 'AUTHENTICATING_USER' });
   fetch("https://api.money-men.kz/api/login", {
@@ -37,5 +49,34 @@ export const loginUser = (values) => dispatch => {
         dispatch({type: 'FAILED_LOGIN', payload: error.message})
       }
     })
-    .catch(r => r.json().then(e => dispatch({ type: 'FAILED_LOGIN', payload: e.message })));
 };
+
+export const fetchCurrentUser = () => dispatch => {
+  dispatch(authenticatingUser());
+
+  fetch("https://api.money-men.kz/api/getUserProfileFromBitrix", {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${cookie.get('token')}`,
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      return response;
+    }
+    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+    error.response = response;
+    throw error;
+  },
+    error => {
+      const errmess = new Error(error.message);
+      throw errmess;
+    })
+  .then(response => response.json())
+  .then(data => {
+    dispatch(setCurrentUser(data))
+  })
+  .catch((error) => {
+    console.log(error.message || 'Error')
+  })
+}

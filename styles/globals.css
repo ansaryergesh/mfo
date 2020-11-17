@@ -753,6 +753,26 @@ button {
   box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
 }
 
+.repeatBtn button {
+  color: white;
+  background-color: #ef2221;
+  border-radius: 6px;
+  border: none;
+  padding: 18px;
+  font-size: 15px !important;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.repeatedinfo {
+  font-family: 'CTCSplachRounded' !important;
+}
+
+.calculator-band .repeatedBtn,
 .calculator-band .takebtn {
   border: none;
   background-color: #ef2221;
@@ -762,6 +782,30 @@ button {
   padding: 15px 0;
   border-radius: 15px;
 }
+
+.repeatedProgress {
+  padding: 20px calc(48px + (180 - 48) * ((100vw - 768px) / (1600 - 768)));
+}
+
+.repeatedProgress .calculator-band {
+  -webkit-box-shadow: 12px 47px 59px 22px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 12px 47px 59px 22px rgba(0, 0, 0, 0.3);
+  box-shadow: 12px 47px 59px 22px rgba(0, 0, 0, 0.3);
+}
+
+.repeatedProgress .calculator-band .takebtn {
+  display: none !important;
+}
+
+.repeatedProgress .calculator-band .repeatedBtn {
+  display: initial;
+}
+
+.calculator-band .repeatedBtn {
+  display: none;
+}
+
+
 
 .calculator .texts {
   display: none !important;
@@ -1683,6 +1727,12 @@ a:hover {
   align-items: center;
   justify-content: center;
   margin: 55px 0;
+}
+
+.zayavkaBlock {
+  box-shadow: 0px 0px 34px rgba(0, 0, 0, 0.13915);
+  border: 1px solid rgba(0, 0, 0, 0.13915);
+  padding: 50px 0
 }
 
 .button button {
