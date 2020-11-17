@@ -7,6 +7,7 @@ import { useRouter, withRouter } from "next/router";
 var scrollToElement = require('scroll-to-element');
 import Link from 'next/link'
 import queryString from 'query-string';
+import cookie from 'js-cookie';
 
 function getUrlParameter(name) {
   name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -73,12 +74,15 @@ class Home extends React.Component {
   render() {
     // console.log(this.props.query)
   return (
+
         <div className="">
             <div className="view">
             <div className="container">
 
                 <div className="mainbanner" styles={{ backgroundImage:`url(${banner})` }}>
         <div className="header-text mb-3 row">
+
+        <p>{cookie.get('token')}</p>
           <h1 className="secondary-header col-md-5">Микрозайм <span className="d-block">онлайн на карту</span> <span className="d-block">до <span className="red">135
                 000тг</span>
             </span>

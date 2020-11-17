@@ -73,7 +73,6 @@ class Payment extends React.Component {
   render() {
     return (
         <div>
-          <Head>Деньги</Head>
              <section className="otherPages">
         <div className="container">
           <section className="oplata row">

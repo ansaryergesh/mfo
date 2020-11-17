@@ -17,6 +17,8 @@
     "font-awesome": "^4.7.0",
     "formik": "^2.2.5",
     "jquery": "^3.5.1",
+    "js-cookie": "^2.2.1",
+    "mdbreact": "^4.27.0",
     "next": "10.0.1",
     "next-express": "^1.0.1",
     "next-images": "^1.6.2",
@@ -36,7 +38,6 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "scroll-to-element": "^2.0.3",
-    "mdbreact": "^4.27.0",
     "sweetalert": "^2.1.2",
     "yup": "^0.29.3"
   },

@@ -141,7 +141,6 @@ export const iinValidation = (val) =>  {
 
 
 export const phoneCheck = (val) => {
-    let error;
     var PHONE_OPERATORS = [
         {id: '7700'},
         {id: '7701'},
@@ -160,24 +159,31 @@ export const phoneCheck = (val) => {
     var phone = String(val).replace(/[^A-Z0-9]/g, ''),
         code = phone.match(/^(\d{4})(\d{3})(\d{4})$/);
     if (!code || phone.length !== 11) {
-        error = 'Ошибка в номере'
-        return false;
+        return false
     }
-    var phone_number = code[1];
 
+    var phone_number = code[1];
     var phone_operator = PHONE_OPERATORS.filter(function(item) {
         return item.id == phone_number
     });
 
     if(phone_operator.length >0){
-        error = null
+        return true
+    }else{
+        return false;
     }
-    else{
-        error = 'Нет соответствующего оператора';
+}
+
+
+export const phoneValidation = (val) => {
+    let error;
+    if(phoneCheck(val) === true) {
+        error = ''
+    }else {
+        error = 'Нет соответствующего оператора'
     }
     return error
 }
-
 
 // Luna algo
 

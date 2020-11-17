@@ -346,11 +346,11 @@ input::-ms-track {
   /* margin: auto; */
 }
 
-input:focus ~ div {
+input:focus~div {
   opacity: 1;
 }
 
-select:focus ~ div {
+select:focus~div {
   opacity: 1;
 }
 
@@ -379,8 +379,7 @@ select:focus ~ div {
   left: 0;
   height: 100%;
   width: 100%;
-  background: rgba(255, 255, 255, 0.8)
-    url("https://i.stack.imgur.com/FhHRx.gif") 50% 50% no-repeat;
+  background: rgba(255, 255, 255, 0.8) url("https://i.stack.imgur.com/FhHRx.gif") 50% 50% no-repeat;
 }
 
 .loaded {
@@ -638,9 +637,7 @@ button {
 }
 
 .phone-numbersMov h1 {
-  font-size: calc(
-    12px + (26 - 12) * ((100vw - 320px) / (768 - 320))
-  ) !important;
+  font-size: calc(12px + (26 - 12) * ((100vw - 320px) / (768 - 320))) !important;
 }
 
 .phone-numbers li {
@@ -700,8 +697,7 @@ button {
   margin-right: 15px;
 }
 
-.phone-numbers ul li i a {
-}
+.phone-numbers ul li i a {}
 
 .phone-numbers li .whatsapp {
   display: flex;
@@ -742,11 +738,9 @@ button {
   transform: translateX(-50%);
 }
 
-.modal {
-}
+.modal {}
 
-.modal .calculator-band {
-}
+.modal .calculator-band {}
 
 .calculator-band {
   display: flex;
@@ -837,6 +831,7 @@ a,
 }
 
 @media only screen and (max-width: 768px) {
+
   /* .secondary-header {
     display: none !important;
   } */
@@ -884,8 +879,7 @@ a,
   border: 1px solid #979797;
   border-radius: 17px;
   background-color: white;
-  padding: 25px calc(15px + (42 - 15) * ((100vw - 320px) / (1600 - 320)))
-    calc(6px + (36 - 6) * ((100vw - 320px) / (1600 - 320)));
+  padding: 25px calc(15px + (42 - 15) * ((100vw - 320px) / (1600 - 320))) calc(6px + (36 - 6) * ((100vw - 320px) / (1600 - 320)));
   padding-bottom: calc(10px + (20 - 10) * ((100vw - 320px) / (1600 - 320)));
   margin-bottom: calc(10px + (20 - 10) * ((100vw - 320px) / (1600 - 320)));
   position: relative;
@@ -912,9 +906,7 @@ a,
   letter-spacing: 0.096px;
   line-height: 27px;
   letter-spacing: 0.096px;
-  font-size: calc(
-    14px + (24 - 14) * ((100vw - 320px) / (1600 - 320))
-  ) !important;
+  font-size: calc(14px + (24 - 14) * ((100vw - 320px) / (1600 - 320))) !important;
   padding-right: 15px !important;
 }
 
@@ -930,9 +922,7 @@ a,
   content: "+";
   outline: none;
   color: #ef2221;
-  font-size: calc(
-    24px + (48 - 24) * ((100vw - 320px) / (1600 - 320))
-  ) !important;
+  font-size: calc(24px + (48 - 24) * ((100vw - 320px) / (1600 - 320))) !important;
   font-family: "CTCSplachRounded";
 }
 
@@ -1223,6 +1213,23 @@ a,
   border-radius: 7px;
 }
 
+.loginbutton {
+  margin: 15px auto 20px;
+  text-align: center;
+  background-color: #ef2221;
+  color: white;
+  border: none;
+  padding: 17px calc(45px + (58 - 45) * ((100vw - 720px) / (1600 - 720)));
+  border-radius: 7px;
+}
+
+.resetText {
+  text-decoration: underline !important;
+  color: rgba(100, 99, 99, 0.87) !important;
+  text-align: right !important;
+  font-size: 14px;
+}
+
 .oplata {
   margin-bottom: 150px;
 }
@@ -1268,8 +1275,7 @@ a,
   border: 1px solid #979797;
   border-radius: 17px;
   background-color: white;
-  padding: 25px calc(15px + (22 - 15) * ((100vw - 320px) / (1600 - 320)))
-    calc(6px + (36 - 6) * ((100vw - 320px) / (1600 - 320)));
+  padding: 25px calc(15px + (22 - 15) * ((100vw - 320px) / (1600 - 320))) calc(6px + (36 - 6) * ((100vw - 320px) / (1600 - 320)));
   padding-bottom: calc(10px + (15 - 10) * ((100vw - 320px) / (1600 - 320)));
   margin-bottom: calc(10px + (20 - 10) * ((100vw - 320px) / (1600 - 320)));
   position: relative;
@@ -1281,9 +1287,7 @@ a,
   content: "+";
   outline: none;
   color: #ef2221;
-  font-size: calc(
-    34px + (48 - 34) * ((100vw - 320px) / (1600 - 320))
-  ) !important;
+  font-size: calc(34px + (48 - 34) * ((100vw - 320px) / (1600 - 320))) !important;
   font-family: "CTCSplachRounded";
 }
 
@@ -1304,9 +1308,7 @@ a,
   letter-spacing: 0.096px;
   line-height: 27px;
   letter-spacing: 0.096px;
-  font-size: calc(
-    18px + (24 - 18) * ((100vw - 320px) / (1600 - 320))
-  ) !important;
+  font-size: calc(18px + (24 - 18) * ((100vw - 320px) / (1600 - 320))) !important;
 }
 
 .pogasit--instruction {
@@ -1334,8 +1336,7 @@ a,
   display: grid;
   grid-gap: 15px;
   grid-template-columns:
-    calc(105px + (120 - 105) * ((100vw - 767px) / (1600 - 767)))
-    auto;
+    calc(105px + (120 - 105) * ((100vw - 767px) / (1600 - 767))) auto;
 }
 
 .pogasit--otvet {
@@ -1343,8 +1344,8 @@ a,
 }
 
 .pogasit--otvet .instruction p {
-  font-size: 14px;
-  line-height: 18px;
+  font-size: 22px;
+  line-height: 22px;
   letter-spacing: 0.056px;
 }
 
@@ -1462,6 +1463,13 @@ nav {
 .red {
   color: #ef2221 !important;
 }
+
+.br-item {
+  color: rgb(40, 40, 66) !important;
+  /* font-weight: bold; */
+}
+
+
 
 .other-info {
   line-height: 0.5;
@@ -1915,6 +1923,7 @@ a:hover {
 }
 
 @media only screen and (max-width: 767px) {
+
   .footerCols:after,
   .footerCols:before {
     display: flex;
@@ -1975,6 +1984,7 @@ a:hover {
   }
 
   @keyframes moving {
+
     from,
     to,
     105% {
@@ -2133,8 +2143,9 @@ a:hover {
   width: 80%;
   transform: translateX(15%);
 }
-.mainbanner {
-}
+
+.mainbanner {}
+
 .progress-done {
   background: linear-gradient(to left, #ef2221, #cc4040);
   box-shadow: 0 3px 3px -5px #ef2221, 0 2px 5px #ef21216d;

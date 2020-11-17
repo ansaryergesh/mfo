@@ -45,6 +45,51 @@ class Instruction extends React.Component {
           <div className="container hidden">
             <div className="voprosi pogashenie ">
               <div className="pogasit--logo">
+                <img src={require("../../img/qrcode/logo.jpg")} className="pogasit--img qiwiterminal" alt="" onClick={this.toggleCollapse("qrcode")}/>
+              </div>
+                <div className="">
+                  <div className="voprosi--top" onClick={this.toggleCollapse("qrcode")}>
+                    <h2>С помощью QR-код</h2>
+                    <a className="more" type="button" />
+                  </div>
+                  <Collapse isOpen={this.state.collapse === 'qrcode'} id="qrcode">
+                    <div className="pogasit--otvet">
+                      <div className="instruction">
+                        <img className='text-center mb-4' src={require("../../img/qrcode/qrcode.jpg")} />
+                        <p>Инструкция</p>
+                        <p className="instTop">
+                        1.	Откройте любое приложение с QR-сканером на Вашем телефоне.
+                        </p>
+                        {/* <div className="instruction--img mb-5">
+                          <img src={require("../../img/qiwi/qw.png")} />
+                        </div> */}
+                        <p className="instTop">
+                          2.	Наведите на QR-код выше. Откроется страница для совершения платежа.
+                        </p>
+                        {/* <div className="instruction--img mb-5">
+                          <img src={require("../../img/qiwi/qw2.png")} />
+                        </div> */}
+                        <p className="instTop">
+                          3.	Выберите метод оплаты и введите Ваши платёжные данные
+                        </p>
+                        {/* <div className="instruction--img mb-5">
+                          <img src={require("../../img/qiwi/qw3.png")} />
+                        </div> */}
+                        <p className="instTop">
+                          4.	Получите подтверждение об оплате и наслаждайтесь
+                        </p>
+                        {/* <div className="instruction--img mb-5">
+                          <img src={require("../../img/qiwi/qw4.png")} />
+                        </div> */}
+
+                      </div>
+                    </div>
+                  </Collapse>
+              </div>
+            </div>
+
+            <div className="voprosi pogashenie ">
+              <div className="pogasit--logo">
                 <img src={require("../../img/qiwi.png")} className="pogasit--img qiwiterminal" alt="" onClick={this.toggleCollapse("qiwiterminal")}/>
               </div>
                 <div className="">

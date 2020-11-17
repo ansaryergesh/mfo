@@ -12,6 +12,7 @@ import {
   phoneCheck,
   validEmaill,
   passwordCheck,
+  phoneValidation,
   acceptCirrilic,
   acceptCirrilicOnly,
   validateConfirmPassword,
@@ -137,12 +138,15 @@ class FormRegister extends React.Component {
   }
 
   handleFocus() {
-    scrollToElement('.text-danger', {
-      offset: 0,
-      align: 'middle',
-      ease: 'outExpo',
-      duration: 600
-    });
+    setTimeout(() => {
+      scrollToElement('.text-danger', {
+        offset: 0,
+        align: 'middle',
+        ease: 'outExpo',
+        duration: 600
+      });
+    },100)
+
   }
 
   componentDidMount() {
@@ -227,7 +231,7 @@ class FormRegister extends React.Component {
             : null}
             <h2 className="text-center">Регистрация</h2>
             <div className='row form-group  mx-auto'>
-              <div className='col-12 mb-3'>
+              <div className='col-12 mb-2'>
                 <Label htmlFor='loan_amount'>Сумма:</Label>
                 <div className="input-group">
                   <Field
@@ -246,9 +250,9 @@ class FormRegister extends React.Component {
                   </div>
                 </div>
               </div>
-              <div className='col-12 mb-3'>
+              <div className='col-12 mb-2'>
                 <Label htmlFor='period_in_days'>Дней:</Label>
-                <div className="input-group mb-2">
+                <div className="input-group">
                   <Field
                     name='period_in_days'
                     className='form-control focus-visible'
@@ -352,7 +356,7 @@ class FormRegister extends React.Component {
                   <Field
                     name='phone'
                     className='form-control'
-                    validate={phoneCheck}
+                    validate={phoneValidation}
                     component = {PhoneMask}
                     placeholder = '+7(705)000-00-00'
                   />
@@ -375,7 +379,6 @@ class FormRegister extends React.Component {
               </div>
 
               <div className='col-12 mb-2'>
-                <p>{this.values}</p>
                 <Label htmlFor='phone'>Повторите пароль * :</Label>
                 <div className="input-group">
                   <Field

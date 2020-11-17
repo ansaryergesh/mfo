@@ -73,12 +73,14 @@ class FormRegister extends React.Component {
   }
 
   handleFocus() {
-    scrollToElement('.text-danger', {
-      offset: 0,
-      align: 'middle',
-      ease: 'outExpo',
-      duration: 600
-    });
+    setTimeout(() => {
+      scrollToElement('.text-danger', {
+        offset: 0,
+        align: 'middle',
+        ease: 'outExpo',
+        duration: 600
+      });
+    },100)
   }
   handlePhone = e => {
     this.setState({phone: e.target.value});

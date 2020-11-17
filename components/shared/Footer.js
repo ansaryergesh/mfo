@@ -31,7 +31,7 @@ const Footer = () => {
                   <AppLink href="/feedback">Оставить отзыв</AppLink>
                   <AppLink href="/complaint">Оставить жалобу</AppLink>
                 <AppLink href="/moneystep">Как получить деньги</AppLink>
-                <AppLink href="/sposobi_pogashenia">Как вернуть деньги</AppLink>
+                <AppLink href="/payment_methods">Как вернуть деньги</AppLink>
                 <AppLink href="/guide">Вопрос -
                   ответ (помощь)</AppLink>
                 <AppLink href="/contacts">Контакты</AppLink>
