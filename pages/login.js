@@ -6,8 +6,11 @@ import MaskedInput from 'react-text-mask';
 import axios from 'axios'
 import {Formik, Form, ErrorMessage, FieldArray, Field} from 'formik';
 import Link from 'next/link'
+import { connect } from 'react-redux';
+import {loginUser} from '../store/actions/userAction'
 import Router from 'next/router'
 import cookie from 'js-cookie';
+var scrollToElement = require('scroll-to-element');
 
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
@@ -64,8 +67,24 @@ class Login extends React.Component {
     },
     body: JSON.stringify(values),
   })
-  .then((response) => response.json())
+  .then(response => {
+    if (response.ok) {
+      return response;
+    }
+
+    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+    error.response = response;
+    throw error;
+  },
+    error => {
+      const errmess = new Error(error.message);
+      throw errmess;
+    })
+  .then(response => response.json())
   .then((data)=> {
+    this.setState({
+      btnLoading: false
+    })
     if(data && !data.access_token) {
         ("Неправильный ИИН или пароль")
     }
@@ -74,16 +93,23 @@ class Login extends React.Component {
       Router.push('/')
     }
   })
-  .then(() => {
-    this.setState({
-      btnLoading: false
-    })
-  })
   .catch((error) => {
-    console.log('error')
+    scrollToElement('.alert-danger', {
+      offset: 0,
+        align: 'middle',
+        ease: 'outExpo',
+        duration: 600
+    });
+    console.log(error.message + 'asdasd')
     this.setState({
       btnLoading: false
     })
+    if(error.message.includes('400')) {
+    this.handleErrorMessage("Неправильный ИИН или пароль")
+    }
+    else {
+      this.handleErrorMessage(error.message)
+    }
   });
 
 
@@ -109,9 +135,9 @@ class Login extends React.Component {
                   <Form className="oplataform">
 
                 <h2 className="text-center mb-5">Войти в личный кабинет</h2>
-                    {this.state.message !== null ?
-                      <div className="alert alert-success" role="alert">
-                        <strong> {this.state.message}</strong>
+                     {this.props.failedLogin ?
+                      <div className="alert alert-danger" role="alert">
+                        <strong> {this.props.error}</strong>
                       </div> : null
                     }
                    <div className='input-group'>
@@ -149,7 +175,7 @@ class Login extends React.Component {
 
 
                    <div className="buttonForm">
-                      {this.state.btnLoading === true ?
+                      {this.props.authenticatingUser === true ?
                       <Spinner className="loading" size={200} spinnerColor={"#ef2221"} spinnerWidth={2} visible={true} /> :
                       <button className="loginbutton" type="submit">Войти</button>}
                     </div>
@@ -164,5 +190,16 @@ class Login extends React.Component {
       );
     }
   }
+
+const mapStateToProps = ({
+  usersReducer: {
+    authenticatingUser, failedLogin, error, loggedIn,
+  },
+}) => ({
+  authenticatingUser,
+  failedLogin,
+  error,
+  loggedIn,
+});
 
 export default Login
