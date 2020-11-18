@@ -4,10 +4,9 @@ import ProgressBar from '../components/shared/ProgressBar';
 import bottomBanner from '../img/bottomBanner.png'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import { useRouter, withRouter } from "next/router";
+import $ from 'jquery'
 var scrollToElement = require('scroll-to-element');
 import Link from 'next/link'
-import queryString from 'query-string';
-import cookie from 'js-cookie';
 
 function getUrlParameter(name) {
   name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -45,6 +44,27 @@ class Home extends React.Component {
     });
   }
   componentDidMount() {
+    // var $win = $(window);
+
+    // $win.scroll(function () {
+    // if ($(window).width() > 200) {
+    //     if ($win.scrollTop() == 0) {
+    //         scrollToElement('.header-imgs', {
+    //           offset: 0,
+    //           align: 'middle',
+    //           ease: 'outExpo',
+    //           duration: 600
+    //         });
+    //     } else if (!$win.scrollTop() == 0) {
+    //       scrollToElement('.nothing', {
+    //         offset: 0,
+    //         align: 'top',
+    //         ease: 'outExpo',
+    //         duration: 600
+    //       });
+    //     }
+    //   }
+    // });
     if (
       getUrlParameter('utm_source').length>0 &&
       getUrlParameter('utm_medium').length>0 &&
@@ -80,12 +100,12 @@ class Home extends React.Component {
             <div className="container">
 
                 <div className="mainbanner" styles={{ backgroundImage:`url(${banner})` }}>
-        <div className="header-text mb-3 row">
-          <h1 className="secondary-header col-md-5">Микрозайм <span className="d-block">онлайн на карту</span> <span className="d-block">до <span className="red">135
+        <div className="header-text row">
+          <h1 className="secondary-header col-md-5 col-12">Микрозайм <span className="d-block">онлайн на карту</span> <span className="d-block">до <span className="red">135
                 000тг</span>
             </span>
           </h1>
-          <div className="header-imgs col-7 align-items-center">
+          <div className="header-imgs col-md-7 col-12 align-items-center">
             <img className="bigzerotext" src={require("../img/0.svg")} alt="" />
             <div className="header-imgs--right">
               <img className="percentageZero" src={require("../img/percent.svg")} alt="" />

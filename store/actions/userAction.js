@@ -77,6 +77,7 @@ export const fetchCurrentUser = () => dispatch => {
     dispatch(setCurrentUser(data))
   })
   .catch((error) => {
+    cookie.remove('token')
     console.log(error.message || 'Error')
   })
 }

@@ -905,6 +905,23 @@ a,
     text-align: center;
   }
 
+  .secondary-header {
+    /* display: none; */
+    /* transform: scale(0.9); */
+    margin: auto;
+    margin-left: 40px !important
+      /* text-align: center; */
+
+  }
+
+  .header-text {
+    /* transform: scale(0.5); */
+  }
+
+  .secondary-header .span {
+    display: inline !important;
+  }
+
   .header-imgs {
     transform: scale(0.8);
   }
@@ -1102,6 +1119,14 @@ a,
   .conditions .condition {
     display: flex !important;
     align-items: center !important;
+  }
+
+  .secondary-header span {
+    display: block;
+  }
+
+  .secondary-header span .red {
+    display: inline-block !important;
   }
 
   .phonenav,

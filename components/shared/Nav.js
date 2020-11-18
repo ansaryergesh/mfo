@@ -107,11 +107,13 @@ componentDidMount() {
             <AppLink className="nav-link mainnavphone" href="/complaint">
               Оставить жалобу</AppLink>
           </li>
+
           {isLogged() === true ? (
             <Fragment>
               <li className="nav-item mx-1"  onClick={this.toggleClose}>
-                <AppLink  className="nav-link align-items-center d-flex"  href='/cabinet'>Мой кабинет</AppLink>
+                <AppLink  className="nav-link align-items-center d-flex"  href='/cabinet'>Кабинет</AppLink>
               </li>
+
               <li className="nav-item mx-1" onClick={this.toggleLogOut}>
                 <a className="nav-link align-items-center d-flex">Выйти</a>
               </li>
@@ -124,9 +126,10 @@ componentDidMount() {
                 <AppLink  className="nav-link align-items-center d-flex"  href='/login'>Личный кабинет</AppLink>
               </li>
             </Fragment>)}
-
-          <li  onClick={this.toggleClose} className="nav-item mx-1 phonenav firstphonenav"><i className="fa fa-phone" /><h1><a href="tel:+77272501500">+7 727 <b className="black">250 15 00</b></a></h1></li>
-          <li  onClick={this.toggleClose} className="nav-item mx-1 phonenav"><i className="fa fa-phone" /><h1><a href="tel:+77007501500">+7 700 <b className="black">750 15 00</b></a></h1></li>
+          <Fragment>
+          {/* <li  onClick={this.toggleClose} className="nav-item mx-1 "><i className="fa fa-phone" /><h1><a href="tel:+77272501500">+7 727 <b className="black">250 15 00</b></a></h1></li>
+          <li  onClick={this.toggleClose} className="nav-item mx-1 phonenav"><i className="fa fa-phone" /><h1><a href="tel:+77007501500">+7 700 <b className="black">750 15 00</b></a></h1></li> */}
+          </Fragment>
         </ul>
       </Collapse>
     </div>
