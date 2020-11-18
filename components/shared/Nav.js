@@ -81,8 +81,9 @@ componentDidMount() {
     <nav className=" mb-2 navbar navbar-expand-lg navbar-light  transparent ">
     <div className="container">
     <AppLink href="/" className="navbar-brand logo">
-        <h2>zaymi.kz <span>Ⓡ</span></h2>
-        <h5>с торговой маркой I-credit.kz</h5>
+
+        <h5>i-credit.kz с торговой маркой </h5>
+        <h2>zaymi.kz <span>Ⓡ</span> </h2>
     </AppLink>
 
     <AppLink href='/payment' className="text-center paymentCenter ">Внести оплату</AppLink>
@@ -111,7 +112,7 @@ componentDidMount() {
           {isLogged() === true ? (
             <Fragment>
               <li className="nav-item mx-1"  onClick={this.toggleClose}>
-                <AppLink  className="nav-link align-items-center d-flex"  href='/cabinet'>Кабинет</AppLink>
+                <AppLink  className="nav-link align-items-center d-flex"  href='/cabinet/loans'>Кабинет</AppLink>
               </li>
 
               <li className="nav-item mx-1" onClick={this.toggleLogOut}>

@@ -55,7 +55,7 @@ class Instruction extends React.Component {
                   <Collapse isOpen={this.state.collapse === 'qrcode'} id="qrcode">
                     <div className="pogasit--otvet">
                       <div className="instruction">
-                        <img className='text-center mb-4' src={require("../../img/qrcode/qrcode.jpg")} />
+                        <img className='text-center mb-4 instruction--img' src={require("../../img/qrcode/qrcode.jpg")} />
                         <p>Инструкция</p>
                         <p className="instTop">
                         1.	Откройте любое приложение с QR-сканером на Вашем телефоне.

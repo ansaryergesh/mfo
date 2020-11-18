@@ -542,7 +542,7 @@ button {
 
 .logo h2 {
   font-size: 40px;
-  line-height: 25px !important;
+  line-height: 20px !important;
 }
 
 .logo h5 {
@@ -552,10 +552,14 @@ button {
   font-size: 12px;
 }
 
+.logo h2 {
+  position: relative;
+}
+
 .logo h2 span {
-  font-size: 13px;
+  font-size: 12px;
   position: absolute;
-  top: -5px;
+  top: -10px;
 }
 
 .header-text {
