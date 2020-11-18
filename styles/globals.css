@@ -536,14 +536,26 @@ button {
   font-size: 25px;
   font-weight: bold;
   font-size: 30px;
-  line-height: 34px;
   letter-spacing: 0.12px;
   position: relative;
+}
+
+.logo h2 {
+  font-size: 40px;
+  line-height: 25px !important;
+}
+
+.logo h5 {
+  /* padding: 2px; */
+  background-color: #dbd6d600;
+  color: #ef2221;
+  font-size: 12px;
 }
 
 .logo h2 span {
   font-size: 13px;
   position: absolute;
+  top: -5px;
 }
 
 .header-text {
@@ -891,6 +903,10 @@ a,
     align-items: center;
     flex-direction: column;
     text-align: center;
+  }
+
+  .header-imgs {
+    transform: scale(0.8);
   }
 
   .paymentCenter {

@@ -82,6 +82,7 @@ componentDidMount() {
     <div className="container">
     <AppLink href="/" className="navbar-brand logo">
         <h2>zaymi.kz <span>Ⓡ</span></h2>
+        <h5>с торговой маркой I-credit.kz</h5>
     </AppLink>
 
     <AppLink href='/payment' className="text-center paymentCenter ">Внести оплату</AppLink>
