@@ -4,6 +4,9 @@ import Link from 'next/link'
 import {changingMoney, changingDay} from '../../store/actions/ActionCreators';
 var scrollToElement = require('scroll-to-element');
 import cookie from 'js-cookie';
+import axios from 'axios'
+import Router from 'next/router'
+import swal from "sweetalert";
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
@@ -36,6 +39,7 @@ class ProgressBar extends Component {
         this.handleFocus = this.handleFocus.bind(this);
         this.close = this.close.bind(this);
         this.open = this.open.bind(this);
+        this.handleRepeatedZaim = this.handleRepeatedZaim.bind(this)
       }
 
       close() {
@@ -45,8 +49,19 @@ class ProgressBar extends Component {
       handleFocus() {
 
       }
-      handleRepeatedZaim(values) {
-
+      async handleRepeatedZaim(values) {
+        values.UF_2 = this.props.moneyVal;
+        values.UF_3 = this.props.dayVal;
+        console.log(values)
+        await axios.post(`https://api.money-men.kz/api/getRepeatedLoan`, values)
+          .then((response) => {
+            if(response.ok) {
+              swal("Успешно!", `Заявка отправлено`, "success");
+            }
+            else {
+              swal("Oops!", `${response.errors}`, "error");
+            }
+          })
       }
       open() {
         this.setState({ showModal: true });
@@ -107,7 +122,7 @@ class ProgressBar extends Component {
                 <p>90 дней</p>
               </div>
             </div>
-            <button className="calculator-take repeatedBtn">Получить деньги</button>
+            <button className="calculator-take repeatedBtn" onClick={() => this.handleRepeatedZaim(this.props.userReducer.user)}>Получить деньги</button>
             {/* <h5 className="text-center mt-3 mb-3 availableDay" style={{display: this.props.dayVal ===30 ? 'block': 'none' }}>В данный момент Вам доступен срок между 15 и 30 днями</h5> */}
            <AppLink href="/get_money"> <button className="takebtn calculator-take" onClick={this.open}>Получить деньги</button></AppLink>
           </div>

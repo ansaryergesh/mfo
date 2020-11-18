@@ -81,7 +81,7 @@ componentDidMount() {
     <nav className=" mb-2 navbar navbar-expand-lg navbar-light  transparent ">
     <div className="container">
     <AppLink href="/" className="navbar-brand logo">
-        <h2>zaymi.kz</h2>
+        <h2>zaymi.kz <span>Ⓡ</span></h2>
     </AppLink>
 
     <AppLink href='/payment' className="text-center paymentCenter ">Внести оплату</AppLink>

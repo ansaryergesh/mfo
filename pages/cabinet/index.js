@@ -16,6 +16,7 @@ const mapStateToProps = state => {
 
 
 class Cabinet extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {

@@ -5,6 +5,7 @@ import usersReducer from '../../store/reducers/userReducer'
 import {helloUser} from '../../defaults/hello'
 import ProgressBar from '../../components/shared/Progressbar'
 import Router from 'next/router'
+import swal from "sweetalert";
 import axios from 'axios'
 const mapStateToProps = state => {
   return {
@@ -23,6 +24,9 @@ class Cabinet extends React.Component {
   }
 
   componentDidMount() {
+    if(localStorage.getItem('step') && localStorage.getItem('step') < 3) {
+      Router.push('/get_money')
+    }else {
       axios.get(`https://api.money-men.kz/api/repeatUser?iin=${this.props.userReducer.user.UF_4}`)
       .then((response) => {
         this.setState ({
@@ -38,7 +42,7 @@ class Cabinet extends React.Component {
           })
         }
       })
-
+    }
   }
   render() {
     return (
