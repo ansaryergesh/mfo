@@ -4,6 +4,8 @@ import Spinner from 'react-spinner-material';
 import MaskedInput from 'react-text-mask';
 import {validEmail, requiredd, iinValidation} from '../../defaults/validations';
 import axios from 'axios'
+import Head from 'next/head'
+
 import {Formik, Form, ErrorMessage, FieldArray, Field} from 'formik';
 var scrollToElement = require('scroll-to-element');
 
@@ -44,6 +46,11 @@ class Feedback extends React.Component {
   render() {
     return (
       <div>
+        <Head>
+          <title>
+            Оставить отзыв
+          </title>
+        </Head>
         <section className="otherPages">
           <div className="">
             <section className="oplata feedback row">

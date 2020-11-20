@@ -101,7 +101,7 @@ class FormRegister extends React.Component {
     other.bank_name = isValidIBANNumber(values.iban_account);
     var sourceElem = localStorage.getItem('utm-source');
     var clickidElem = localStorage.getItem('clickid');
-    other.source = 'zaymi.kz'
+    other.source = 'icredit.kz'
     if(localStorage.getItem('utm_source') && localStorage.getItem('utm_source') !== null) {
       if(localStorage.getItem('utm_source').includes('sms')) {
         other.source = localStorage.getItem('utm_source');

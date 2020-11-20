@@ -81,9 +81,7 @@ componentDidMount() {
     <nav className=" mb-2 navbar navbar-expand-lg navbar-light  transparent ">
     <div className="container">
     <AppLink href="/" className="navbar-brand logo">
-
-        <h5>i-credit.kz с торговой маркой </h5>
-        <h2>zaymi.kz <span>Ⓡ</span> </h2>
+      <img className='icreditlogo' src={require("../../img/logo.png")} alt="" />
     </AppLink>
 
     <AppLink href='/payment' className="text-center paymentCenter ">Внести оплату</AppLink>
@@ -103,6 +101,11 @@ componentDidMount() {
           <li className="nav-item mx-1"  onClick={this.toggleClose}>
             <AppLink  className="nav-link align-items-center d-flex font-weight-bold" href="/payment">
               Внести оплату</AppLink>
+          </li>
+
+          <li className="nav-item mx-1" onClick={this.toggleClose} >
+            <AppLink className="nav-link mainnavphone" href="/contacts">
+              Контакты</AppLink>
           </li>
           <li className="nav-item mx-1" onClick={this.toggleClose} >
             <AppLink className="nav-link mainnavphone" href="/complaint">
@@ -127,10 +130,10 @@ componentDidMount() {
                 <AppLink  className="nav-link align-items-center d-flex"  href='/login'>Личный кабинет</AppLink>
               </li>
             </Fragment>)}
-          <Fragment>
+
           {/* <li  onClick={this.toggleClose} className="nav-item mx-1 "><i className="fa fa-phone" /><h1><a href="tel:+77272501500">+7 727 <b className="black">250 15 00</b></a></h1></li>
           <li  onClick={this.toggleClose} className="nav-item mx-1 phonenav"><i className="fa fa-phone" /><h1><a href="tel:+77007501500">+7 700 <b className="black">750 15 00</b></a></h1></li> */}
-          </Fragment>
+
         </ul>
       </Collapse>
     </div>

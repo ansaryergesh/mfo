@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="container">
           <div className="row footerCols">
             <div className="col-md-4 footerCol">
-              <AppLink href="/"><img src={require("../../img/svg/zaymi.kz.svg")} /> </AppLink>
+              <AppLink href="/"><img className='icreditlogo mb-3' src={require("../../img/logo.png")} /> </AppLink>
               <p>Прием заявок круглосуточно и без выходных.
                 <span className="d-block" />Рассмотрение и отправка денег Пн-Пт | 09:00-18:00</p>
               <div className="socials">
@@ -51,14 +51,14 @@ const Footer = () => {
             </div>
             <div className="col-md-4 footerCol">
               <p className="mt-5">
-                © 2020 www.zaymi.kz | ТОО «iCredit.kz»<br />
+                © 2020 www.i-credit.kz | ТОО «iCredit.kz»<br />
                 № регистрации НБРК: 05.16.005
               </p>
             </div>
             <div className="col-md-4  footerCol">
               <div className="extra-info">
                 <img src={require("../../img/svg/Оферта.svg")} />
-                <a href="https://zaymi.kz/docs/rules.pdf" target="_blank"><h5>Правила<br />предоставления займов</h5></a>
+                <a href="https://i-credit.kz/docs/rules.pdf" target="_blank"><h5>Правила<br />предоставления займов</h5></a>
               </div>
             </div>
             <div className="col-md-4 footerCol">

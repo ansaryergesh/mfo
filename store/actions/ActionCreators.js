@@ -98,7 +98,7 @@ export const postRegistration = (registration) => (dispatch) => {
 
 function checkIIN(val) {
     if(val && val.iin) {
-        document.location.replace("https://www.i-credit.kz/login")
+        Router.push('/login')
     }else {
         console.log("not working")
     }
@@ -107,7 +107,7 @@ function checkIIN(val) {
 export const postRegistrationCode = (registration) => (dispatch) => {
     dispatch(emptyMessage());
     dispatch(isLoading(true));
-    registration.source ='zaymi1';
+    registration.source ='icredit1';
     if(localStorage.getItem('utm_source')) {
         registration.source = localStorage.getItem('utm_source') +'_1';
     }

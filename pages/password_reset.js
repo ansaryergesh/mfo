@@ -5,7 +5,7 @@ import Spinner from 'react-spinner-material';
 import axios from 'axios'
 import {Formik, Form, ErrorMessage, FieldArray, Field} from 'formik';
 import Link from 'next/link'
-
+import  {validEmail,required} from '../defaults/validationredux'
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
@@ -24,10 +24,20 @@ class Login extends React.Component {
   }
 
  async handleSubmit(values) {
-   this.setState({
-     btnLoading:true
-   })
-   axios.post(`https://api.money-men.kz/api/password/create`, values)
+
+   if(!validEmail(values.email)) {
+    this.setState({
+      errorMessage:'Email адрес введен неправильно'
+    })
+   }else {
+    this.setState({
+      errorMessage: null
+    })
+    this.setState({
+      btnLoading:true
+    })
+    axios.post(`https://api.money-men.kz/api/password/create`, values)
+
     .then((response) => {
       console.log(response)
       this.setState({
@@ -42,6 +52,9 @@ class Login extends React.Component {
         errorMessage: error.response.data.message
       })
     });
+   }
+
+
   }
   render() {
     return (
@@ -59,8 +72,7 @@ class Login extends React.Component {
               </nav>
                 <Formik
                   initialValues={{
-                    username: '',
-                    password: "",
+                    email: ""
                   }}
                   onSubmit={values=> {
                     this.handleSubmit(values)
@@ -85,7 +97,7 @@ class Login extends React.Component {
                     <label htmlFor="email">
                       <h2>Email адрес:</h2>
                     </label>
-                      <Field name='email' type='email' placeholder="Ваш email адрес"/>
+                      <Field name='email' type='text' placeholder="Ваш email адрес"/>
                    </div>
                    <div className="buttonForm">
                       {this.state.btnLoading === true ?

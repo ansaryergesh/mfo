@@ -6,6 +6,7 @@ var scrollToElement = require('scroll-to-element');
 import cookie from 'js-cookie';
 import axios from 'axios'
 import Router from 'next/router'
+axios.defaults.headers.common = {'Authorization': `bearer ${cookie.get('token')}`}
 import swal from "sweetalert";
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
@@ -32,6 +33,7 @@ class ProgressBar extends Component {
           day: this.props.dayVal,
           dayMoreThirty: false,
           showMessage: false,
+          repeatedLoading: false,
         };
 
         this.handleChangeMoney = this.handleChangeMoney.bind(this);
@@ -53,14 +55,81 @@ class ProgressBar extends Component {
         values.UF_2 = this.props.moneyVal;
         values.UF_3 = this.props.dayVal;
         console.log(values)
-        await axios.post(`https://api.money-men.kz/api/getRepeatedLoan`, values)
+
+        this.setState ({
+          repeatedLoading: true
+        })
+        await
+        // axios.setHeader('Accept', 'application/json')
+        axios.post(`https://api.money-men.kz/api/getRepeatedLoan`, {
+          UF2:values.UF_2 ,
+          UF3:values.UF_3 ,
+          UF4:values.UF_4 ,
+          UF5:values.UF_5 ,
+          UF6:values.UF_6 ,
+          UF7:values.UF_7 ,
+          UF8:values.UF_8 ,
+          UF9:values.UF_9 ,
+          UF10:values.UF_10 ,
+          UF11:values.UF_11 ,
+          UF12:values.UF_12 ,
+          UF13:values.UF_13 ,
+          UF16:values.UF_16 ,
+          UF17:values.UF_17 ,
+          UF18:values.UF_18 ,
+          UF19:values.UF_19 ,
+          UF20:values.UF_20,
+          UF21:values.UF_21,
+          UF22:values.UF_22,
+          UF23:values.UF_23,
+          UF24:values.UF_24,
+          UF25:values.UF_25,
+          UF26:values.UF_26,
+          UF27:values.UF_27,
+          UF28:values.UF_28,
+          UF29:values.UF_29,
+          UF30:values.UF_30,
+          UF31:values.UF_31,
+          UF32:values.UF_32,
+          UF33:values.UF_33,
+          UF34:values.UF_34,
+          UF35:values.UF_35,
+          UF36:values.UF_36,
+          UF37:values.UF_37,
+          UF38:values.UF_38,
+          UF39:values.UF_39 == "0" ? 0 : values.UF_39.slice(1, -1),
+          UF40:values.UF_40 == "0" ? 0 : values.UF_40.slice(1, -1),
+          UF41:values.UF_41 == "0" ? 0 : values.UF_41.slice(1, -1),
+          UF42:values.UF_42,
+          UF43:values.UF_43,
+          UF44:values.UF_44,
+          UF45:values.UF_45,
+          UF46:values.UF_46,
+          UF47:values.UF_47
+
+        }, {
+          headers: {
+            'Content-Type': 'application/json',
+            "Authorization": `Bearer ${cookie.get('token')}`,
+            'Accept': 'application/json',
+        }
+        })
+
           .then((response) => {
-            if(response.ok) {
-              swal("Успешно!", `Заявка отправлено`, "success");
+            this.setState ({
+              repeatedLoading: false
+            })
+            if(response.data.success === true) {
+              swal("Успешно!", `Заявка отправлено`, "success").then(() =>{
+                Router.push('/cabinet/loans')
+            });
             }
             else {
               swal("Oops!", `${response.errors}`, "error");
             }
+          })
+          .catch(error => {
+            console.log(error.message)
           })
       }
       open() {
@@ -76,13 +145,14 @@ class ProgressBar extends Component {
         this.setState({
           day: event.target.value
        });
-      // if(event.target.value>30) {
-      //     this.props.changingDay(30)
-      //   }else {
-      //   this.props.changingDay(event.target.value);}
-      // }}
-      this.props.changingDay(event.target.value);
+        if(event.target.value>30) {
+          this.props.changingDay(30)
+        }else {
+        this.props.changingDay(event.target.value);}
+
+      // this.props.changingDay(event.target.value);
       }
+
 
     render()  {
         const spaceNum = (val) => {
@@ -116,14 +186,15 @@ class ProgressBar extends Component {
                 </div>
             </div>
             <div id="day" className="day">
-              <input type="range" min={61} max={90} step={1} id="day-input" className="range" value={this.state.day} onChange={this.handleChangeDay} />
+              <input type="range" min={15} max={30} step={1} id="day-input" className="range" value={this.state.day} onChange={this.handleChangeDay} />
               <div className="text mt-3 d-flex justify-content-between">
-                <p>61 дней</p>
-                <p>90 дней</p>
+                <p>15 дней</p>
+                <p>30 дней</p>
               </div>
             </div>
+            {this.state.repeatedLoading ? <div className="modelLoader"></div> : <div className="modelLoader loaded"></div>}
             <button className="calculator-take repeatedBtn" onClick={() => this.handleRepeatedZaim(this.props.userReducer.user)}>Получить деньги</button>
-            {/* <h5 className="text-center mt-3 mb-3 availableDay" style={{display: this.props.dayVal ===30 ? 'block': 'none' }}>В данный момент Вам доступен срок между 15 и 30 днями</h5> */}
+            <h5 className="text-center mt-3 mb-3 availableDay" style={{display: this.props.dayVal ===30 ? 'block': 'none' }}>В данный момент Вам доступен срок между 15 и 30 днями</h5>
            <AppLink href="/get_money"> <button className="takebtn calculator-take" onClick={this.open}>Получить деньги</button></AppLink>
           </div>
 

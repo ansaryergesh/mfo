@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link'
+import Head from 'next/head'
 
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
@@ -8,6 +9,11 @@ const AppLink = ({children, className, href}) =>
 function Contacts() {
     return (
         <div>
+          <Head>
+            <title>
+              Контакты
+            </title>
+          </Head>
       <section className="otherPages">
         <div className="otherPages--top">
           <div className="container">

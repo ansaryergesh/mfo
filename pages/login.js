@@ -9,6 +9,8 @@ import Link from 'next/link'
 import { connect } from 'react-redux';
 import {loginUser,fetchCurrentUser} from '../store/actions/userAction'
 import Router from 'next/router'
+import {iin, required} from '../defaults/validationredux'
+import Head from 'next/head'
 import cookie from 'js-cookie';
 var scrollToElement = require('scroll-to-element');
 
@@ -55,13 +57,29 @@ class Login extends React.Component {
 
   handleSubmit(values) {
   //  e.preventDefault();
+
+   if(!required(values.username) || !required(values.password)) {
+     this.setState({
+       errorMessage: "Введите данные"
+     })
+   }
+   else {
    this.props.loginUser(values)
+   this.setState({
+     errorMessage: null
+   })
+  }
    console.log(values)
   }
 
   render() {
     return (
       <div>
+        <Head>
+          <title>
+            Войти в личный кабинет
+          </title>
+        </Head>
         <section className="otherPages">
           <div className="">
             <section className="oplata feedback row">
@@ -79,9 +97,9 @@ class Login extends React.Component {
                   <Form className="oplataform">
 
                 <h2 className="text-center mb-5">Войти в личный кабинет</h2>
-                     {this.props.failedLogin ?
+                     {(this.props.failedLogin && this.props.error !== null) || this.state.errorMessage!== null ?
                       <div className="alert alert-danger" role="alert">
-                        <strong> {this.props.error}</strong>
+                        <strong> {this.state.errorMessage || this.props.error}</strong>
                       </div> : null
                     }
                    <div className='input-group'>

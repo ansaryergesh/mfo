@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Head from 'next/head';
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
@@ -8,6 +9,11 @@ const AppLink = ({children, className, href}) =>
 function Conditions() {
     return (
         <div>
+          <Head>
+            <title>
+              Условия предоставления займов
+            </title>
+          </Head>
               <section className="otherPages">
         <div className="otherPages--top">
           <div className="container">

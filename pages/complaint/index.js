@@ -5,6 +5,7 @@ import MaskedInput from 'react-text-mask';
 import {validEmail, requiredd, iinValidation} from '../../defaults/validations';
 import axios from 'axios'
 import {Formik, Form, ErrorMessage, FieldArray, Field} from 'formik';
+import Head from 'next/head'
 var scrollToElement = require('scroll-to-element');
 
 const maskIin = [
@@ -59,6 +60,11 @@ class Complaint extends React.Component {
   render() {
     return (
       <div>
+        <Head>
+          <title>
+            Оставить жалобу
+          </title>
+        </Head>
         <section className="otherPages">
           <div className="">
             <section className="oplata feedback row">

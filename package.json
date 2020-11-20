@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "cross-env NODE_ENV=development nodemon server.js --watch server",
+    "development": "next dev",
     "build": "next build",
     "start": "NODE_ENV=production node server.js",
     "export": "next export"
@@ -11,7 +12,7 @@
   "dependencies": {
     "@material-ui/core": "^4.11.0",
     "axios": "^0.21.0",
-    "bootstrap": "^4.4.1",
+    "bootstrap": "^4.5.3",
     "disable-scroll": "^0.5.1",
     "express": "^4.17.1",
     "font-awesome": "^4.7.0",

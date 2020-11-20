@@ -1,7 +1,7 @@
 import * as types from '../types'
 
 
-export const dayReducer = (state = '61', action) => {
+export const dayReducer = (state = '15', action) => {
   const { type } = action;
   switch (type) {
     case types.DAY_CHANGE:

@@ -9,6 +9,7 @@ import ThirdStep from '../../components/registrationForm/ThirdStep';
 import {stepRegistration, emptyMessage,errorMessage} from '../../store/actions/ActionCreators'
 import { connect } from 'react-redux';
 import $ from 'jquery'
+import Head from 'next/head'
 import { actions } from 'react-redux-form'
 const labels = [ 'Регистрация', 'Заполнения анкеты', 'Отправка анкеты',  ];
 const handleSteps = step => {
@@ -108,6 +109,7 @@ class FormStep extends React.Component {
         return (
     <React.Fragment>
 				<React.Fragment>
+                    <Head><title>Деньги в кредит</title></Head>
                     <Stepper className="otherPages" activeStep={this.state.registrationStep > this.props.stepregistration && this.state.registrationStep>1 ? parseInt(this.state.registrationStep)-1 : parseInt(stepcheck(this.props.stepregistration))}
                     style={{ paddingTop: 30, paddingBottom: 50 }} alternativeLabel>
 						{labels.map(label => (

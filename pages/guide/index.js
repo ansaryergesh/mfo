@@ -1,6 +1,7 @@
 import React from 'react';
 import {Collapse} from 'reactstrap';
 import Link from 'next/link'
+import Head from 'next/head'
 
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
@@ -33,6 +34,9 @@ class Questionans extends React.Component {
   render() {
     return (
         <div>
+          <Head>
+            <title>Вопрос-ответ</title>
+          </Head>
             <section className="otherPages">
         <div className="otherPages--top">
           <div className="container">

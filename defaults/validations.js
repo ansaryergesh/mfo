@@ -570,8 +570,21 @@ function getAge(dateString) {
 
 
 export const validage = (iin) => {
-    if(getAge(iin)<18 || getAge(iin)>63) {
-        return false
+    if(iin[6]%2 != 0) {
+        if(getAge(iin)<21 || getAge(iin)>63) {
+            return false
+        }
+    }
+    if(iin[6]%2 == 0) {
+        if(getAge(iin)<21 || getAge(iin)>58) {
+            return false
+        }
     }
     return true;
 }
+
+
+
+
+var datecheck = '990702300060'
+console.log(datecheck[6])

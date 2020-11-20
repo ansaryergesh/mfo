@@ -59,6 +59,10 @@ li {
   list-style: none;
 }
 
+.icreditlogo {
+  width: 60px;
+}
+
 .fade-color {
   background-color: white !important;
   transition: 0.3s ease-in-out;
@@ -166,6 +170,56 @@ body {
 .footer .footerCol .socials--icons {
   color: #ef2221;
   font-size: 20px;
+}
+
+ul.complete {
+  list-style: none;
+  font-size: 18px;
+}
+
+ul.complete li {
+  display: flex;
+  /* align-items: center; */
+}
+
+ul.complete li a:hover {
+  color: #121ea8 !important;
+}
+
+.agreements-block {
+  padding: 15px 10px;
+  padding-left: 0px;
+  -webkit-box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
+  box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
+  border: 1px solid rgba(0, 0, 0, 0.115);
+  border-radius: 15px;
+
+}
+
+ul.complete li::before {
+  content: '🗹 ';
+  color: #121ea8;
+  font-weight: bold;
+  margin-right: 5px;
+  font-size: 20px;
+  text-decoration: none !important;
+}
+
+ul.complete li {
+  line-height: 30px;
+}
+
+ul.complete li:last-child {
+  display: none;
+}
+
+/* ul.complete li:last-child {
+  display: none;
+} */
+
+.container-checkbox input:checked~.checkmark {
+  background-color: #2196F3;
 }
 
 .footer .footerCol .socials--icons i {
@@ -327,7 +381,7 @@ input::-ms-track {
   padding: 4px 5px;
   font-weight: bold;
   border-radius: 15px;
-  font-size: 14px;
+  font-size: 10px;
   transform: translateY(5px);
 }
 
@@ -469,8 +523,12 @@ button {
 }
 
 .finance .primary {
-  margin-top: 280px;
+  padding-top: 50px;
 }
+
+/* .finance {
+  padding-top: calc(12px + (50 - 12) * ((100vw - 320px) / (768 - 320))) !important;
+} */
 
 @media only screen and (min-width: 321px) and (max-width: 768px) {
   .finance .primary {
@@ -549,7 +607,7 @@ button {
   /* padding: 2px; */
   background-color: #dbd6d600;
   color: #ef2221;
-  font-size: 12px;
+  font-size: 7.8px;
 }
 
 .logo h2 {
@@ -770,9 +828,9 @@ button {
   background-color: white;
   border-radius: 15px;
   padding: 40px 25px;
-  -webkit-box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
-  box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 12px 108px 59px -22px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 12px 108px 59px -22px rgba(0, 0, 0, 0.3);
+  box-shadow: 12px 108px 59px -22px rgba(0, 0, 0, 0.3);
 }
 
 .repeatBtn button {
@@ -810,9 +868,9 @@ button {
 }
 
 .repeatedProgress .calculator-band {
-  -webkit-box-shadow: 12px 47px 59px 22px rgba(0, 0, 0, 0.3);
-  -moz-box-shadow: 12px 47px 59px 22px rgba(0, 0, 0, 0.3);
-  box-shadow: 12px 47px 59px 22px rgba(0, 0, 0, 0.3);
+  -webkit-box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
+  box-shadow: 12px 47px 59px -22px rgba(0, 0, 0, 0.3);
 }
 
 .repeatedProgress .calculator-band .takebtn {
@@ -894,6 +952,11 @@ a,
   .paymentCenter {
     display: none !important;
   }
+
+  .finance .primary {
+    padding-top: 350px;
+  }
+
 }
 
 @media only screen and (max-width: 768px) {
@@ -909,7 +972,7 @@ a,
     text-align: center;
   }
 
-  .secondary-header {
+  np .secondary-header {
     /* display: none; */
     /* transform: scale(0.9); */
     margin: auto;
@@ -1123,6 +1186,10 @@ a,
   .conditions .condition {
     display: flex !important;
     align-items: center !important;
+  }
+
+  .phonelink {
+    display: none;
   }
 
   .secondary-header span {
@@ -2287,6 +2354,10 @@ input:focus {
   box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.05);
 }
 
+.welcome {
+  font-size: calc(18px + (28 - 18) * ((100vw - 320px) / (1600 - 320)));
+}
+
 .videolist {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -2331,4 +2402,117 @@ input:focus {
 
 .playbtn:hover .playblock {
   background-color: #a7a1a18d;
+}
+
+
+/* 404 error */
+
+#notfound {
+  position: relative;
+  height: 100vh;
+}
+
+#notfound .notfound {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.notfound {
+  max-width: 520px;
+  width: 100%;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.notfound .notfound-404 {
+  height: 190px;
+}
+
+.notfound .notfound-404 h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 146px;
+  font-weight: 700;
+  margin: 0px;
+  color: #232323;
+}
+
+.notfound .notfound-404 h1>span {
+  display: inline-block;
+  width: 120px;
+  height: 120px;
+  background-image: url("https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/160/mozilla/36/pensive-face_1f614.png");
+  background-size: cover;
+  -webkit-transform: scale(1.4);
+  -ms-transform: scale(1.4);
+  transform: scale(1.4);
+  z-index: -1;
+  animation-name: floating;
+  animation-duration: 4s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.notfound h2 {
+  font-family: "Montserrat", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  margin: 0;
+  text-transform: uppercase;
+  color: #232323;
+}
+
+.notfound p {
+  font-family: "Montserrat", sans-serif;
+  color: #787878;
+  font-weight: 300;
+}
+
+.notfound a {
+  font-family: "Montserrat", sans-serif;
+  display: inline-block;
+  padding: 12px 30px;
+  font-weight: 700;
+  background-color: #ef2221;
+  color: #fff !important;
+  border-radius: 40px;
+  text-decoration: none;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.notfound a:hover {
+  opacity: 0.8;
+}
+
+@media only screen and (max-width: 767px) {
+  .notfound .notfound-404 {
+    height: 115px;
+  }
+
+  .notfound .notfound-404 h1 {
+    font-size: 86px;
+  }
+
+  .notfound .notfound-404 h1>span {
+    width: 86px;
+    height: 86px;
+  }
+}
+
+@keyframes floating {
+  from {
+    transform: scale(1.4) translate(0, 0);
+  }
+
+  50% {
+    transform: scale(1.4) translate(0, 15px);
+  }
+
+  to {
+    transform: scale(1.4) translate(0, 0);
+  }
 }

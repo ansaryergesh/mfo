@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link'
+import Head from 'next/head'
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
@@ -8,6 +9,7 @@ function Stepmoney() {
     return (
 
               <section className="otherPages">
+                <Head><title>Как получить деньги</title></Head>
         <div className="otherPages--top hidden">
           <div className="container">
             <h1>Как получить деньги</h1>
