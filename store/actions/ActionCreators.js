@@ -107,7 +107,7 @@ function checkIIN(val) {
 export const postRegistrationCode = (registration) => (dispatch) => {
     dispatch(emptyMessage());
     dispatch(isLoading(true));
-    registration.source ='icredit1';
+    registration.source ='i-credit1';
     if(localStorage.getItem('utm_source')) {
         registration.source = localStorage.getItem('utm_source') +'_1';
     }

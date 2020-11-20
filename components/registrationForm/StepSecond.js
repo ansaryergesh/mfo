@@ -88,7 +88,7 @@ class SecondStep extends React.Component {
       object.apartment = values.apartmentt
     }
     object.finished_step = 2;
-    object.source = 'icredit2';
+    object.source = 'i-credit2';
     if(localStorage.getItem('utm_source')) {
       object.source = localStorage.getItem('utm_source') + '_2'
     }

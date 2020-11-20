@@ -211,7 +211,7 @@ class FormRegister extends React.Component {
             loan_amount_for_max_days: '',
             insurance_amount: '',
             award_amount:  '',
-            source: 'icredit.kz',
+            source: 'i-credit.kz',
             name: '',
             middlename: '',
             last_name: '',
