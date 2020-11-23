@@ -1119,6 +1119,10 @@ a,
   .mapping--text {
     text-align: center;
   }
+
+  .header-text {
+    display: none !important
+  }
 }
 
 .mapping--text h2 {
@@ -1130,6 +1134,14 @@ a,
 .mapping--text .phones {
   display: flex;
   flex-direction: column;
+}
+
+.oplata .oplataform .redbtn {
+  background-color: #ef2221;
+  color: white;
+  border: none;
+  padding: calc(12px + (17 - 12) * ((100vw - 720px) / (1600 - 720))) calc(45px + (58 - 45) * ((100vw - 720px) / (1600 - 720)));
+  border-radius: 7px;
 }
 
 .phones .fa-phone {
@@ -1324,7 +1336,7 @@ a,
 .oplata .oplataform .input-group input,
 .oplata .oplataform .input-group textarea {
   width: 100%;
-  padding: 17px 0;
+  padding: calc(12px + (17 - 12) * ((100vw - 720px) / (1600 - 720))) 0;
   border: 1px solid transparent;
   outline: 0;
   background: #f3f3f3;

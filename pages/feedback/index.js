@@ -4,9 +4,8 @@ import Spinner from 'react-spinner-material';
 import MaskedInput from 'react-text-mask';
 import {validEmail, requiredd, iinValidation} from '../../defaults/validations';
 import axios from 'axios'
-import Head from 'next/head'
-
 import {Formik, Form, ErrorMessage, FieldArray, Field} from 'formik';
+import Head from 'next/head'
 var scrollToElement = require('scroll-to-element');
 
 class Feedback extends React.Component {
@@ -14,15 +13,26 @@ class Feedback extends React.Component {
     super(props);
     this.state = {
       btnLoading: false,
-      message: null
+      message: null,
+      errorMessage: null
     };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
- async handleSubmit(values) {
+ async handleSubmit(values,resetForm) {
+
+  if(!values.name || !values.feedback ) {
+    this.setState({
+      errorMessage: "Введите все данные",
+      message: null
+    })
+  }
+  else {
    this.setState({
-     btnLoading:true
+     btnLoading:true,
+     errorMessage: null,
    })
+   resetForm({})
   await axios.post(`https://api.money-men.kz/api/send_feedback`, values)
     .then((response) => {
       this.setState({
@@ -43,26 +53,23 @@ class Feedback extends React.Component {
       })
     });
   }
+}
   render() {
     return (
       <div>
-        <Head>
-          <title>
-            Оставить отзыв
-          </title>
-        </Head>
         <section className="otherPages">
+          <Head><title>Оставить отзыв</title></Head>
           <div className="">
             <section className="oplata feedback row">
-              <div className=" oplate--form feedbackForm">
+              <div className=" complaint oplate--form feedbackForm">
                 <h2 className="text-center mb-3">Оставить отзыв</h2>
                 <Formik
                   initialValues={{
                     name: '',
                     feedback: "",
                   }}
-                  onSubmit={values=> {
-                    this.handleSubmit(values)
+                  onSubmit={(values,{resetForm})=> {
+                    this.handleSubmit(values,resetForm)
                   }}
                 >
                 {({ errors, touched, isValidating, isSubmitting }) =>(
@@ -72,26 +79,29 @@ class Feedback extends React.Component {
                         <strong> {this.state.message}</strong>
                       </div> : null
                     }
+                    {this.state.errorMessage !== null ?
+                      <div className="alert alert-danger" role="alert">
+                        <strong> {this.state.errorMessage}</strong>
+                      </div> : null
+                    }
                    <div className='input-group'>
                    <label htmlFor="name">
                       <h2>Имя:</h2>
                     </label>
-                    <Field name='name' validate={requiredd} placeholder="Имя"/>
-                    {errors.name && touched.name && <div className='text-danger'>{errors.name}</div>}
+                    <Field name='name'  placeholder="Имя"/>
                    </div>
 
                    <div className='input-group'>
                     <label htmlFor="feedback">
                       <h2>Отзыв:</h2>
                     </label>
-                      <Field name='feedback' as='textarea' validate={requiredd} placeholder="Отзыв"/>
-                      {errors.feedback && touched.feedback && <div className='text-danger'>{errors.feedback}</div>}
+                      <Field name='feedback' as='textarea' />
                    </div>
 
                    <div className="buttonForm">
                       {this.state.btnLoading === true ?
                       <Spinner className="loading" size={200} spinnerColor={"#ef2221"} spinnerWidth={2} visible={true} /> :
-                      <button className=" oplataform--button" type="submit">Отправить</button>}
+                      <button className="redbtn" type="submit">Отправить</button>}
                     </div>
                   </Form>
                 )}

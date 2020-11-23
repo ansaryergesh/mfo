@@ -279,7 +279,7 @@ class Home extends React.Component {
                   <div className="playbtn"></div>
                 </div>
               </div>
-              <div className="inst" onClick={this.toggleCollapse("video1")}>
+              <div className="inst" onClick={this.toggleCollapse("video4")}>
                 <div className="playblock" >
                   <div className="playbtn"></div>
                 </div>
@@ -301,19 +301,24 @@ class Home extends React.Component {
           </p>
         </div>
 
-        <Modal className="modal" isOpen={this.state.collapse === "video1"} toggle={this.toggleCollapse("video1")} id="video1"  size="md">
+        <Modal  isOpen={this.state.collapse === "video1"} toggle={this.toggleCollapse("video1")} id="video1"  size="md">
 				 <ModalBody>
          <iframe  src="https://www.instagram.com/p/CGX1ryJIUY1/embed?autoplay=1" height="500px" width="100%" frameborder="0" scrolling="no" allow="autoplay" allowtransparency="true"></iframe>
 					 </ModalBody>
 				 </Modal>
-         <Modal className="modal" isOpen={this.state.collapse === "video2"} toggle={this.toggleCollapse("video2")} id="video2"  size="md">
+         <Modal  isOpen={this.state.collapse === "video2"} toggle={this.toggleCollapse("video2")} id="video2"  size="md">
 				 <ModalBody>
          <iframe  src="https://www.instagram.com/p/CF7tqQWp98a/embed?autoplay=1" height="500px" width="100%" frameborder="0" scrolling="no" allow="autoplay" allowtransparency="true"></iframe>
 					 </ModalBody>
 				 </Modal>
-         <Modal className="modal" isOpen={this.state.collapse === "video3"} toggle={this.toggleCollapse("video3")} id="video3"  size="md">
+         <Modal  isOpen={this.state.collapse === "video3"} toggle={this.toggleCollapse("video3")} id="video3"  size="md">
 				 <ModalBody>
          <iframe  src="https://www.instagram.com/p/CF7wKQap_3M/embed?autoplay=1" height="500px" width="100%" frameborder="0" scrolling="no" allow="autoplay" allowtransparency="true"></iframe>
+					 </ModalBody>
+				 </Modal>
+         <Modal  isOpen={this.state.collapse === "video4"} toggle={this.toggleCollapse("video4")} id="video4"  size="md">
+				 <ModalBody>
+         <iframe  src="https://www.instagram.com/p/CH0v9xehpWX/embed/?autoplay=1" height="500px" width="100%" frameborder="0" scrolling="no" allow="autoplay" allowtransparency="true"></iframe>
 					 </ModalBody>
 				 </Modal>
         </div>

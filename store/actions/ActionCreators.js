@@ -83,13 +83,7 @@ export const postRegistration = (registration) => (dispatch) => {
         .then(response=> window.scrollTo(0,0))
         .then(response => dispatch(successMessage('')))
         .catch(r=>r.json().then(e=> {
-            dispatch(errorMessage(  e.errors.iin !== undefined ? "ИНН уже зарегистрирован. Вы будете перенаправлены на страницу авторизация! ": "Система не работает. Попробуйте позже" ||
-            e.errors.password ? "Пароли не совпадают": "" ||
-            e.errors.email ||
-            e.errors.phone ? "Польвозатель с таким телефон номером уже зарегистрирован" : ""  ||
-            e.errors ||
-            e.message || "К сожелению сервис времмено не работает. Попробуйте позже"
-            ));
+            dispatch(errorMessage(e.errors.iin ? "ИНН уже зарегистрирован. Вы будете перенаправлены на страницу авторизация! ": "" || e.errors.password ? "Пароли не совпадают": "" || e.errors.phone ? "Польвозатель с таким телефон номером уже зарегистрирован" : e.errors.email || "" ||   e.errors ));
             setTimeout(() => {
                 checkIIN(e.errors);
             }, 3000);

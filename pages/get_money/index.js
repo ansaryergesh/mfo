@@ -65,7 +65,8 @@ const stepcheck = (val) => {
 
 class FormStep extends React.Component {
     state = {
-        registrationStep: 0
+        registrationStep: 0,
+        loading: true
     }
     componentDidMount() {
         if(localStorage.getItem('step')) {
@@ -73,6 +74,11 @@ class FormStep extends React.Component {
                 registrationStep: localStorage.getItem('step')
             })
         }
+        setTimeout(() => {
+            this.setState ({
+                loading: false
+            })
+        }, 500)
         function accepCirrilic(evt) {
             evt = evt ? evt : window.event;
             var charCode = evt.which ? evt.which : evt.keyCode;
@@ -109,6 +115,8 @@ class FormStep extends React.Component {
         return (
     <React.Fragment>
 				<React.Fragment>
+                    {this.state.loading ? (
+                    <div className="modelLoader"></div>) : (<div className="modelLoader loaded"></div>)}
                     <Head><title>Деньги в кредит</title></Head>
                     <Stepper className="otherPages" activeStep={this.state.registrationStep > this.props.stepregistration && this.state.registrationStep>1 ? parseInt(this.state.registrationStep)-1 : parseInt(stepcheck(this.props.stepregistration))}
                     style={{ paddingTop: 30, paddingBottom: 50 }} alternativeLabel>
