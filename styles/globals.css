@@ -2368,6 +2368,7 @@ input:focus {
 
 .welcome {
   font-size: calc(18px + (28 - 18) * ((100vw - 320px) / (1600 - 320)));
+  /* font-family: "AvenirNext" !important; */
 }
 
 .videolist {

@@ -35,6 +35,7 @@ const maskIin = [
 
 class Login extends React.Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     if(cookie.get('token') && !this.props.loggedIn) {
       Router.push('/')
     }

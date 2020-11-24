@@ -24,6 +24,9 @@ class Cabinet extends React.Component {
       btnLoading: false
     }
   }
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   async handleRepeated() {
     this.setState ({
       btnLoading: true
@@ -40,7 +43,7 @@ class Cabinet extends React.Component {
           this.setState({
             btnLoading: false
           })
-          swal("Oops!", `Заполнение анкета не завершена. свяжитесь с нами по телефону +7 700 750 15 00 `, "error");
+          swal("Oops!", `${response.data.message || "Заполнение анкета не завершена. свяжитесь с нами по телефону +7 700 750 15 00" } `, "error");
         }
         else {
           console.log(response)
@@ -61,7 +64,7 @@ class Cabinet extends React.Component {
         {this.state.btnLoading ? ( <div className="modelLoader"></div>) : (<div className="modelLoader loaded"></div>)}
         {this.props.userReducer.authenticatingUser === true ? ( <div className="modelLoader"></div>) : (<div className="modelLoader loaded"></div>)}
         <p className='welcome text-center'>{helloUser()}   {this.props.userReducer.user.UF_5} {this.props.userReducer.user.UF_6} !</p>
-        <div className='zayavkaBlock container col-md-8 col-8 mt-5'>
+        <div className='zayavkaBlock container col-md-8 col-11 mt-2'>
           <h5>Мои заявки</h5>
           <h5 className='text-center'>Ваша заявка еще на обработке</h5>
           <div className="repeatBtn form-group" >

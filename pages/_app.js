@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'font-awesome/css/font-awesome.css';
 import Navbar from '../components/shared/Nav'
 import Footer from '../components/shared/Footer'
+import ScrollToTop from '../components/shared/ScrollToTop'
 import MainComponent from '../components/MainComponent'
 import { Provider } from 'react-redux'
 import React, {Fragment} from 'react'
