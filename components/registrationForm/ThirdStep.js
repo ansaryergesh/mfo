@@ -11,6 +11,9 @@ import {speciality} from '../../defaults/defaultRelative';
 import Spinner from 'react-spinner-material';
 import disableScroll from 'disable-scroll';
 import Router from 'next/router'
+import cookie from 'js-cookie';
+
+
 import {
   isValidIBANNumber2,
   isValidIBANNumber,
@@ -102,18 +105,26 @@ class FormRegister extends React.Component {
     var sourceElem = localStorage.getItem('utm-source');
     var clickidElem = localStorage.getItem('clickid');
     other.source = 'i-credit.kz'
-    if(localStorage.getItem('utm_source') && localStorage.getItem('utm_source') !== null) {
-      if(localStorage.getItem('utm_source').includes('sms')) {
-        other.source = localStorage.getItem('utm_source');
+    // if(localStorage.getItem('utm_source') && localStorage.getItem('utm_source') !== null) {
+    //   if(localStorage.getItem('utm_source').includes('sms')) {
+    //     other.source = localStorage.getItem('utm_source');
+    //   }
+    //   if(localStorage.getItem('utm_source').includes('qaz')) {
+    //     other.source = 'qazlead';
+    //     other.cpa_source = localStorage.getItem('utm_campaign');
+    //     other.cpa_clickid= localStorage.getItem('clickid');
+    //   }
+    // }
+    if(cookie.get('utm_source')!== undefined) {
+      if(cookie.get('utm_source').includes('sms')) {
+        other.source = cookie.get('utm_source')
       }
-      if(localStorage.getItem('utm_source').includes('qaz')) {
-        other.source = 'qazlead';
-        other.cpa_source = localStorage.getItem('utm_campaign');
-        other.cpa_clickid= localStorage.getItem('clickid');
+      if(cookie.get('utm_source').includes('qaz')) {
+        other.source = 'qazlead'
+        other.cpa_source = cookie.get('utm_campaign');
+        other.cpa_clickid= cookie.get('clickid');
       }
     }
-
-
 
     other.finished_step = 3;
     const finalObjects = {

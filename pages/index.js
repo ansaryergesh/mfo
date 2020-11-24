@@ -3,9 +3,9 @@ import banner from '../img/banner.png'
 import ProgressBar from '../components/shared/ProgressBar';
 import bottomBanner from '../img/bottomBanner.png'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
-import Head from 'next/head'
 import { useRouter, withRouter } from "next/router";
-import $ from 'jquery'
+import Head from 'next/head'
+import cookie from 'js-cookie';
 var scrollToElement = require('scroll-to-element');
 import Link from 'next/link'
 
@@ -23,7 +23,8 @@ const AppLink = ({children, className, href}) =>
 
 class Home extends React.Component {
   state = {
-    collapse: ""
+    collapse: "",
+    mainMessage: true
   }
 
   toggleCollapse = id => () => {
@@ -36,6 +37,19 @@ class Home extends React.Component {
     }
   }
 
+  mainMessageClose = () => {
+    this.setState({
+      mainMessage:false
+    })
+  }
+
+  testfunc = () => {
+    if(cookie.get('utm_source')) {
+      return true
+    }else{
+      return false
+    }
+  }
   handleFocus() {
     scrollToElement('.calculator-info', {
       offset: 0,
@@ -45,27 +59,10 @@ class Home extends React.Component {
     });
   }
   componentDidMount() {
-    // var $win = $(window);
+    setTimeout(() => {
+      this.mainMessageClose()
+    },5000)
 
-    // $win.scroll(function () {
-    // if ($(window).width() > 200) {
-    //     if ($win.scrollTop() == 0) {
-    //         scrollToElement('.header-imgs', {
-    //           offset: 0,
-    //           align: 'middle',
-    //           ease: 'outExpo',
-    //           duration: 600
-    //         });
-    //     } else if (!$win.scrollTop() == 0) {
-    //       scrollToElement('.nothing', {
-    //         offset: 0,
-    //         align: 'top',
-    //         ease: 'outExpo',
-    //         duration: 600
-    //       });
-    //     }
-    //   }
-    // });
     if (
       getUrlParameter('utm_source').length>0 &&
       getUrlParameter('utm_medium').length>0 &&
@@ -73,31 +70,35 @@ class Home extends React.Component {
       getUrlParameter('utm_term').length>0 &&
       getUrlParameter('clickid').length>0
     ) {
-      localStorage.clear();
-      localStorage.setItem("utm_source", "qaz");
-      localStorage.setItem("utm_medium", getUrlParameter('utm_medium'));
-      localStorage.setItem("utm_campaign", getUrlParameter('utm_campaign'));
-      localStorage.setItem("utm_term", getUrlParameter('utm_term'));
-      localStorage.setItem("clickid", getUrlParameter('clickid'));
+        if(cookie.get('utm_source') === undefined && getUrlParameter('utm_source').includes('qaz')) {
+          localStorage.clear();
+          cookie.set('utm_source', 'qaz', {expires: 1})
+          cookie.set('utm_medium', getUrlParameter('utm_medium'), {expires: 1})
+          cookie.set('utm_campaign', getUrlParameter('utm_campaign'), {expires: 1})
+          cookie.set('utm_term', getUrlParameter('utm_term'), {expires: 1})
+          cookie.set('clickid', getUrlParameter('clickid'), {expires: 1})
+        }
+
     }
     if(getUrlParameter('utm_source').length>0) {
-      if(getUrlParameter('utm_source').includes('sms')) {
+      if(getUrlParameter('utm_source').includes('sms') && cookie.get('utm_source')=== undefined) {
         localStorage.clear();
-        localStorage.setItem('utm_source', getUrlParameter('utm_source'));
+        // localStorage.setItem('utm_source', getUrlParameter('utm_source'));
+        cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 1})
       }
     }
     else {
     }
   }
-  static getInitialProps({query}) {
-    return {query}
-  }
   render() {
     // console.log(this.props.query)
   return (
-
         <div className="">
-          <Head><title>Деньги в кредит онлайн микрозаймы на карту по Казахстану</title></Head>
+          <Head>
+            <title>
+            Деньги в кредит онлайн микрозаймы на карту по Казахстану
+            </title>
+          </Head>
             <div className="view">
             <div className="container">
 
@@ -117,6 +118,7 @@ class Home extends React.Component {
         </div>
         <section className="calculator container">
           <div className="texts">
+
             <p>Калькулятор микрокредитов</p>
             <p>Льготный период 7 дней</p>
           </div>
@@ -291,12 +293,12 @@ class Home extends React.Component {
           <p className="container">
             Срочно нужны деньги и не у кого одолжить, вы попали в ситуацию потребности средств здесь и прямо сейчас. Предоставляем вашему вниманию сервис получения микрокредитов онлайн не выходя из дома. Быстрое предоставление решения кредитования за 10 минут для физических лиц от 21 до 63 лет.<br></br><br></br>
             Наши микрокредиты – это краткосрочное решение в бытовых ситуациях или в финансовых затруднениях каждого гражданина Казахстана от непредвиденных или незапланированных покупок или оплаты услуг. Каждому клиенту мы предоставляем экономие времени на посещение отделений получив одобрение онлайн для этого всего лишь необходимо пройти анкетирование на сайте.<br></br><br></br>
-            Оплачиваете еще кредиты или находитесь на просрочке, но очень нуждаетесь в дополнительных денежных средствах не беда, мы предоставляем микрозаймы в самых затруднительных ситуациях. Онлайн сервис I-credit – это простое решение в кратчайшие сроки получения микрозаймов онлайн на карту.<br></br><br></br>
+            Оплачиваете еще кредиты или находитесь на просрочке, но очень нуждаетесь в дополнительных денежных средствах не беда, мы предоставляем микрозаймы в самых затруднительных ситуациях. Онлайн сервис Zaymi – это простое решение в кратчайшие сроки получения микрозаймов онлайн на карту.<br></br><br></br>
             Для первичных и повторных клиентов мы предоставим одинаковые выгодные условия: Всегда период первые 7 дней без процентов одинаково выгодные как новым клиентам так проверенным партнерам - заемщикам. <br></br>
             <br></br>Условия кредитования:<br></br>
             Максимальная ставка в год – 360%.<br></br>
             Максимальная ставка в день – 1%.<br></br>
-            Срок кредитования от 15 до 30 дней<br></br><br></br>
+            Срок кредитования от 61 до 90 дней<br></br><br></br>
             В случае нарушения установленного срока платежа по займу, заемщик будет обязан оплатить неустойку, состоящую из штрафа в размере 10% от суммы основного долга, уплачиваемого единовременно и пени в размере 0,5% от суммы основного долга за каждый день просрочки.
           </p>
         </div>

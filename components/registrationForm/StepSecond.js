@@ -10,6 +10,7 @@ import $ from 'jquery'
 import {required, phoneCheck, acceptCirrilic} from '../../defaults/validationredux';
 import Spinner from 'react-spinner-material';
 import disableScroll from 'disable-scroll';
+import cookie from 'js-cookie';
 var scrollToElement = require('scroll-to-element');
 const mapStateToProps = state => {
   return {somemessage: state.message, regionsReducer: state.regionsReducer, loading: state.loading, registration2: state.registration2}
@@ -89,9 +90,10 @@ class SecondStep extends React.Component {
     }
     object.finished_step = 2;
     object.source = 'i-credit2';
-    if(localStorage.getItem('utm_source')) {
-      object.source = localStorage.getItem('utm_source') + '_2'
+    if(cookie.get('utm_source')!== undefined) {
+      object.source = cookie.get('utm_source') + '_2'
     }
+
 
     const finalObjects = {
       ...values,

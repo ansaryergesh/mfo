@@ -1,5 +1,6 @@
 import * as ActionTypes from '../types'
 import Router from 'next/router'
+import cookie from 'js-cookie';
 
 export const changingMoney = money => ({
     type: ActionTypes.MONEY_CHANGE,
@@ -92,7 +93,7 @@ export const postRegistration = (registration) => (dispatch) => {
 
 function checkIIN(val) {
     if(val && val.iin) {
-        Router.push('/login')
+        document.location.replace("https://www.i-credit.kz/login")
     }else {
         console.log("not working")
     }
@@ -102,8 +103,8 @@ export const postRegistrationCode = (registration) => (dispatch) => {
     dispatch(emptyMessage());
     dispatch(isLoading(true));
     registration.source ='i-credit1';
-    if(localStorage.getItem('utm_source')) {
-        registration.source = localStorage.getItem('utm_source') +'_1';
+    if(cookie.get('utm_source') !== undefined) {
+        registration.source = cookie.get('utm_source') +'_1';
     }
 
     return fetch(`https://api.money-men.kz/api/check_sms_code`,{
