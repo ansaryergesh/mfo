@@ -118,6 +118,13 @@ body {
   overflow-x: hidden;
 }
 
+.mobphones {
+  border-top: .2px solid rgba(0, 0, 0, 0.158);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  font-family: "CTCSplachRounded";
+}
 .center-line {
   text-decoration: line-through;
 }
@@ -1213,7 +1220,8 @@ a,
   }
 
   .phonenav,
-  .mainnavphone {
+  .mainnavphone,
+  .mobphones {
     display: none !important;
   }
 
