@@ -117,7 +117,6 @@ componentDidMount() {
               <li className="nav-item mx-1"  onClick={this.toggleClose}>
                 <AppLink  className="nav-link align-items-center d-flex"  href='/cabinet/loans'>Личный кабинет</AppLink>
               </li>
-
               <li className="nav-item mx-1" onClick={this.toggleLogOut}>
                 <a className="nav-link align-items-center d-flex">Выйти</a>
               </li>
