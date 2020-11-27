@@ -7,7 +7,7 @@ function getUrlParameter(name) {
   return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
 
-function newCookie() {
+export const newCookie = () => {
   if (cookie.get('utm_source') !== undefined && cookie.get('utm_medium') !== undefined && cookie.get('utm_campaign') !== undefined && cookie.get('utm_term') !== undefined && cookie.get('clickid') !== undefined) {
     cookie.remove('utm_medium')
     cookie.remove('utm_campaign')
@@ -17,9 +17,15 @@ function newCookie() {
   } else if (cookie.get('utm_source') !== undefined && cookie.get('afclick') !== undefined) {
     cookie.remove('utm_source')
     cookie.remove('afclick')
+  }else if(cookie.get('utm_source')!== undefined && cookie.get('clickid')!== undefined && cookie.get('wmid')!== undefined){
+    cookie.remove('utm_source')
+    cookie.remove('clickid')
+    cookie.remove('wmid')
   } else if (cookie.get('utm_source') !== undefined) {
     cookie.remove('utm_source')
-  } else {}
+  } else {
+    
+  }
 }
 
 export const controlUtm = () => {
@@ -35,10 +41,21 @@ export const controlUtm = () => {
     }
   }
   if (getUrlParameter('utm_source').length > 0 && getUrlParameter('afclick').length > 0) {
-    newCookie()
-    localStorage.clear();
-    cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 7})
-    cookie.set('afclick', getUrlParameter('afclick'), {expires: 7})
+    if(getUrlParameter('utm_source') === 'loangate') {
+      newCookie()
+      localStorage.clear();
+      cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 30})
+      cookie.set('afclick', getUrlParameter('afclick'), {expires: 30})
+    }
+  }
+  if(getUrlParameter('utm_source').length>0 && getUrlParameter('clickid').length>0 && getUrlParameter('wmid').length>0) {
+    if(getUrlParameter('utm_source') === 'upsala') {
+      newCookie()
+      localStorage.clear();
+      cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 30})
+      cookie.set('clickid', getUrlParameter('clickid'), {expires: 30})
+      cookie.set('wmid', getUrlParameter('wmid'), {expires: 30})
+    }
   }
   if (getUrlParameter('utm_source').length > 0) {
     if (getUrlParameter('utm_source').includes('sms')) {

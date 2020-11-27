@@ -1,7 +1,6 @@
 import * as ActionTypes from '../types'
 import Router from 'next/router'
 import cookie from 'js-cookie';
-
 export const changingMoney = money => ({
     type: ActionTypes.MONEY_CHANGE,
     payload: money,
@@ -208,7 +207,6 @@ export const postRegistrationThird = (registration) => (dispatch) => {
         .then(response => dispatch(successMessage('Успешно')))
         .then(response => setTimeout(() => {dispatch(stepRegistration(0))},6000) )
         .then(response=> dispatch(isLoading(false)))
-        // .then((response) => localStorage.setItem('step', 'final'))
         .then(response=> setTimeout(() => {localStorage.clear()},5000))
         .then(response => Router.push('/thanks'))
         .catch(r => r.json().then(e =>  dispatch(errorMessage(e.errors.id_card_number ? "Номер удостворение личности уже зарегистрирован" : "" || e.errors.iban_account || e.errors.card_number || e.errors ||  null)))).then(() => dispatch(isLoading(false)))

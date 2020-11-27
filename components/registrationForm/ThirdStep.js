@@ -119,6 +119,16 @@ class FormRegister extends React.Component {
       if(cookie.get('utm_source').includes('sms')) {
         other.source = cookie.get('utm_source')
       }
+      if(cookie.get('utm_source').includes('loangate')){
+        other.source = cookie.get('utm_source')
+        other.cpa_source = cookie.get('utm_source')
+        other.cpa_clickid = cookie.get('afclick')
+      }
+      if(cookie.get('utm_source') === 'upsala'){
+        other.source = cookie.get('utm_source')
+        other.cpa_source = cookie.get('utm_source')
+        other.cpa_clickid = cookie.get('clickid')
+      }
       if(cookie.get('utm_source').includes('qaz')) {
         other.source = 'qazlead'
         other.cpa_source = cookie.get('utm_campaign');
