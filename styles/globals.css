@@ -53,6 +53,8 @@
 body {
   margin: 0 auto !important;
   background: #ffffff;
+  
+  /* filter: invert(100%) */
 }
 
 li {
@@ -78,7 +80,7 @@ p {
 }
 
 a {
-  color: black !important;
+  color: inherit!important;
   text-decoration: none;
   cursor: pointer;
 }
@@ -112,7 +114,15 @@ hr {
   height: 100%;
   padding-top: 100px;
 }
-
+/* html {
+  filter: invert(100%)
+}
+img:not([src*=".jpg"]),img:not([src*=".svg"]) video, iframe {
+  filter: invert(100%)
+}
+* {
+  background-color: inherit;
+} */
 html,
 body {
   overflow-x: hidden;
@@ -2536,4 +2546,249 @@ input:focus {
   to {
     transform: scale(1.4) translate(0, 0);
   }
+}
+
+
+table {
+  border-spacing: 1;
+  border-collapse: collapse;
+  background: rgba(17, 83, 75, 0.123);
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  position: relative;
+  font-size: 14px;
+}
+table * {
+  position: relative;
+}
+table td, table th {
+  padding-left: 8px;
+}
+table thead tr {
+  height: 60px;
+  background: #f5cdcd73;
+}
+table tbody tr {
+  height: 48px;
+  border-bottom: 1px solid #E3F1D5;
+}
+table tbody tr:last-child {
+  border: 0;
+}
+table td, table th {
+  text-align: left;
+}
+table td.l, table th.l {
+  text-align: right;
+}
+table td.c, table th.c {
+  text-align: center;
+}
+table td.r, table th.r {
+  text-align: center;
+}
+@media screen and (max-width: 35.5em) {
+  table {
+    display: block;
+  }
+  table > *, table tr, table td, table th {
+    display: block;
+  }
+  table thead {
+    display: none;
+  }
+  table tbody {
+    border-top: 1px solid rgba(143, 137, 137, 0.493)
+  }
+  table tbody tr {
+    height: auto;
+    padding: 8px 0;
+  }
+  table tbody tr td {
+    padding-left: 45%;
+    margin-bottom: 12px;
+  }
+  table tbody tr td:last-child {
+    margin-bottom: 0;
+  }
+  table tbody tr td:before {
+    position: absolute;
+    font-weight: 700;
+    width: 40%;
+    left: 10px;
+    background-color: #ddd8d856;
+    top: 0;
+  }
+
+  /* table tbody tr td:nth-child(1):before {
+    content: "Code";
+  }
+  table tbody tr td:nth-child(2):before {
+    content: "Stock";
+  }
+  table tbody tr td:nth-child(3):before {
+    content: "Cap";
+  }
+  table tbody tr td:nth-child(4):before {
+    content: "Inch";
+  }
+  table tbody tr td:nth-child(5):before {
+    content: "Box Type";
+  } */
+  .lperiod tr td {
+    min-height: 75px;
+  }
+   .lperiod tr td:nth-child(1):before {
+    content: "Дата выдачи 📅"
+  }
+   .lperiod tr td:nth-child(2):before {
+    content: "Сумма на руки 💰"
+  }
+   .lperiod tr td:nth-child(3):before {
+    content: "Дата окончания льготного периода 📅"
+  }
+   .lperiod tr td:nth-child(4):before {
+    content: "Основной долг 💸"
+  }
+   .lperiod tr td:nth-child(5):before {
+    content: "Cумма погашения льготный период 💸"
+  }
+   .lperiod tr td:nth-child(6):before {
+    content: "Сумма задолженности на текущую дату"
+  }
+   .lperiod tr td:nth-child(7):before {
+    content: "Дата погашения 📅"
+  }
+
+
+  .vdolge tr td {
+    min-height: 75px;
+  }
+   .vdolge tr td:nth-child(1):before {
+    content: "Дата выдачи 📅"
+  }
+   .vdolge tr td:nth-child(2):before {
+    content: "Сумма на руки 💰"
+  }
+
+   .vdolge tr td:nth-child(3):before {
+    content: "Основной долг 💸"
+  }
+
+   .vdolge tr td:nth-child(4):before {
+    content: "Сумма задолженности на текущую дату"
+  }
+   .vdolge tr td:nth-child(5):before {
+    content: "Дата погашения 📅"
+  }
+
+ 
+
+  .userHistory tr td {
+    min-height: 75px;
+  }
+   .userHistory tr td:nth-child(1):before {
+    content: "Сумма заима"
+  }
+   .userHistory tr td:nth-child(2):before {
+    content: "Дата выдачи"
+  }
+
+   .userHistory tr td:nth-child(3):before {
+    content: "Дата возврата"
+  }
+
+   .vdolge tr td:nth-child(4):before {
+    content: "Сумма задолженности на текущую дату"
+  }
+   .vdolge tr td:nth-child(5):before {
+    content: "Дата погашения 📅"
+  }
+}
+.cabinetmessage {
+  position: fixed;
+  bottom:0;
+  color: rgb(255, 255, 255);
+  background-color: rgba(0, 0, 0, 0.925);
+  width: 100%;
+  padding: 15px;
+  z-index: 1111;
+}
+
+.placeholder {
+  max-width: 1200px;
+  width: 100%;
+  height: 12vw;
+  margin: auto;
+  background-color: #f8f9f985;
+  /* box-shadow: 1px 4px 23px 3px rgba(0,0,0, 0.2); */
+  border-radius: 10px;
+  
+  padding: 3vw 4vw;
+  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.loader { 
+  height: 22%;
+  background: linear-gradient(90deg, rgba(210,210,210,0.5) 0%, rgba(238,238,238,0.7) 100%);
+  border-radius: 10px;
+  animation: loading 0.8s infinite; 
+}
+ 
+.imgwhatsapp {
+  height: calc(30px + (40 - 30) * ((100vw - 320px) / (1600 - 320)));
+  position: fixed;
+  bottom:3%;
+  right: 2%;
+  animation: pulse 2s infinite;
+  border-radius: calc(8px + (15 - 8) * ((100vw - 320px) / (1600 - 320)));
+  z-index: 11111111111;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(18, 143, 18, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(18, 143, 18, 0.4);
+    box-shadow: 0 0 0 0 rgba(18, 143, 18, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+
+@keyframes loading {
+  from {
+    width: 0%
+  }
+  to {
+    width: 100%;
+  }
+}
+.fa-whatsapp {
+  color: green!important
+}
+a .whatsapptext {
+  text-decoration: underline!important;
+  color: green!important
 }

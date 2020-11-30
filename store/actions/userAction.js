@@ -9,6 +9,26 @@ export const setCurrentUser = userData => ({
   payload: userData,
 });
 
+export const dateLoading = () => ({
+  type: "DATE_LOADING"
+})
+
+export const dateFailed = errmess => ({
+  type: 'DATE_FAILED',
+  payload: errmess,
+});
+
+
+export const statusSuccess = status => ({
+  type: 'STATUS_SUCCESS',
+  payload: status,
+});
+
+export const historySuccess = history => ({
+  type: 'HISTORY_SUCCESS',
+  payload: history,
+});
+
 
 export const logoutUser = () => ({
   type: 'LOGOUT_USER',
@@ -55,7 +75,6 @@ export const loginUser = (values) => dispatch => {
 
 export const fetchCurrentUser = () => dispatch => {
   dispatch(authenticatingUser());
-
   fetch("https://api.money-men.kz/api/getUserProfileFromBitrix", {
     method: 'GET',
     headers: {
@@ -80,6 +99,69 @@ export const fetchCurrentUser = () => dispatch => {
   })
   .catch((error) => {
     cookie.remove('token')
+    console.log(error.message || 'Error')
+  })
+}
+
+export const fetchUserStatus = () => dispatch => {
+  dispatch(dateLoading(true));
+  fetch("https://api.money-men.kz/api/getUserInfo", {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${cookie.get('token')}`,
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      return response;
+    }
+    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+    error.response = response;
+    throw error;
+  },
+    error => {
+      const errmess = new Error(error.message);
+      throw errmess;
+    })
+  .then(response => response.json())
+  .then(data => {
+    dispatch(statusSuccess(data))
+  })
+  .catch((error) => {
+    cookie.remove('token')
+    dispatch(dateFailed(error.message))
+    console.log(error.message || 'Error')
+  })
+}
+
+
+export const fetchUserHistory = () => dispatch => {
+  dispatch(dateLoading(true));
+  fetch("https://api.money-men.kz/api/history", {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${cookie.get('token')}`,
+    },
+  })
+  .then(response => {
+    if (response.ok) {
+      return response;
+    }
+    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+    error.response = response;
+    throw error;
+  },
+    error => {
+      const errmess = new Error(error.message);
+      throw errmess;
+    })
+  .then(response => response.json())
+  .then(data => {
+    dispatch(historySuccess(data))
+  })
+  .catch((error) => {
+    cookie.remove('token')
+    dispatch(dateFailed(error.message))
     console.log(error.message || 'Error')
   })
 }

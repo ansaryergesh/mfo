@@ -37,9 +37,10 @@ class MyApp extends App {
   render() {
       //pageProps that were returned  from 'getInitialProps' are stored in the props i.e. pageprops
       const {Component, pageProps} = this.props;
-
+      const isGetMoney = () => Component.name==='FormStep'
       return (
           <Provider store={store}>
+            {!isGetMoney() &&  <a href="https://api.whatsapp.com/send?phone=+77015382439" target="_blank"><img className="imgwhatsapp" src={require("../img/svg/whatsapp.svg")} alt="" /></a>}
             <Navbar/>
             <Component {...pageProps}/>
             <Footer/>

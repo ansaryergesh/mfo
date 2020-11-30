@@ -179,8 +179,8 @@ class SecondStep extends React.Component {
                 model='.marital_status'
                 show='touched'
                 messages={{
-                required: 'Выберите один из вариантов'
-              }}/>
+                  required: 'Выберите один из вариантов'
+                }}/>
             </div>
             <div className="col-md-6 mb-3">
               <Label htmlFor="child_amount">Количество детей* :</Label>
@@ -209,7 +209,9 @@ class SecondStep extends React.Component {
             </div>
             <div className="col-md-6 mb-3">
               <Label htmlFor="education">Образование* :</Label>
-              <Control.select model=".education" name="education" className="form-control">
+              <Control.select model=".education" name="education" className="form-control"  validators={{
+                required
+              }}>
                 <option value=""></option>
                 <option value="Без образования">Без образования</option>
                 <option value="Среднее">Среднее</option>
@@ -220,8 +222,8 @@ class SecondStep extends React.Component {
                 model='.education'
                 show='touched'
                 messages={{
-                required: 'Выберите один из вариантов'
-              }}/>
+                  required: 'Выберите один из вариантов'
+                }}/>
             </div>
             <div className="col-md-6 mb-3">
               <Label>Город/Область* :</Label>
