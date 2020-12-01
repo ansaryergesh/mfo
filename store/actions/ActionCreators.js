@@ -186,6 +186,7 @@ export const addLink = link => ({
 export const postRegistrationThird = (registration) => (dispatch) => {
     dispatch(isLoading(true));
     registration.card_number = replaceDate(registration.card_number);
+    console.log(registration)
     return fetch(`https://api.money-men.kz/api/last_step`,{
         method: 'POST',
         body: JSON.stringify(registration),

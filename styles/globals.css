@@ -2742,7 +2742,7 @@ table td.r, table th.r {
 }
  
 .imgwhatsapp {
-  height: calc(30px + (40 - 30) * ((100vw - 320px) / (1600 - 320)));
+  height: calc(35px + (40 - 35) * ((100vw - 320px) / (1600 - 320)));
   position: fixed;
   bottom:3%;
   right: 2%;

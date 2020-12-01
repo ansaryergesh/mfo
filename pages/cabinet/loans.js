@@ -50,8 +50,6 @@ class Cabinet extends React.Component {
           swal("Oops!", `${response.data.message || "Заполнение анкета не завершена. свяжитесь с нами по телефону +7 700 750 15 00"} `, "error");
         } else {
           console.log(response)
-          // swal("Oops!", `${response.data.message}`, "error");
-          // this.setState({btnLoading: false})
         }
       })
   }
@@ -83,9 +81,12 @@ class Cabinet extends React.Component {
           !</p>
         {this.props.userStatus.userStatus.success === false
           ? (
-            <div className="repeatBtn form-group">
-              <button className='mt-3' onClick={() => this.handleRepeated()}>Повторный займ</button>
+            <div>
+              <div className="repeatBtn form-group">
+              <button className='mt-5' onClick={() => this.handleRepeated()}>Повторный займ</button>
             </div>
+            </div>
+            
           )
           : (
             <div></div>
