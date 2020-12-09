@@ -8,6 +8,7 @@ import {Formik, Form, ErrorMessage, FieldArray, Field} from 'formik';
 import Link from 'next/link'
 import { connect } from 'react-redux';
 import {loginUser,fetchCurrentUser} from '../store/actions/userAction'
+import {emptyMessage} from '../store/actions/ActionCreators'
 import Router from 'next/router'
 import {iin, required} from '../defaults/validationredux'
 import Head from 'next/head'
@@ -39,6 +40,10 @@ class Login extends React.Component {
     if(cookie.get('token') && !this.props.loggedIn) {
       Router.push('/')
     }
+
+    setTimeout(() => {
+      this.props.emptyMessage()
+    },8000)
   }
   constructor(props) {
     super(props);
@@ -98,6 +103,7 @@ class Login extends React.Component {
                   <Form className="oplataform">
 
                 <h2 className="text-center mb-5">Войти в личный кабинет</h2>
+                {this.props.successMessage !== null ?(<div className='alert alert-success'>{this.props.successMessage}. Пожалуйста, проверьте вашу почту</div>):(<div></div>)}
                      {(this.props.failedLogin && this.props.error !== null) || this.state.errorMessage!== null ?
                       <div className="alert alert-danger" role="alert">
                         <strong> {this.state.errorMessage || this.props.error}</strong>
@@ -158,11 +164,15 @@ const mapStateToProps = ({
   userReducer: {
     authenticatingUser, failedLogin, error, loggedIn,
   },
+  message: {
+    success
+  }
 }) => ({
   authenticatingUser,
   failedLogin,
   error,
   loggedIn,
+  successMessage: success,
 });
 
-export default connect(mapStateToProps, { loginUser,fetchCurrentUser })(Login);
+export default connect(mapStateToProps, { loginUser,fetchCurrentUser, emptyMessage })(Login);

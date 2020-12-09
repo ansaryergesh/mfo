@@ -398,7 +398,7 @@ input::-ms-track {
   padding: 4px 5px;
   font-weight: bold;
   border-radius: 15px;
-  font-size: 10px;
+  font-size: 14px;
   transform: translateY(5px);
 }
 
@@ -684,6 +684,25 @@ button {
   font-size: "CTCSplachRounded" !important;
   letter-spacing: 0.08px;
   display: none !important;
+}
+.phoneInfo {
+  color: #ef2121da!important;
+  text-align: center;
+  font-size: calc(8.5px + (9.2 - 8.5) * ((100vw - 320px) / (768 - 320))) !important;
+  display: block;
+  line-height: .2px;
+}
+.mobphonenotworking {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  /* border: .2px solid #ef212123; */
+  border-radius: 5px;
+  /* animation: phoneErrorPulse 4s infinite; */
+}
+.phonenotworking {
+  display: flex;
+  flex-direction: column;
 }
 
 .phone-numbers a {
@@ -2776,6 +2795,33 @@ table td.r, table th.r {
       box-shadow: 0 0 0 0 rgba(204,169,44, 0);
   }
 }
+
+@-webkit-keyframes phoneErrorPulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(134, 10, 10, 0.205);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 3px rgba(204,169,44, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+@keyframes phoneErrorPulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(44, 9, 9, 0.26);
+    box-shadow: 0 0 0 0 rgba(105, 10, 10, 0.24);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 3px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 3px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+
 
 @keyframes loading {
   from {

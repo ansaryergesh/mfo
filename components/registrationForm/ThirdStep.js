@@ -66,7 +66,6 @@ class FormRegister extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCheck = this.handleCheck.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
-    this.handleTest = this.handleTest.bind(this);
   }
 
   toggleModal() {
@@ -94,10 +93,6 @@ class FormRegister extends React.Component {
     });
   }
 
-  handleTest = (hist) => {
-    hist.push('/thanks')
-  }
-
   handleSubmit(values) {
     console.log(values);
     var other = {};
@@ -112,7 +107,7 @@ class FormRegister extends React.Component {
         other.cpa_source = cookie.get('utm_source')
         other.cpa_clickid = cookie.get('afclick')
       }
-      if(cookie.get('utm_source') === 'upsala' || cookie.get('utm_source') === 'leadgid' || cookie.get('utm_source')=== 'doaff'){
+      if(cookie.get('utm_source') === 'upsala' || cookie.get('utm_source') === 'leadgid' || cookie.get('utm_source')=== 'doaff' || cookie.get('utm_source') === 'goodaff'){
         other.source = cookie.get('utm_source')
         other.cpa_source = cookie.get('utm_source')
         other.cpa_clickid = cookie.get('clickid')

@@ -89,7 +89,7 @@ componentDidMount() {
         <div className="animated-icon1"><span /><span /><span /></div>
       </button>
       <ul className="phone-numbers">
-        <li><i className="fa fa-phone" /><h1><a href="tel:+77272501500">+7 727 <b className="black">250 15 00</b></a></h1></li>
+        <li className='phonenotworking'><h1><i className="fa fa-phone" /><a href="tel:+77272501500">+7 727 <b className="black">250 15 00</b></a></h1><b className='phoneInfo'></b></li>
         <li><i className="fa fa-phone" /><h1><a href="tel:+77007501500">+7 700 <b className="black">750 15 00</b></a></h1></li>
       </ul>
       <Collapse navbar isOpen={this.state.isNavOpen} className="text-center justify-content-end" id="navigationBar">
@@ -131,11 +131,12 @@ componentDidMount() {
             </Fragment>)}
 
             <div className='mobphones mt-2'>
-            <li className="nav-item mx-1" onClick={this.toggleClose} >
+            <li className="nav-item mx-1 mobphonenotworking" onClick={this.toggleClose} >
             <a href='tel:+77272501500' className='nav-link mainnavphone'><i className="fa fa-phone" /> +77272501500</a>
+            {/* <b className='phoneInfo'>Этот номер временно не работает</b> */}
           </li>
           <li className="nav-item mx-1" onClick={this.toggleClose} >
-            <a href='tel:+77272501500' className='nav-link mainnavphone'><i className="fa fa-phone" /> +77007501500</a>
+            <a href='tel:+77007501500' className='nav-link mainnavphone'><i className="fa fa-phone" /> +77007501500</a>
           </li>
             </div>
 

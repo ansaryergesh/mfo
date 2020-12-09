@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { connect } from 'react-redux';
 import Link from 'next/link'
 import {changingMoney, changingDay} from '../../store/actions/ActionCreators';
-var scrollToElement = require('scroll-to-element');
 import cookie from 'js-cookie';
 import axios from 'axios'
 import Router from 'next/router'

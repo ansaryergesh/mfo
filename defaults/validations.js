@@ -370,7 +370,7 @@ export const givenDateCardId = (val) => {
 	if(myY>todayY) {
 		return false;
 	}
-	if(myY < todayY-11) {
+	if(myY < todayY-25) {
 		return false;
 	}
 	if(myY === todayY) {

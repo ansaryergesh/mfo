@@ -4,13 +4,21 @@ import Spinner from 'react-spinner-material';
 // import {validEmail, requiredd, iinValidation} from '../../defaults/validations';
 import axios from 'axios'
 import {Formik, Form, ErrorMessage, FieldArray, Field} from 'formik';
+import { connect } from 'react-redux';
 import Link from 'next/link'
 import  {validEmail,required} from '../defaults/validationredux'
+import {successMessage, emptyMessage} from '../store/actions/ActionCreators'
+import Router from 'next/router'
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
   </Link>
 
+
+const mapDispatchToProps = (dispatch) => ({
+  successMessage: message => { dispatch(successMessage(message)); },
+  emptyMessage: () => {dispatch(emptyMessage())}
+})
 
 class Login extends React.Component {
   constructor(props) {
@@ -42,9 +50,10 @@ class Login extends React.Component {
       console.log(response)
       this.setState({
         btnLoading: false,
-        message: response.data.message
+        // message: response.data.message
       })
-
+      Router.push('/login')
+      this.props.successMessage(response.data.message)
     })
     .catch((error) => {
       this.setState({
@@ -116,4 +125,4 @@ class Login extends React.Component {
     }
   }
 
-export default Login
+  export default (connect(null,mapDispatchToProps)(Login));

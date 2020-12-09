@@ -17,8 +17,7 @@ const AppLink = ({children, className, href}) =>
 
 class Home extends React.Component {
   state = {
-    collapse: "",
-    mainMessage: true
+    collapse: ""
   }
 
   toggleCollapse = id => () => {
@@ -29,12 +28,6 @@ class Home extends React.Component {
     } else if (this.state.collapse === id) {
         this.setState({ collapse: false })
     }
-  }
-
-  mainMessageClose = () => {
-    this.setState({
-      mainMessage:false
-    })
   }
 
   testfunc = () => {
@@ -53,10 +46,6 @@ class Home extends React.Component {
     });
   }
   componentDidMount() {
-    setTimeout(() => {
-      this.mainMessageClose()
-    },5000)
-
     controlUtm()
   }
   render() {

@@ -9,6 +9,6 @@ const initialState = {
 }
 
 
-const store  = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk,logger)));
+const store  = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk, logger)));
 
 export default store;
