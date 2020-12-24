@@ -1,7 +1,6 @@
 import cookie from 'js-cookie';
 import Router from 'next/router';
 
-
 export const authenticatingUser = () => ({ type: 'AUTHENTICATING_USER' });
 
 export const setCurrentUser = userData => ({
@@ -18,7 +17,6 @@ export const dateFailed = errmess => ({
   payload: errmess,
 });
 
-
 export const statusSuccess = status => ({
   type: 'STATUS_SUCCESS',
   payload: status,
@@ -28,7 +26,6 @@ export const historySuccess = history => ({
   type: 'HISTORY_SUCCESS',
   payload: history,
 });
-
 
 export const logoutUser = () => ({
   type: 'LOGOUT_USER',
@@ -129,7 +126,7 @@ export const fetchUserStatus = () => dispatch => {
   })
   .catch((error) => {
     cookie.remove('token')
-    dispatch(dateFailed(error.message))
+    dispatch(dateFailed(error.message || 'Данные верны. '))
     console.log(error.message || 'Error')
   })
 }

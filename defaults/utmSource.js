@@ -97,5 +97,47 @@ export const controlUtm = () => {
       newCookie()
       cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 1})
     }
-  } else {}
+  }
+  if (getUrlParameter('utm_source').length > 0 
+    && getUrlParameter('utm_medium').length > 0 
+    && getUrlParameter('utm_campaign').length > 0
+    && getUrlParameter('utm_term').length > 0) {
+    newCookie()
+    localStorage.clear();
+    cookie.set('clickid', 'notexist', {expires: 30})
+    cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 30})
+    cookie.set('utm_medium', getUrlParameter('utm_medium'), {expires: 30})
+    cookie.set('utm_campaign', getUrlParameter('utm_campaign'), {expires: 30})
+    cookie.set('utm_term', getUrlParameter('utm_term'), {expires: 30})
+  }
+
+  if(getUrlParameter('_branch_match_id').length>0 && getUrlParameter('utm_medium').length>0) {
+    newCookie();
+    localStorage.clear();
+    cookie.set('utm_source', getUrlParameter('utm_medium'), {expires: 30})
+    cookie.set('utm_medium', getUrlParameter('utm_medium'), {expires: 30})
+    cookie.set('utm_campaign', getUrlParameter('utm_medium'), {expires: 30})
+    cookie.set('utm_term', getUrlParameter('utm_medium'), {expires: 30})
+    cookie.set('clickid', getUrlParameter('_branch_match_id'), {expires: 30})
+  }
+  if(getUrlParameter('utm_source').length>0 && getUrlParameter('cid').length>0 && getUrlParameter('user').length>0) {
+    if(getUrlParameter('utm_source') === 'click2money') {
+      newCookie();
+      localStorage.clear();
+      cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 30})
+      cookie.set('clickid', getUrlParameter('cid'), {expires: 30})
+      cookie.set('wmid', getUrlParameter('user'), {expires: 30})
+    }
+  }
+  if(getUrlParameter('utm_campaign').length>0 && getUrlParameter('clickid').length>0 && getUrlParameter('wm_id').length>0) {
+    if(getUrlParameter('utm_campaign') === 'guruleads') {
+      newCookie()
+      localStorage.clear();
+      cookie.set('utm_source', getUrlParameter('utm_campaign'), {expires: 30})
+      cookie.set('clickid', getUrlParameter('clickid'), {expires: 30})
+      cookie.set('wmid', getUrlParameter('wm_id'), {expires: 30})
+    }
+  }
+  
+  else {}
 }

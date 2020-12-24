@@ -23,9 +23,9 @@ class Status extends React.Component {
                     <th>
                       Дата выдачи 📅
                     </th>
-                    <th>
+                    {/* <th>
                       Сумма на руки 💰
-                    </th>
+                    </th> */}
                     <th>
                       Дата окончания льготного периода 📅
                     </th>
@@ -38,7 +38,7 @@ class Status extends React.Component {
                 <tbody>
                   <tr>
                     <td>{this.props.userStatus.userStatus.givenDate}</td>
-                    <td>{this.props.userStatus.userStatus.amount}</td>
+                    {/* <td>{this.props.userStatus.userStatus.amount}</td> */}
                     <td>{this.props.userStatus.userStatus.lp}</td>
                     <td>{this.props.userStatus.userStatus.mainAmount}</td>
                     <td>{this.props.userStatus.userStatus.lpAmount}</td>
@@ -66,9 +66,9 @@ class Status extends React.Component {
                     <th>
                       Дата выдачи 📅
                     </th>
-                    <th>
+                    {/* <th>
                       Сумма на руки 💰
-                    </th>
+                    </th> */}
 
                     <th>Основной долг 💸</th>
                     <th>Сумма задолженности на текущую дату</th>
@@ -78,7 +78,7 @@ class Status extends React.Component {
                 <tbody>
                   <tr>
                     <td>{this.props.userStatus.userStatus.givenDate}</td>
-                    <td>{this.props.userStatus.userStatus.amount}</td>
+                    {/* <td>{this.props.userStatus.userStatus.amount}</td> */}
                     <td>{this.props.userStatus.userStatus.mainAmount}</td>
                     <td>{this.props.userStatus.userStatus.todayAmount}</td>
                     <td>{this.props.userStatus.userStatus.endDate}</td>

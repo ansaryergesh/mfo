@@ -4,6 +4,7 @@ import 'font-awesome/css/font-awesome.css';
 import Navbar from '../components/shared/Nav'
 import Footer from '../components/shared/Footer'
 import ScrollToTop from '../components/shared/ScrollToTop'
+import MessageInfo from '../components/shared/MessageInfo'
 import MainComponent from '../components/MainComponent'
 import { Provider } from 'react-redux'
 import React, {Fragment} from 'react'
@@ -15,16 +16,7 @@ import App from 'next/app';
 import Head from 'next/head'
 
 class MyApp extends App {
-  state = {
-    mainMessage: true
-  }
 
-  
-  mainMessageClose = () => {
-    this.setState({
-      mainMessage:false
-    })
-  }
 
   componentDidMount() {
     var hours = 1.2;
@@ -39,21 +31,13 @@ class MyApp extends App {
       }
     }
 
-    setTimeout(() => {
-      this.mainMessageClose()
-    },5000)
   }
   render() {
       const {Component, pageProps} = this.props;
       const isGetMoney = () => Component.name==='FormStep'
       return (
           <Provider store={store}>
-            {/* <Modal isOpen={this.state.mainMessage} toggle={this.mainMessageClose} size="md">
-            <ModalHeader>Просим прощения за доставленные неудобства</ModalHeader>
-            <ModalBody>
-              По техническим причинам городской номер не доступен. Просим обращаться через Whatsapp или на адрес электронной почты info@i-credit.kz
-            </ModalBody>
-            </Modal> */}
+             {/* <MessageInfo /> */}
             {!isGetMoney() &&  <a href="https://api.whatsapp.com/send?phone=+77015382439" target="_blank"><img className="imgwhatsapp" src={require("../img/svg/whatsapp.svg")} alt="" /></a>}
             <Navbar/>
             <Component {...pageProps}/>

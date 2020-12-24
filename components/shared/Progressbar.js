@@ -70,7 +70,7 @@ class ProgressBar extends Component {
           UF8:values.UF_8 ,
           UF9:values.UF_9 ,
           UF10:values.UF_10 ,
-          UF11:values.UF_11 ,
+          UF11:values.UF_11 || "123456" ,
           UF12:values.UF_12 ,
           UF13:values.UF_13 ,
           UF16:values.UF_16 ,
@@ -124,7 +124,7 @@ class ProgressBar extends Component {
             });
             }
             else {
-              swal("Oops!", `${response.errors}`, "error");
+              swal("Oops!", `${response.errors || 'У вас анкета заполнена не до конца. Напишите на WhatsApp или звоните на номер +7 727 250 15 00'}`, "error");
             }
           })
           .catch(error => {

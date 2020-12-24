@@ -2663,22 +2663,22 @@ table td.r, table th.r {
    .lperiod tr td:nth-child(1):before {
     content: "Дата выдачи 📅"
   }
-   .lperiod tr td:nth-child(2):before {
+   /* .lperiod tr td:nth-child(2):before {
     content: "Сумма на руки 💰"
-  }
-   .lperiod tr td:nth-child(3):before {
+  } */
+   .lperiod tr td:nth-child(2):before {
     content: "Дата окончания льготного периода 📅"
   }
-   .lperiod tr td:nth-child(4):before {
+   .lperiod tr td:nth-child(3):before {
     content: "Основной долг 💸"
   }
-   .lperiod tr td:nth-child(5):before {
+   .lperiod tr td:nth-child(4):before {
     content: "Cумма погашения льготный период 💸"
   }
-   .lperiod tr td:nth-child(6):before {
+   .lperiod tr td:nth-child(5):before {
     content: "Сумма задолженности на текущую дату"
   }
-   .lperiod tr td:nth-child(7):before {
+   .lperiod tr td:nth-child(6):before {
     content: "Дата погашения 📅"
   }
 
@@ -2689,18 +2689,18 @@ table td.r, table th.r {
    .vdolge tr td:nth-child(1):before {
     content: "Дата выдачи 📅"
   }
-   .vdolge tr td:nth-child(2):before {
+   /* .vdolge tr td:nth-child(2):before {
     content: "Сумма на руки 💰"
-  }
+  } */
 
-   .vdolge tr td:nth-child(3):before {
+   .vdolge tr td:nth-child(2):before {
     content: "Основной долг 💸"
   }
 
-   .vdolge tr td:nth-child(4):before {
+   .vdolge tr td:nth-child(3):before {
     content: "Сумма задолженности на текущую дату"
   }
-   .vdolge tr td:nth-child(5):before {
+   .vdolge tr td:nth-child(4):before {
     content: "Дата погашения 📅"
   }
 
