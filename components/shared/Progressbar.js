@@ -53,7 +53,6 @@ class ProgressBar extends Component {
       async handleRepeatedZaim(values) {
         values.UF_2 = this.props.moneyVal;
         values.UF_3 = this.props.dayVal;
-        console.log(values)
 
         this.setState ({
           repeatedLoading: true
@@ -96,9 +95,9 @@ class ProgressBar extends Component {
           UF36:values.UF_36,
           UF37:values.UF_37,
           UF38:values.UF_38,
-          UF39:values.UF_39 == "0" ? 0 : values.UF_39.slice(1, -1),
-          UF40:values.UF_40 == "0" ? 0 : values.UF_40.slice(1, -1),
-          UF41:values.UF_41 == "0" ? 0 : values.UF_41.slice(1, -1),
+          UF39:values.UF_39 == "0" || values.UF_39 === null ? 0 :  values.UF_39.slice(1, -1) ,
+          UF40:values.UF_40 == "0" || values.UF_40 === null ? 0 :  values.UF_40.slice(1, -1),
+          UF41:values.UF_41 == "0" || values.UF_41 === null ? 0 :  values.UF_41.slice(1, -1),
           UF42:values.UF_42,
           UF43:values.UF_43,
           UF44:values.UF_44,

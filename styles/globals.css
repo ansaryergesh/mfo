@@ -2760,14 +2760,32 @@ table td.r, table th.r {
   animation: loading 0.8s infinite; 
 }
  
-.imgwhatsapp {
-  height: calc(35px + (40 - 35) * ((100vw - 320px) / (1600 - 320)));
+.chatBlock {
   position: fixed;
-  bottom:3%;
-  right: 2%;
-  animation: pulse 2s infinite;
-  border-radius: calc(8px + (15 - 8) * ((100vw - 320px) / (1600 - 320)));
+  bottom:9%;
+  right: 0%;
+  background-color: #f1e8e88f;
+  -webkit-box-shadow: 0px 2px 2.5px 0px rgb(7, 7, 7)!important;
+  -moz-box-shadow:    0px 2px 2.5px 0px rgb(0, 0, 0)!important;
+  box-shadow:         0px 2px 2.5px 0px rgb(0, 0, 0)!important;
+  border-radius: calc(22px + (25 - 22) * ((100vw - 320px) / (1600 - 320))) 0px 0px calc(22px + (30 - 22) * ((100vw - 320px) / (1600 - 320)));
   z-index: 11111111111;
+  animation: pulse 2.5s infinite;
+  display: flex;
+  flex-direction: column;
+  
+  padding: 8px 2px 8px 10px;
+ }
+.imgwhatsapp {
+  height: calc(30px + (32 - 30) * ((100vw - 320px) / (1600 - 320)));
+  /* position: fixed;
+  bottom:3%;
+  right: 2%; */
+  border: 50x solid rgb(197, 204, 223)!important; 
+  border-radius: 8px;
+  /* border-radius: calc(22px + (25 - 22) * ((100vw - 320px) / (1600 - 320))); */
+
+  cursor: pointer;
 }
 
 @-webkit-keyframes pulse {

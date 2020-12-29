@@ -38,7 +38,11 @@ class MyApp extends App {
       return (
           <Provider store={store}>
              {/* <MessageInfo /> */}
-            {!isGetMoney() &&  <a href="https://api.whatsapp.com/send?phone=+77015382439" target="_blank"><img className="imgwhatsapp" src={require("../img/svg/whatsapp.svg")} alt="" /></a>}
+             <div className="chatBlock">
+            <a href="https://t.me/icredit_kzbot" target="_blank">
+            <img className='imgwhatsapp mb-3' src={require("../img/svg/telegram.svg")}></img></a>
+            <a href="https://api.whatsapp.com/send?phone=+77015382439" target="_blank"><img className="imgwhatsapp" src={require("../img/svg/whatsapp.svg")} alt="" /></a>
+            </div>
             <Navbar/>
             <Component {...pageProps}/>
             <Footer/>

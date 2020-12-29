@@ -92,6 +92,8 @@ class Cabinet extends React.Component {
             <div></div>
           )}
 
+      
+
         {this.props.userStatus.isLoading
           ? (
             <div className='mt-5'>

@@ -69,6 +69,17 @@ class FormStep extends React.Component {
         loading: true
     }
     componentDidMount() {
+        $('input').on('focus',function(){
+
+            var prev = $(this).offset().top;
+            var inputHeight = prev-210
+            // var inputHeight=prev.offset().top
+            if(window.innerWidth<=768) {
+                $("html, body").animate({ scrollTop: inputHeight}, 300);
+                return false;
+            }
+         });
+
         if(localStorage.getItem('step')) {
             this.setState({
                 registrationStep: localStorage.getItem('step')

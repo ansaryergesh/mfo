@@ -103,6 +103,19 @@ class SecondStep extends React.Component {
   }
 
   componentDidMount() {
+    
+
+    $('input').on('focus',function(){
+
+      var prev = $(this).offset().top;
+      var inputHeight = prev-210
+      // var inputHeight=prev.offset().top
+      if(window.innerWidth<=768) {
+          $("html, body").animate({ scrollTop: inputHeight}, 300);
+          return false;
+      }
+    });
+
     const progress = document.querySelector('.progress-done');
 
     progress.style.width = progress.getAttribute('data-done') + '%';

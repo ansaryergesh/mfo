@@ -60,6 +60,7 @@ export const postRegistration = (registration) => (dispatch) => {
     dispatch(isLoading(true));
     registration.phone = replaceDate(registration.phone);
     registration.last_name = registration.last_name || "Нет"
+    
     return fetch(`https://api.money-men.kz/api/registration_step_one`,{
         method: 'POST',
         body: JSON.stringify(registration),

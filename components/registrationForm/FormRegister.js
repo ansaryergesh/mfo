@@ -339,6 +339,7 @@ class FormRegister extends React.Component {
                 <div className="input-group">
                   <Field
                     name='iin'
+                    type='tel'
                     className='form-control'
                     validate={iinValidation}
 
@@ -361,6 +362,7 @@ class FormRegister extends React.Component {
                 <div className="input-group">
                   <Field
                     name='phone'
+                    type='tel'
                     className='form-control'
                     validate={phoneValidation}
                     component = {PhoneMask}

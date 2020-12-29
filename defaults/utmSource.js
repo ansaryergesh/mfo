@@ -138,6 +138,13 @@ export const controlUtm = () => {
       cookie.set('wmid', getUrlParameter('wm_id'), {expires: 30})
     }
   }
+  if(getUrlParameter('utm_source').length>0 && getUrlParameter('utm_campaign').length>0 && getUrlParameter('utm_medium').length>0){
+    if(getUrlParameter('utm_source').includes('risk')) {
+      newCookie();
+      localStorage.clear();
+      cookie.set('utm_source', getUrlParameter('utm_source'), {expires:30})
+    }
+  }
   
   else {}
 }
