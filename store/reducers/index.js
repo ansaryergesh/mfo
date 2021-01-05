@@ -9,6 +9,8 @@ import {stepregistration} from './stepregistration'
 import userReducer from './userReducer'
 import {userStatus} from './userStatus'
 import {userHistory} from './userHistory'
+import {nonanswered} from './nonanswered'
+import {answered} from './answered'
 import {createForms} from 'react-redux-form'
 import {RegistrationStep1,RegistrationStep2} from './registrationStep1'
 export default combineReducers ({
@@ -20,6 +22,8 @@ export default combineReducers ({
   stepregistration: stepregistration,
   regionsReducer: regionsReducer,
   userHistory: userHistory,
+  nonanswered: nonanswered,
+  answered: answered,
   userStatus: userStatus,
   loading: loading,
   ...createForms({registration: RegistrationStep1, codeConfirm: "", registration2: RegistrationStep2,

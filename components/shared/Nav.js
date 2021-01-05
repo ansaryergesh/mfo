@@ -4,6 +4,7 @@ import $ from 'jquery'
 import cookie from 'js-cookie';
 import React, { Fragment } from 'react';
 import Router from 'next/router'
+import axios from 'axios'
 const isLogged = () => {
   var bollean = false
   if(cookie.get('token')) {
@@ -11,6 +12,12 @@ const isLogged = () => {
   }
   return bollean
 }
+
+const logoutAxios = axios.create({
+  baseURL: 'https://api.money-men.kz/api/',
+  timeout: 1000,
+  headers: {'Authorization': 'Bearer '+cookie.get('token')}
+})
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
@@ -45,6 +52,7 @@ toggleLogOut() {
     loader: true
   });
   cookie.remove('token')
+
   setTimeout(() => {
   Router.push('/login')
   this.setState({

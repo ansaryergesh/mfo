@@ -159,8 +159,8 @@ class ProgressBar extends Component {
         }
 
         const vozvrat = Math.round(Math.floor(this.props.moneyVal*(1+(this.props.dayVal/100)*2)/100)*100);
-
-        const osnovnoiDolg = Math.round(Math.floor((this.props.moneyVal*1.15)/100)*100);
+        const osnovnoiDolg = parseInt(this.props.moneyVal,10)+parseInt(this.props.moneyVal*this.props.dayVal/100,10)/100*100;
+        // const osnovnoiDolg = Math.round(Math.floor((this.props.moneyVal*1.15)/100)*100);
         const strahovanie = osnovnoiDolg- this.props.moneyVal;
         const voznograzhdenie = osnovnoiDolg - this.props.moneyVal;
         return (

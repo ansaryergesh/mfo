@@ -4,7 +4,6 @@ import {changingMoney, changingDay, postRegistration} from '../../store/actions/
 import {Modal, ModalHeader, ModalBody, Label, Row} from 'reactstrap';
 import { Formik, Form,  Field  } from 'formik';
 import InputMask from "react-input-mask";
-import MaskedInput from 'react-text-mask';
 import ProgressBar from '../shared/Progressbar';
 import swal from "sweetalert";
 import {
@@ -25,8 +24,6 @@ import {
 import Spinner from 'react-spinner-material';
 import disableScroll from 'disable-scroll';
 import $ from 'jquery';
-const maskIin = [/\d/,/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,/\d/,/\d/,/\d/,];
-const maskPhone = [+7,'(',]
 
 var scrollToElement = require('scroll-to-element');
 const mapStateToProps = state => {
@@ -60,6 +57,13 @@ const PhoneMask = ({ field, form, ...props }) => <InputMask
   className="my-input"
   {...field}
   {...props}/>;
+const IinMask = ({ field, form, ...props}) => <InputMask 
+  mask="999999999999"
+  maskChar= " "
+  className="my-input"
+  {...field}
+  {...props} />
+
 class FormRegister extends React.Component {
   constructor(props) {
     super(props);
@@ -342,16 +346,8 @@ class FormRegister extends React.Component {
                     type='tel'
                     className='form-control'
                     validate={iinValidation}
-
-                    render={({ field }) => (
-                      <MaskedInput
-                        {...field}
-                        mask={maskIin}
-                        id="iin"
-                        placeholder="Вводить сюда"
-                        className='form-control'
-                      />
-                    )}
+                    component = {IinMask}
+                    placeholder = 'Введите сюда'
                   />
                 </div>
                 {errors.iin && touched.iin && <div className='text-danger'>{errors.iin}</div>}

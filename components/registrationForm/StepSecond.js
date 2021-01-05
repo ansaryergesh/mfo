@@ -416,6 +416,7 @@ class SecondStep extends React.Component {
                   placeholder="+7(705)000-00-00"
                   model=".relative_phone_number"
                   name="relative_phone_number"
+                  type='tel'
                   component={PhoneMask}
                   validators={{
                   phoneCheck
@@ -510,7 +511,9 @@ class SecondStep extends React.Component {
                   placeholder="+7(705)000-00-00"
                   model=".additional_contact_phone"
                   name="additional_contact_phone"
+                  type='tel'
                   component={PhoneMask}
+
                   validators={{
                   phoneCheck
                 }}/>

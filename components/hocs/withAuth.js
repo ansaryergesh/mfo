@@ -1,7 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import Router from 'next/router'
-import { Redirect } from 'react-router';
 import * as actions from '../../store/actions/userAction'
 import cookie from 'js-cookie';
 const withAuth = WrappedComponent => {

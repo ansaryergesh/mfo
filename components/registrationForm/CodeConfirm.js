@@ -92,7 +92,7 @@ class CodeConfirm extends React.Component {
                 </div> */}
                 <Row className="form-group col-12 mx-auto">
                     <label htmlFor="code" className="text-center mt-3">Код:</label>
-                    <Control className="form-control" placeholder="____" model=".code" component={CodeMask} validators={{codeConfirmation}}/>
+                    <Control className="form-control" placeholder="____" model=".code" type='tel' component={CodeMask} validators={{codeConfirmation}}/>
                     <Errors className='text-danger' model='.code' show='touched'
                                         messages={{
 											codeConfirmation: 'Заполните поля код',
