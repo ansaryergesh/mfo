@@ -15,7 +15,7 @@ export const msgSuccess = msgs => ({
 
 export const fetchNonAnsweredMsg = () =>dispatch=> {
     dispatch(msgLoading(true));
-    axios.get('http://localhost:8000/api/nonanswered')
+    axios.get('https://api.money-men.kz/api/nonanswered')
     .then(response=> {
         dispatch(msgSuccess(response.data))
         console.log(response.data)
@@ -24,7 +24,7 @@ export const fetchNonAnsweredMsg = () =>dispatch=> {
 
 export const fetchAnsweredMsg = () => dispatch=> {
     dispatch(msgLoading(true));
-    axios.get('http://localhost:8000/api/answered')
+    axios.get('https://api.money-men.kz/api/answered')
     .then(response=> {
         dispatch(msgSuccess(response.data))
     })

@@ -868,7 +868,9 @@ button {
   -moz-box-shadow: 12px 108px 59px -22px rgba(0, 0, 0, 0.3);
   box-shadow: 12px 108px 59px -22px rgba(0, 0, 0, 0.3);
 }
-
+.tgmsg {
+  white-space: pre-line;
+}
 .repeatBtn button {
   color: white;
   background-color: #ef2221;
@@ -2776,6 +2778,11 @@ table td.r, table th.r {
   
   padding: 8px 2px 8px 10px;
  }
+ .tlgmsg {
+   position: absolute;
+   top:0;
+   z-index: 1;
+ }
 .imgwhatsapp {
   height: calc(30px + (32 - 30) * ((100vw - 320px) / (1600 - 320)));
   /* position: fixed;
@@ -2814,6 +2821,10 @@ table td.r, table th.r {
   }
 }
 
+.tinydate {
+  font-size: 12px;
+  color: rgb(83, 81, 81)
+}
 @-webkit-keyframes phoneErrorPulse {
   0% {
     -webkit-box-shadow: 0 0 0 0 rgba(134, 10, 10, 0.205);

@@ -5,10 +5,10 @@ export const helloUser = () =>  {
   var greet;
 
   if (hrs < 12)
-      greet = '🌅  Доброе утро';
+      greet = 'Доброе утро';
   else if (hrs >= 12 && hrs <= 17)
-      greet = '🌞  Добрый день';
+      greet = 'Добрый день';
   else if (hrs >= 17 && hrs <= 24)
-      greet = '🌇  Добрый вечер';
+      greet = 'Добрый вечер';
   return greet
 }

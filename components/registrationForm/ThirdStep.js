@@ -107,7 +107,7 @@ class FormRegister extends React.Component {
         other.cpa_source = cookie.get('utm_source')
         other.cpa_clickid = cookie.get('afclick')
       }
-      if(cookie.get('utm_source') === 'upsala' || cookie.get('utm_source') === 'leadgid' || cookie.get('utm_source')=== 'doaff' || cookie.get('utm_source') === 'goodaff'){
+      if(cookie.get('utm_source') === 'upsala' || cookie.get('utm_source')=== 'doaff' || cookie.get('utm_source') === 'goodaff'){
         other.source = cookie.get('utm_source')
         other.cpa_source = cookie.get('utm_source')
         other.cpa_clickid = cookie.get('clickid')
@@ -115,6 +115,12 @@ class FormRegister extends React.Component {
       if(cookie.get('utm_source') === 'marketing') {
         other.source = cookie.get('utm_source')
         other.cpa_source = cookie.get('utm_source')
+        other.cpa_clickid = cookie.get('clickid')
+      }
+      if(cookie.get('utm_source') === 'leadgid') {
+        other.source = cookie.get('utm_source')
+        other.cpa_source = cookie.get('utm_source')
+        other.webID = cookie.get('wmid')
         other.cpa_clickid = cookie.get('clickid')
       }
       if(cookie.get('utm_source').includes('smartzaim')) {
@@ -137,6 +143,7 @@ class FormRegister extends React.Component {
         other.source = cookie.get('utm_source');
         other.cpa_source = cookie.get('utm_source');
         other.cpa_clickid= cookie.get('clickid');
+        other.webID = cookie.get('wmid');
       }
     }
 
@@ -145,7 +152,6 @@ class FormRegister extends React.Component {
       ...other,
       ...values
     }
-    console.log(finalObjects)
     this.props.postRegistrationThird(finalObjects);
   }
 
