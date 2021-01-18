@@ -102,20 +102,23 @@ export const iinValidation = (val) =>  {
 	var b1 = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ];
 	var b2 = [ 3, 4, 5, 6, 7, 8, 9, 10, 11, 1, 2 ];
 	var a = [];
-	var controll = 0;
-	for(var i=0; i<12; i++){
-		a[i] = parseInt(val.substring(i, i+1));
-		if(i<11) controll += a[i]*b1[i];
-	}
-	controll = controll % 11;
-	if(controll==10) {
-        controll = 0;
-        for(var i=0; i<11; i++)
-        controll += a[i]*b2[i];
+    var controll = 0;
+    if(val) {
+        for(var i=0; i<12; i++){
+            a[i] = parseInt(val.substring(i, i+1));
+            if(i<11) controll += a[i]*b1[i];
+        }
         controll = controll % 11;
+        if(controll==10) {
+            controll = 0;
+            for(var i=0; i<11; i++)
+            controll += a[i]*b2[i];
+            controll = controll % 11;
+        }
+        if(controll!=a[11]) error = 'Некорректный ИИН';
+        return error;
     }
-	if(controll!=a[11]) error = 'Некорректный ИИН';
-	return error;
+	
 }
 
 
@@ -155,7 +158,7 @@ export const phoneCheck = (val) => {
 
 
 export const phoneValidation = (val) => {
-    let error;
+    let error
     if(phoneCheck(val) === true) {
         error = ''
     }else {
@@ -561,9 +564,3 @@ export const validage = (iin) => {
     }
     return true;
 }
-
-
-
-
-var datecheck = '990702300060'
-console.log(datecheck[6])

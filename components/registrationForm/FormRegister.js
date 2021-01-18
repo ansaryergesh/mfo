@@ -25,6 +25,8 @@ import Spinner from 'react-spinner-material';
 import disableScroll from 'disable-scroll';
 import $ from 'jquery';
 
+
+
 var scrollToElement = require('scroll-to-element');
 const mapStateToProps = state => {
   return {
@@ -70,7 +72,35 @@ class FormRegister extends React.Component {
     this.state = {
       isModalOpen: false,
       checked: false,
-      phoneError: ""
+      phoneError: "",
+      firstreg:  [{
+        name: '',
+        middlename: '',
+        last_name: '',
+        iin: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+        phone: '',
+      }],
+      test: ''
+      
+      // const firstreg = () => {
+      //   if(localStorage.getItem('firstreg')) {
+      //     [{
+      //       name: '',
+      //       middlename: '',
+      //       last_name: '',
+      //       iin: '',
+      //       email: '',
+      //       password: '',
+      //       password_confirmation: '',
+      //       phone: '',
+      //    }]
+      //   }else {
+      //     return JSON.parse(localStorage.getItem('firstreg'))
+      //   }
+      // }
     };
     this.toggleModal = this
       .toggleModal
@@ -128,6 +158,7 @@ class FormRegister extends React.Component {
     var other = {};
     values.loan_amount = moneyval;
     values.period_in_days = dayval;
+    // localStorage.setItem("firstreg", JSON.stringify(values));
     values.major_loan_amount = Math.floor(parseInt(moneyval) * 1.15);
     values.grace_period_amount = Math.floor(parseInt(moneyval) * 1.15);
     values.loan_amount_for_max_days = Math.floor(Math.round(parseInt(moneyval) * (1 + (parseInt(dayval) / 100) * 2)) / 100 * 100);
@@ -160,6 +191,12 @@ class FormRegister extends React.Component {
   }
 
   componentDidMount() {
+    // this.userData = JSON.parse(localStorage.getItem('firstreg'));
+    // if(localStorage.getItem('firstreg')) {
+    //   this.setState({test: this.userData.name})
+    // }
+
+    // console.log(this.state.test)
     const progress = document.querySelector('.progress-done');
     progress.style.width = progress.getAttribute('data-done') + '%';
     progress.append(progress.getAttribute('data-done') + "%")
@@ -190,6 +227,7 @@ class FormRegister extends React.Component {
   render() {
     // const { history } = this.props;
     // const history = this.props.history
+    
     return (
       <div>
 
@@ -216,7 +254,7 @@ class FormRegister extends React.Component {
             insurance_amount: '',
             award_amount:  '',
             source: 'i-credit.kz',
-            name: '',
+            name:'',
             middlename: '',
             last_name: '',
             email: '',
@@ -226,8 +264,6 @@ class FormRegister extends React.Component {
             password_confirmation: '',
           }}
           onSubmit={values => {
-            // same shape as initial values
-            // console.log(values)
             this.handleSubmit(values)
           }}
         >

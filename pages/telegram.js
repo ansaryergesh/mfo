@@ -8,31 +8,31 @@ import {helloUser} from '../defaults/hello'
 import disableScroll from 'disable-scroll';
 import cookie from 'js-cookie'
 const mapStateToProps = state => {
-  return {nonanswered: state.nonanswered}
+  return {nonanswered: state.nonanswered, answered: state.answered}
 }
 
 const mapDispatchToProps = (dispatch) => ({
-    fetchAnsweredMsg: () => dispatch(fetchAnsweredMsg()),
-    fetchNonAnsweredMsg: () => dispatch(fetchNonAnsweredMsg()),
-  })
-  
+  fetchAnsweredMsg: () => dispatch(fetchAnsweredMsg()),
+  fetchNonAnsweredMsg: () => dispatch(fetchNonAnsweredMsg()),
+})
+ 
 class Telegram extends React.Component {
-    componentDidMount() {
-        this.props.fetchNonAnsweredMsg()
-    } 
+  componentDidMount() {
+    this.props.fetchNonAnsweredMsg();
+    this.props.fetchAnsweredMsg();
+  }
 
-    state = {
-        collapse: "",
-        message: '',
-        answer: '',
-        code: '',
-        loading: false,
-    }
-
-
-    
-    handleSubmit = (msgid, id) => {
-        const answerText = `
+  state = {
+    collapse: "",
+    message: '',
+    answer: '',
+    code: '',
+    loading: false,
+    answers: true,
+  }
+  
+  handleSubmit = (msgid, id) => {
+    const answerText = `
 ${helloUser()}!%0A
 ${this.state.answer.split('%0A')}%0A%0A
 С уважением I-credit.kz
@@ -52,6 +52,7 @@ ${this.state.answer.split('%0A')}%0A%0A
                                 this.setState({message: ''})
                             },1500)
                             this.props.fetchNonAnsweredMsg()
+                            this.props.fetchAnsweredMsg()
                         }
                     })
                     
@@ -66,25 +67,25 @@ ${this.state.answer.split('%0A')}%0A%0A
     }
 
     keypress(event, msgid, id) {
-        if(event.keyCode == 13 && event.shiftKey){
-            this.handleSubmit(msgid,id)
-        }
+      if(event.keyCode == 13 && event.shiftKey){
+        this.handleSubmit(msgid,id)
+      }
     }
 
     handleChange = (event) => {
-        // const value = event.target.value.replace(/[\r\n\v]+/g, "");
-        this.setState({ answer: event.target.value });
+      // const value = event.target.value.replace(/[\r\n\v]+/g, "");
+      this.setState({ answer: event.target.value });
     }
     handleCode = (event) => {
-        this.setState({code: event.target.value})
+      this.setState({code: event.target.value})
     }
     submitCode = () => {
-        if(this.state.code === 'admin123') {
-            cookie.set('botmsg','3917', {expires: 60})
-            location.reload();
-        }else {
-            alert('Ошибка кода')
-        }
+      if(this.state.code === 'admin123') {
+        cookie.set('botmsg','3917', {expires: 60})
+        location.reload();
+      }else {
+        alert('Ошибка кода')
+      }
     }
 
     toggleCollapse = id => () => {
@@ -95,6 +96,12 @@ ${this.state.answer.split('%0A')}%0A%0A
         } else if (this.state.collapse === id) {
             this.setState({ collapse: false })
         }
+    }
+
+    handleAnswered = () => {
+      this.setState(prev=>({
+          answers: !prev.answers
+      }))
     }
 
     render() {
@@ -111,11 +118,15 @@ ${this.state.answer.split('%0A')}%0A%0A
                 </div>
             )
         }
-        if (this.props.nonanswered.nonanswered.length === 0 && this.props.nonanswered.isLoading=== false) {
-            return (<div className='mb-5 container otherPages'><h4 className='mb-3 text-center'>Неотвеченные вопросы</h4>
-                <p className='text-center'>Нет вопросов</p>
-            </div>)
-        }
+        // if (this.props.nonanswered.nonanswered.length === 0 && this.props.nonanswered.isLoading=== false) {
+        //     return (<div className='mb-5 container otherPages'>
+        //          {this.state.answers ?  <button active className='btn btn-dark mb-3' onClick={() => this.handleAnswered()}>Получить неотвеченные</button> 
+                
+        //         :   <button active className='btn btn-dark mb-3 mr-3' onClick={() => this.handleAnswered()}>Получить отвеченные</button>}
+        //         <h4 className='mb-3 text-center'>Неотвеченные вопросы</h4>
+        //         <p className='text-center'>Нет вопросов</p>
+        //     </div>)
+        // }
         if(this.props.nonanswered.isLoading) {
             return (
                 <div className='container  otherPages text-center'>
@@ -123,9 +134,42 @@ ${this.state.answer.split('%0A')}%0A%0A
                 </div>
             )
         }
+        if(!this.state.answers && !this.props.answered.isLoading) {
+            return (
+              <div className='container otherPages'>
+                {this.state.answers ?  <button active className='btn btn-dark mb-3' onClick={() => this.handleAnswered()}>Получить отвеченные</button> 
+                
+                :   <button active className='btn btn-dark mb-3 mr-3' onClick={() => this.handleAnswered()}>Получить неотвеченные</button>}
+                {this.state.message.length>0 ? <div className='tlgmsg alert alert-info'>{this.state.message}</div>: <div></div>}
+                <h4 className='mb-3 text-center'>Отвеченные вопросы за неделью ({this.props.answered.answered.length})</h4>
+               <div className='row'>
+                 {this.props.answered.answered.map(elem=>(
+                     <div className='col-md-4' >
+                         <div className='card mt-2 answeredCard' key={elem.id}>
+                            <div className='card-body'>
+                            <p className='tinydate'>Задано: {new Intl.DateTimeFormat('ru', { year: 'numeric', month: 'short', day: '2-digit', hour:'numeric', minute:'numeric' }).format(new Date(Date.parse(elem.created_at)))}</p>
+                            <p className='tinydate'>Отвечено: {new Intl.DateTimeFormat('ru', { year: 'numeric', month: 'short', day: '2-digit', hour:'numeric', minute:'numeric' }).format(new Date(Date.parse(elem.updated_at)))}</p>
+                                <p className='card-text'>
+                                    Имя: {elem.name} <br></br>ИИН: {elem.iin}
+                                </p>
+                                <i>Вопрос: {elem.question}</i>
+
+                            </div>
+                         </div>
+                     </div>
+                 ))}
+                </div>
+             </div>
+            )
+        }
         else 
         return (
             <div className='container otherPages'>
+                {this.state.answers ?  <button active className='btn btn-dark mb-3' onClick={() => this.handleAnswered()}>Получить отвеченные</button> 
+                
+                :   <button active className='btn btn-dark mb-3 mr-3' onClick={() => this.handleAnswered()}>Получить неотвеченные</button>}
+              
+               
                 {this.state.message.length>0 ? <div className='tlgmsg alert alert-info'>{this.state.message}</div>: <div></div>}
                 <h4 className='mb-3 text-center'>Неотвеченные вопросы ({this.props.nonanswered.nonanswered.length})</h4>
              <div className='row'>
@@ -145,7 +189,6 @@ ${this.state.answer.split('%0A')}%0A%0A
                  ))}
                  
              </div>
-             
              <Modal  isOpen={this.state.collapse} toggle={this.toggleCollapse(this.state.collapse)}   size="md">
                  <ModalBody>
                     <MessageDetail 

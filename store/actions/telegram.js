@@ -13,19 +13,33 @@ export const msgSuccess = msgs => ({
   payload: msgs,
 });
 
+export const msgLoadingAns = () => ({
+  type: "MSGS_LOADING_ANS"
+})
+
+export const msgFailedAns = errmess => ({
+  type: 'MSGS_FAILED_ANS',
+  payload: errmess,
+});
+
+export const msgSuccessAns = msgs => ({
+  type: 'MSGS_SUCCESS_ANS',
+  payload: msgs,
+});
+
+
 export const fetchNonAnsweredMsg = () =>dispatch=> {
     dispatch(msgLoading(true));
     axios.get('https://api.money-men.kz/api/nonanswered')
     .then(response=> {
         dispatch(msgSuccess(response.data))
-        console.log(response.data)
     })
 }
 
 export const fetchAnsweredMsg = () => dispatch=> {
-    dispatch(msgLoading(true));
+    dispatch(msgLoadingAns(true));
     axios.get('https://api.money-men.kz/api/answered')
     .then(response=> {
-        dispatch(msgSuccess(response.data))
+        dispatch(msgSuccessAns(response.data))
     })
 }

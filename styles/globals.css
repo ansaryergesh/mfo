@@ -886,6 +886,9 @@ button {
 
 }
 
+.answeredCard {
+  background-color: rgba(78, 78, 79, 0.116)!important;
+}
 .repeatedinfo {
   font-family: 'CTCSplachRounded' !important;
 }
