@@ -172,7 +172,7 @@ class ProgressBar extends Component {
                     className="range"
                     type="range"
                     min="10000"
-                    max="135000"
+                    max="145000"
                     step="1000"
                     value = {this.state.money}
                     onChange={this.handleChangeMoney}
@@ -180,7 +180,7 @@ class ProgressBar extends Component {
                 />
                 <div className="text mt-3 d-flex justify-content-between">
                     <p>10 000</p>
-                    <p>135 000</p>
+                    <p>145 000</p>
                 </div>
             </div>
             <div id="day" className="day">

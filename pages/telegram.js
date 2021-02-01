@@ -31,7 +31,16 @@ class Telegram extends React.Component {
     answers: true,
   }
   
-  handleSubmit = (msgid, id) => {
+  handleSubmit = (msgid,question,iin, id) => {
+    const groupText = `
+Ответили на вопрос: ${question}%0A 
+ИИН: ${iin}%0A%0A
+${helloUser()}!%0A
+${this.state.answer.split('%0A')}%0A%0A
+С уважением I-credit.kz%0A%0A
+   #ответили `
+
+    const errorMessage =  `Не удалось отправить ответ. Пользователь блокировал наш телеграм бот-> ИИН: ${iin}%0A%0A;Вопрос: ${question}%0A #ошибка`
     const answerText = `
 ${helloUser()}!%0A
 ${this.state.answer.split('%0A')}%0A%0A
@@ -46,6 +55,7 @@ ${this.state.answer.split('%0A')}%0A%0A
                     axios.put(`https://api.money-men.kz/api/telegram/${id}`)
                     .then(response=>{
                         if(response.data.success) {
+                            axios.post(`https://api.telegram.org/bot1464143689:AAHakxNTvvBG9qpzrH8Z-lNNyEjAS2aW8-U/sendMessage?chat_id=-438259555&text=${groupText}&ie=UTF-8&oe=UTF-8&parse_mode=html`)
                             this.setState({loading: false})
                             this.setState({message: 'Отправлено',collapse: '', answer: ''})
                             setTimeout(() => {
@@ -63,12 +73,24 @@ ${this.state.answer.split('%0A')}%0A%0A
                     },1500)
                 }
             })
+            .catch(function(error) {
+               if(error.response) {
+                   axios.put(`https://api.money-men.kz/api/telegram/${id}`)
+                   .then(response=> {
+                    axios.post(`https://api.telegram.org/bot1464143689:AAHakxNTvvBG9qpzrH8Z-lNNyEjAS2aW8-U/sendMessage?chat_id=-438259555&text=${errorMessage}&ie=UTF-8&oe=UTF-8&parse_mode=html`)
+                        .then(res=> {
+                            location.reload()
+                        })
+                   })
+                   
+               }
+            })
         }
     }
 
-    keypress(event, msgid, id) {
+    keypress(event, msgid,question,iin, id) {
       if(event.keyCode == 13 && event.shiftKey){
-        this.handleSubmit(msgid,id)
+        this.handleSubmit(msgid,question,iin,id)
       }
     }
 
@@ -141,7 +163,7 @@ ${this.state.answer.split('%0A')}%0A%0A
                 
                 :   <button active className='btn btn-dark mb-3 mr-3' onClick={() => this.handleAnswered()}>Получить неотвеченные</button>}
                 {this.state.message.length>0 ? <div className='tlgmsg alert alert-info'>{this.state.message}</div>: <div></div>}
-                <h4 className='mb-3 text-center'>Отвеченные вопросы за неделью ({this.props.answered.answered.length})</h4>
+                <h4 className='mb-3 text-center'>Отвеченные вопросы за неделю ({this.props.answered.answered.length})</h4>
                <div className='row'>
                  {this.props.answered.answered.map(elem=>(
                      <div className='col-md-4' >

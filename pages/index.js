@@ -61,7 +61,7 @@ class Home extends React.Component {
 
                 <div className="mainbanner" styles={{ backgroundImage:`url(${banner})` }}>
         <div className="header-text row">
-          <h1 className="secondary-header col-md-5 col-12">Микрозайм <span className="d-block">онлайн на карту</span> <span className="d-block">до <span className="red">135
+          <h1 className="secondary-header col-md-5 col-12">Микрозайм <span className="d-block">онлайн на карту</span> <span className="d-block">до <span className="red">145
                 000тг</span>
             </span>
           </h1>

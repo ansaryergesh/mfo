@@ -91,7 +91,6 @@ export const isValidIBANNumber = (input)=> {
     var BANKS = [
         {id: '947', name: 'АО "Дочерний Банк "АЛЬФА-БАНК"'},
         {id: '826', name: 'АО "АТФБанк"'},
-        {id: '949', name: 'АО "Altyn Bank" (ДБ China Citic Bank Corporation Limited) '},
         {id: '913', name: 'АО ДБ "БАНК КИТАЯ В КАЗАХСТАНЕ"'},
         {id: '722', name: 'АО "KASPI BANK"'},
         {id: '766', name: 'АО "Центральный Депозитарий Ценных Бумаг"'},
@@ -112,7 +111,6 @@ export const isValidIBANNumber = (input)=> {
         {id: '821', name: 'АО "Банк "Bank RBK"'},
         {id: '224', name: 'РГП "Казахстанский центр межбанковских расчетов НБРК"'},
         {id: '070', name: 'РГУ "Комитет казначейства Министерства финансов РК"'},
-        {id: '563', name: 'АО "КАЗПОЧТА"'},
         {id: '551', name: 'АО "Банк Kassa Nova" (Дочерний банк АО "ForteBank")'},
         {id: '885', name: 'АО "ДБ "КАЗАХСТАН-ЗИРААТ ИНТЕРНЕШНЛ БАНК"'},
         {id: '774', name: 'АО "AsiaCredit Bank (АзияКредит Банк)" '},

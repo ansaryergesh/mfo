@@ -1,6 +1,6 @@
 import * as ActionTypes from '../types'
 
-export const MoneyVal = (state = '10000', action) => {
+export const MoneyVal = (state = '55000', action) => {
   const { type } = action;
   switch (type) {
     case ActionTypes.MONEY_CHANGE:

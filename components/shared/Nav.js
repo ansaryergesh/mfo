@@ -4,6 +4,7 @@ import $ from 'jquery'
 import cookie from 'js-cookie';
 import React, { Fragment } from 'react';
 import Router from 'next/router'
+import Sidebar from './Sidebar';
 import axios from 'axios'
 const isLogged = () => {
   var bollean = false
@@ -88,6 +89,7 @@ componentDidMount() {
         }
     <nav className=" mb-2 navbar navbar-expand-lg navbar-light  transparent ">
     <div className="container">
+ 
     <AppLink href="/" className="navbar-brand logo">
       <img className='icreditlogo' src={require("../../img/logo.png")} alt="" />
     </AppLink>
@@ -96,6 +98,7 @@ componentDidMount() {
       <button  onClick={this.toggleNav} className="navbar-toggler burger" type="button" data-toggle="collapse" data-target="#navigationBar" aria-controls="navigationBar" aria-expanded="false" aria-label="Toggle navigation">
         <div className="animated-icon1"><span /><span /><span /></div>
       </button>
+     
       <ul className="phone-numbers">
         <li className='phonenotworking'><h1><i className="fa fa-phone" /><a href="tel:+77272501500">+7 727 <b className="black">250 15 00</b></a></h1><b className='phoneInfo'></b></li>
         <li><i className="fa fa-phone" /><h1><a href="tel:+77007501500">+7 700 <b className="black">750 15 00</b></a></h1></li>

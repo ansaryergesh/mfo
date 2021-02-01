@@ -259,7 +259,7 @@ class FormRegister extends React.Component {
             last_name: '',
             email: '',
             iin: '',
-            phone: '',
+            phone: '+7',
             password: '',
             password_confirmation: '',
           }}

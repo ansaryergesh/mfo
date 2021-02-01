@@ -9,10 +9,10 @@ const MessageDetail = props => {
                 <p>Вопрос: {props.msg.question}</p>
                 {/* <p>ID: {props.msg.message_id}</p> */}
                 <form >
-                        <textarea value={props.answer} onChange={props.handleChange} type='textarea' className='form-control' placeholder='Введите ответ' onKeyPress={() => props.keypress(event,props.msg.message_id, props.msg.id)}></textarea>
+                        <textarea value={props.answer} onChange={props.handleChange} type='textarea' className='form-control' placeholder='Введите ответ' onKeyPress={() => props.keypress(event,props.msg.message_id,props.msg.question,props.msg.iin, props.msg.id)}></textarea>
                         {props.loading === true
                             ? <input disabled  type='button' class="mt-3 d-block btn btn-primary" value='Отправка...' />
-                            :  <input onClick={()=> props.handleSubmit(props.msg.message_id, props.msg.id)} type='button' class="mt-3 d-block btn btn-primary" value='Отправить' />
+                            :  <input onClick={()=> props.handleSubmit(props.msg.message_id,props.msg.question,props.msg.iin, props.msg.id)} type='button' class="mt-3 d-block btn btn-primary" value='Отправить' />
                         }
                         
                         
