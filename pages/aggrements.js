@@ -44,7 +44,6 @@ class Aggrement extends React.Component {
 
     await axios.get(`https://api.money-men.kz/api/getData?token=${token}`)
     .then((response) => {
-      console.log(token)
       if(response.data.success) {
         this.setState({
           docs: response.data.docs,
@@ -55,10 +54,8 @@ class Aggrement extends React.Component {
           phone: response.data.phone
         })
       }else {
-        console.log(response.data.message)
         Router.push('/')
       }
-      console.log(this.state.docs)
 
     })
     .catch(error => {
@@ -66,7 +63,6 @@ class Aggrement extends React.Component {
         loading: false
       })
       Router.push('/')
-      console.log(error.message)
     })
   }
 
@@ -77,9 +73,7 @@ class Aggrement extends React.Component {
         'Accept': 'application/json',
      }
     })
-    console.log("start")
     .then(response => {
-      console.log(response)
         if(response.success) {
           this.setState({
             isCodeSent: true
@@ -184,7 +178,7 @@ class Aggrement extends React.Component {
 
                 <ul className='complete'>
                 {this.state.docs.map(doc=> (
-                    <li><a href={doc.link} target="_blank">{doc.name}</a></li>
+                    <li><img className='checkedComplete' src={require("../img/checked.png")} /><a href={doc.link} target="_blank">{doc.name}</a></li>
                 ))
                 }</ul>
           <div className="repeatBtn form-group" >

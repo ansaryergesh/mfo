@@ -1,10 +1,12 @@
 import React from 'react';
 import axios from 'axios';
-import {fetchAnsweredMsg, fetchNonAnsweredMsg} from '../store/actions/telegram'
+import {fetchAnsweredMsg, fetchNonAnsweredMsg} from '../../store/actions/telegram'
 import { Modal, ModalHeader, ModalBody } from 'reactstrap';
 import {connect} from 'react-redux'
-import MessageDetail from '../components/shared/messageDetailed'
-import {helloUser} from '../defaults/hello'
+import MessageDetail from '../../components/shared/messageDetailed'
+import {helloUser} from '../../defaults/hello'
+import Header from '../../components/admin/Header'
+import Footer from '../../components/admin/Footer'
 import disableScroll from 'disable-scroll';
 import cookie from 'js-cookie'
 const mapStateToProps = state => {
@@ -15,8 +17,10 @@ const mapDispatchToProps = (dispatch) => ({
   fetchAnsweredMsg: () => dispatch(fetchAnsweredMsg()),
   fetchNonAnsweredMsg: () => dispatch(fetchNonAnsweredMsg()),
 })
- 
+
+
 class Telegram extends React.Component {
+
   componentDidMount() {
     this.props.fetchNonAnsweredMsg();
     this.props.fetchAnsweredMsg();
@@ -94,15 +98,16 @@ ${this.state.answer.split('%0A')}%0A%0A
       }
     }
 
-    handleRecommend = e => {
-        this.setState({answer: e.target.value})
-    }
     handleChange = (event) => {
       // const value = event.target.value.replace(/[\r\n\v]+/g, "");
       this.setState({ answer: event.target.value });
     }
     handleCode = (event) => {
       this.setState({code: event.target.value})
+    }
+
+    handleRecommend = e => {
+        this.setState({answer: e.target.value})
     }
     submitCode = () => {
       if(this.state.code === 'admin123') {
@@ -130,19 +135,6 @@ ${this.state.answer.split('%0A')}%0A%0A
     }
 
     render() {
-        if(cookie.get('botmsg') === undefined) {
-            return (
-                <div className='container text-center otherPages'>
-                    <form onSubmit={this.submitCode}>
-                        <input type='password' value={this.state.code} onChange={this.handleCode} />
-                        <div className='repeatBtn'>
-                            
-                        <button type='submit'  value='Отправить' className='mt-2 d-flex'> Отправить</button>
-                        </div>
-                    </form>
-                </div>
-            )
-        }
         // if (this.props.nonanswered.nonanswered.length === 0 && this.props.nonanswered.isLoading=== false) {
         //     return (<div className='mb-5 container otherPages'>
         //          {this.state.answers ?  <button active className='btn btn-dark mb-3' onClick={() => this.handleAnswered()}>Получить неотвеченные</button> 
@@ -154,13 +146,21 @@ ${this.state.answer.split('%0A')}%0A%0A
         // }
         if(this.props.nonanswered.isLoading) {
             return (
+                <>
+                <Header/>
                 <div className='container  otherPages text-center'>
                     Загрузка.......
                 </div>
+                <Footer/>
+                </>
             )
         }
         if(!this.state.answers && !this.props.answered.isLoading) {
             return (
+                <>
+                <Header/>
+                <main role="main">
+     <section class="panel important">
               <div className='container otherPages'>
                 {this.state.answers ?  <button active className='btn btn-dark mb-3' onClick={() => this.handleAnswered()}>Получить отвеченные</button> 
                 
@@ -185,10 +185,18 @@ ${this.state.answer.split('%0A')}%0A%0A
                  ))}
                 </div>
              </div>
+             </section>
+             </main>
+             <Footer/>
+             </>
             )
         }
         else 
         return (
+            <>
+            <Header/>
+            <main role="main">
+     <section class="panel important">
             <div className='container otherPages'>
                 {this.state.answers ?  <button active className='btn btn-dark mb-3' onClick={() => this.handleAnswered()}>Получить отвеченные</button> 
                 
@@ -214,20 +222,24 @@ ${this.state.answer.split('%0A')}%0A%0A
                  ))}
                  
              </div>
-             <Modal  isOpen={this.state.collapse} toggle={this.toggleCollapse(this.state.collapse)}   size="md">
+             <Modal  isOpen={this.state.collapse} toggle={this.toggleCollapse(this.state.collapse)}   size="lg">
                  <ModalBody>
                     <MessageDetail 
                         msg={this.props.nonanswered.nonanswered.filter(el => el.id === parseInt(this.state.collapse))[0]} 
                         answer = {this.state.answer}
                         handleChange = {this.handleChange}
-                        handleRecommend={this.handleRecommend}
                         handleSubmit = {this.handleSubmit}
+                        handleRecommend={this.handleRecommend}
                         keypress = {this.keypress}
                         loading = {this.state.loading}
                     />
                  </ModalBody>
 			</Modal>
             </div>
+            </section>
+            </main>        
+            <Footer/>
+            </>
         )
     }
     

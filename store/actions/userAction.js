@@ -165,3 +165,30 @@ export const fetchUserHistory = () => dispatch => {
 
 
 
+
+export const fetchAdmin = () => dispatch => {
+  dispatch(authenticatingUser());
+  fetch(`http://localhost:8000/api/getProfile?token=${cookie.get('admin_token')}`, {
+    method: 'GET',
+  })
+  .then(response => {
+    if (response.ok) {
+      return response;
+    }
+    const error = new Error(`Error ${response.status}: ${response.statusText}`);
+    error.response = response;
+    throw error;
+  },
+    error => {
+      const errmess = new Error(error.message);
+      throw errmess;
+    })
+  .then(response => response.json())
+  .then(data => {
+    dispatch(setCurrentUser(data))
+  })
+  .catch((error) => {
+    cookie.remove('admin_token')
+    console.log(error.message || 'Error')
+  })
+}

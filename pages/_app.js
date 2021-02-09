@@ -6,19 +6,23 @@ import Footer from '../components/shared/Footer'
 import ScrollToTop from '../components/shared/ScrollToTop'
 import MessageInfo from '../components/shared/MessageInfo'
 import MainComponent from '../components/MainComponent'
+import cookie from 'js-cookie'
 import { Provider } from 'react-redux'
 import React, {Fragment} from 'react'
 import {createWrapper} from "next-redux-wrapper";
-import { Modal, ModalHeader, ModalBody } from 'reactstrap';
+import {connect} from 'react-redux'
+import { Modal, ModalHeader, ModalBody, Nav } from 'reactstrap';
 // import {ConfigureStore} from '../redux/reducers/configureStore'
 import store from '../store/store'
 import App from 'next/app';
 import Head from 'next/head'
+import { fetchAdmin } from '../store/actions/adminActions';
 
 class MyApp extends App {
-
-
   componentDidMount() {
+    if(cookie.get('admin_token') !== undefined) {
+      this.props.fetchAdmin()
+    }
     var hours = 1.2;
     var now = new Date().getTime();
     var setupTime = localStorage.getItem('setupTime');
@@ -34,7 +38,7 @@ class MyApp extends App {
   }
   render() {
       const {Component, pageProps} = this.props;
-      const isGetMoney = () => Component.name==='FormStep'
+      const compName = Component.name
       return (
           <Provider store={store}>
              {/* <MessageInfo /> */}
@@ -43,9 +47,11 @@ class MyApp extends App {
             <img className='imgwhatsapp mb-3' src={require("../img/svg/telegram.svg")}></img></a>
             <a href="https://api.whatsapp.com/send?phone=+77015382439" target="_blank"><img className="imgwhatsapp" src={require("../img/svg/whatsapp.svg")} alt="" /></a>
             </div>
-            <Navbar/>
+            <Navbar />
+            {/* {compName !== undefined && compName.includes('Admin') ? '' : <Navbar />} */}
             <Component {...pageProps}/>
-            <Footer/>
+            {/* {compName !== undefined && compName.includes('Admin') ? '' : <Footer />} */}
+            <Footer />
           </Provider>
       );
   }
@@ -59,8 +65,10 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchCurrentUser: () => dispatch(actions.fetchCurrentUser()),
+  fetchAdmin:() => dispatch(fetchAdmin())
 });
+
+MyApp = connect(mapStateToProps,mapDispatchToProps)(MyApp)
 
 // //withRedux wrapper that passes the store to the App Component
 // // export default makeStore.withRedux(MyApp);

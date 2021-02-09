@@ -1,13 +1,15 @@
 import React, { Fragment } from 'react';
 import Link from 'next/link'
+import {useRouter} from 'next/router'
 const AppLink = ({children, className, href}) =>
   <Link href={href}>
     <a className={className}>{children}</a>
   </Link>
 
 const Footer = () => {
+  const router = useRouter();
   return (
-    <footer className="footer mt-5 mb-5">
+    <footer className={router.pathname.includes('admin') ? 'd-none footer mt-5 mb-5' :  'footer mt-5 mb-5'}>
       <hr></hr>
         <div className="container">
           <div className="row footerCols">

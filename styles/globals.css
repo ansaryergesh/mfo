@@ -200,7 +200,7 @@ ul.complete li {
 }
 
 ul.complete li a:hover {
-  color: #121ea8 !important;
+  color: #15890a !important;
 }
 
 .agreements-block {
@@ -215,7 +215,7 @@ ul.complete li a:hover {
 }
 
 ul.complete li::before {
-  content: '🗹 ';
+  content: '';
   color: #121ea8;
   font-weight: bold;
   margin-right: 5px;
@@ -225,10 +225,19 @@ ul.complete li::before {
 
 ul.complete li {
   line-height: 30px;
+  display: flex;
+  align-items: center;
 }
 
 ul.complete li:last-child {
   display: none;
+}
+
+.complete img {
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  cursor: pointer;
 }
 
 /* ul.complete li:last-child {
@@ -238,7 +247,6 @@ ul.complete li:last-child {
 .container-checkbox input:checked~.checkmark {
   background-color: #2196F3;
 }
-
 .footer .footerCol .socials--icons i {
   width: 47px;
   height: 47px;
@@ -1894,7 +1902,7 @@ a:hover {
   margin-right: 25px;
 }
 
-.button {
+.button, .button-admin {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1910,6 +1918,18 @@ a:hover {
 .button button {
   color: white;
   background-color: #ef2221;
+  border-radius: 6px;
+  border: none;
+  padding: 18px 90px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.button-admin button  {
+  color: white;
+  background-color: #060c31;
   border-radius: 6px;
   border: none;
   padding: 18px 90px;
@@ -2870,3 +2890,365 @@ a .whatsapptext {
   text-decoration: underline!important;
   color: green!important
 }
+
+
+/* admin panel */
+
+header[role="banner"] {
+  background: white;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+}
+header[role="banner"] h1 {
+  margin: 0;
+  color:rgba(216, 27, 27, 0.844);
+  font-size: 25px!important;
+  font-weight: 300;
+  padding: 1rem;
+}
+header[role="banner"] h1:before {
+  content: "";
+  font-family: FontAwesome;
+  padding-right: 0.6em;
+  color: rgb(251, 55, 55);
+}
+header[role="banner"] .utilities {
+  width: 100%;
+  background: slategray;
+  color: #ddd;
+}
+header[role="banner"] .utilities li {
+  border-bottom: solid 1px rgba(255, 255, 255, 0.2);
+}
+header[role="banner"] .utilities li a {
+  padding: 0.7em;
+  display: block;
+}
+
+/* header */
+.utilities a:before {
+  content: "\f248";
+  font-family: FontAwesome;
+  padding-right: 0.6em;
+}
+
+.logout a:before {
+  content: "";
+}
+
+.users a:before {
+  content: "";
+}
+
+nav[role="navigation"] {
+  background: #2a3542;
+  color: #ddd;
+  /* icons */
+}
+
+nav[role='navigation'] ul, li {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+nav[role="navigation"] li {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+nav[role="navigation"] li a {
+  color: #ddd;
+  text-decoration: none;
+  display: block;
+  padding: 0.7em;
+}
+nav[role="navigation"] li a:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+nav[role="navigation"] li a.active {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+nav[role="navigation"] li a:before {
+  content: "\f248";
+  font-family: FontAwesome;
+  padding-right: 0.6em;
+}
+nav[role="navigation"] .dashboard a:before {
+  content: "";
+}
+nav[role="navigation"] .write a:before {
+  content: "";
+}
+nav[role="navigation"] .edit a:before {
+  content: "";
+}
+nav[role="navigation"] .comments a:before {
+  content: "";
+}
+nav[role="navigation"] .users a:before {
+  content: "";
+}
+
+
+
+@media screen and (min-width: 600px) {
+
+  main[role="main"] {
+    margin: 75px 0 40px 200px;
+  }
+  main[role="main"]:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  .panel {
+    margin: 2% 0 0 2%;
+    float: left;
+    width: 96%;
+  }
+  .panel:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  header[role="banner"] {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    height: 75px;
+  }
+  header[role="banner"] .utilities {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: transparent;
+    color: darkslategray;
+    width: auto;
+  }
+  header[role="banner"] .utilities li {
+    display: inline-block;
+  }
+  header[role="banner"] .utilities li a {
+    padding: 0.5em 1em;
+  }
+
+  nav[role="navigation"] {
+    position: fixed;
+    width: 200px;
+    top: 75px;
+    bottom: 0px;
+    left: 0px;
+  }
+
+  footer[role="contentinfo"] {
+    /* clear: both; */
+    margin-left: 12px;
+    color: white;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  footer[role="contentinfo"] {
+    position: fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0px;
+    margin: 0;
+  }
+
+  .panel {
+    width: 47%;
+    clear: none;
+  }
+  .panel.important {
+    width: 96%;
+  }
+}
+
+
+
+
+/* admin login */
+.admloginpage {
+  background: #222D32;
+  height: 100vh;
+}
+.admlogin-box {
+  margin-top: 75px;
+  height: auto;
+  background: #1A2226;
+  text-align: center;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.admlogin-key {
+  height: 100px;
+  font-size: 80px;
+  line-height: 100px;
+  background: -webkit-linear-gradient(#27EF9F, #0DB8DE);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.admlogin-title {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 30px;
+  letter-spacing: 2px;
+  margin-top: 15px;
+  font-weight: bold;
+  color: #ECF0F5;
+}
+
+.admlogin-form {
+  margin-top: 25px;
+  text-align: left;
+}
+
+.admform-group input[type=text] {
+  background-color: #1A2226;
+  border: none;
+  border-bottom: 2px solid #0DB8DE;
+  border-top: 0px;
+  border-radius: 0px;
+  font-weight: bold;
+  outline: 0;
+  margin-bottom: 20px;
+  padding-left: 0px;
+  color: #ECF0F5;
+}
+
+.admform-group input[type=password] {
+  background-color: #1A2226;
+  border: none;
+  border-bottom: 2px solid #0DB8DE;
+  border-top: 0px;
+  border-radius: 0px;
+  font-weight: bold;
+  outline: 0;
+  padding-left: 0px;
+  margin-bottom: 20px;
+  color: #ECF0F5;
+}
+
+.admform-group {
+  margin-bottom: 40px;
+  outline: 0px;
+}
+
+.admform-control:focus {
+  border-color: inherit;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-bottom: 2px solid #0DB8DE;
+  outline: 0;
+  background-color: #1A2226;
+  color: #ECF0F5;
+}
+
+.admform-group input:focus {
+  outline: none;
+  box-shadow: 0 0 0;
+}
+
+.admform-group label {
+  margin-bottom: 0px;
+}
+
+.admform-control-label {
+  font-size: 10px;
+  color: #6C6C6C;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.admbtn-outline-primary {
+  border-color: #0DB8DE;
+  color: #0DB8DE;
+  border-radius: 0px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  background-color: #0DB8DE!important;
+  box-shadow: 0 1px 3px rgba(12, 60, 120, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.admbtn-outline-primary:hover {
+  background-color: #0DB8DE;
+  right: 0px;
+}
+
+.admlogin-btm {
+  float: left;
+}
+
+.admlogin-button {
+  padding-right: 0px;
+  text-align: right;
+  margin-bottom: 25px;
+}
+
+.admlogin-text {
+  text-align: left;
+  padding-left: 0px;
+  color: #88a5a5;
+}
+
+.admloginbttm {
+  padding: 0px;
+}
+
+
+
+/* Flash message */
+.alertt {
+  color: white;
+  border-radius: 10px;
+  position: fixed;
+  top: 10%;
+  right: 10px;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  z-index: 1111;
+  transition: .5s ease-out;
+}
+  .alertt p {
+  margin: 0;
+  }
+  .alertt-error {
+  background: lightcoral;
+  }
+  .alertt-info {
+    background: rgb(25, 25, 99);
+  }
+  .alertt-success {
+  background: lightgreen;
+  }
+  .alertt .close {
+  color: white;
+  cursor: pointer;
+  margin-right: 10px;
+  }
+  main li {
+    position: relative;
+    padding-left: 1.2em;
+    margin: 0.5em 0;
+  }
+  main li:before {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 0;
+    top: 0.3em;
+    border-left: solid 10px #dde;
+    border-top: solid 5px transparent;
+    border-bottom: solid 5px transparent;
+  }
+
+  
+/* admin panel end */
+
+
+

@@ -11,13 +11,17 @@ import {userStatus} from './userStatus'
 import {userHistory} from './userHistory'
 import {nonanswered} from './nonanswered'
 import {answered} from './answered'
+import admmessage from './admmessage'
 import {createForms} from 'react-redux-form'
 import {RegistrationStep1,RegistrationStep2} from './registrationStep1'
+import adminReducer from './adminreducer'
 export default combineReducers ({
   dayVal: dayReducer,
   moneyVal: MoneyVal,
   message: messages,
   userReducer,
+  adminReducer,
+  admmessage,
   registrationValues: registration,
   stepregistration: stepregistration,
   regionsReducer: regionsReducer,

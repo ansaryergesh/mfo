@@ -4,7 +4,8 @@ import $ from 'jquery'
 import cookie from 'js-cookie';
 import React, { Fragment, useState, useEffect } from 'react';
 import Router,{useRouter} from 'next/router'
-
+import axios from 'axios'
+// const router = useRouter()
 const isLogged = () => {
   var bollean = false
   if(cookie.get('token')) {
