@@ -3247,6 +3247,28 @@ nav[role="navigation"] .users a:before {
     border-bottom: solid 5px transparent;
   }
 
+  .paginations {
+    display: inline-block;
+    margin:1% 25% 0 25%;
+    width:50%;
+    
+  }
+  .paginations a {
+    border: .1px solid #cccccc80;
+    background-color: rgb(40, 40, 47);
+    color:white!important;
+    /* width: 12px;
+    height: 12px; */
+    padding: 18px;
+  }
+
+  .paginations a.active {
+    color:rgb(37, 27, 52)!important;
+    border: .2px solid #14121236;
+    background-color: rgb(181, 173, 173);
+    padding: 19.5px;
+  }
+
   
 /* admin panel end */
 

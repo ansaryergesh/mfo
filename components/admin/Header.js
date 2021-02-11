@@ -39,11 +39,11 @@ const Header = ({adminReducer}) => {
         </header>
         <nav role="navigation">
           <ul className="main">
-            <li className="dashboard"><a href="#">Dashboard</a></li>
-            <li className="write"><a href="#">Write Post</a></li>
-            <li className="edit"><a href="#">Edit Posts</a></li>
-            <li className="comments"><a className={router.pathname==='/admin/telegram' ? 'active' : ''} href="/admin/telegram">Telegram</a></li>
-            <li className="users"><a className={router.pathname==='/admin/users' ? 'active' : ''}  href="/admin/users">Manage Users</a></li> 
+            {/* <li className="dashboard"><a href="#">Dashboard</a></li> */}
+            {/* <li className="write"><a href="#">Write Post</a></li> */}
+            <li className="edit"><a  className={router.pathname==='/admin/smscenter' ? 'active' : ''} href="smscenter">SMS-Center</a></li>
+            <li className="comments"><a className={router.pathname==='/admin/telegram' ? 'active' : ''} href="telegram">Telegram</a></li>
+            <li className="users"><a className={router.pathname==='/admin/users' ? 'active' : ''}  href="users">Manage Users</a></li> 
           </ul>
         </nav>
         </>

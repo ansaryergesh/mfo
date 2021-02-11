@@ -13,7 +13,7 @@ function AdminLogin() {
     axios.post(`http://localhost:8000/api/login`, {password: password, email: email})
       .then(res=> {
         if(res.data.success){ 
-          cookie.set('admin_token', res.data.token)
+          cookie.set('admin_token', res.data.token, {expires: 60})
           Router.push('/admin/main')
           setTimeout(() =>{
             location.reload()
