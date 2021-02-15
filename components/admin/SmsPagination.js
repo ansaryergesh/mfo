@@ -40,7 +40,7 @@ const SmsPagination = (props) => {
       <a href='#'>...</a>
       </>
     )
-    for(let i=current_page; i<current_page+btnLength/2; i++) {
+    for(let i=current_page-2; i<current_page+btnLength/2-2; i++) {
       paginationBtns.push(
         <a href='#' onClick={()=>props.changePage(i)} className={current_page=== i ? 'active' : ''}>{i}</a>
       )
@@ -52,13 +52,13 @@ const SmsPagination = (props) => {
 
     for(let i=max_page-2; i<max_page; i++) {
       paginationBtns.push(
-        <a href='#' onClick={()=>props.changePage(i)} className={current_page=== i ? 'active' : ''}>{i+1}</a>
+        <a href='#' onClick={()=>props.changePage(i+1)} className={current_page=== i+1 ? 'active' : ''}>{i+1}</a>
       )
     }
   }
 
   if(max_page>btnLength && current_page > max_page -7) {
-    for(let i=0; i<2; i++) {
+    for(let i=0; i<1; i++) {
       paginationBtns.push(
         <a href='#' onClick={()=>props.changePage(i+1)} className={current_page=== i+1 ? 'active' : ''}>{i+1}</a>
       )
@@ -67,7 +67,7 @@ const SmsPagination = (props) => {
       <a href='#' disabled>...</a>
     )
 
-    for(let i=max_page -7; i<max_page; i++) {
+    for(let i=max_page -7-1; i<max_page; i++) {
       paginationBtns.push(
         <a onClick={()=>props.changePage(i+1)} className={current_page=== i+1 ? 'active' : ''}>{i+1}</a>
       )

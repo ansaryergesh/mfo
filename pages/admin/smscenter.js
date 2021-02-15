@@ -3,7 +3,6 @@ import Footer from '../../components/admin/Footer'
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux';
 import AdminCabinet from '../../components/admin/AdminCabinet';
-import SearchSms from '../../components/admin/SearchSms';
 import SmsPagination from '../../components/admin/SmsPagination';
 import {useRouter} from 'next/router'
 import cookie from 'js-cookie'
@@ -11,6 +10,7 @@ import axios from 'axios';
 import SmsList from '../../components/admin/SmsList';
 import InputMask from "react-input-mask";
 import { phoneCheck } from '../../defaults/validations';
+import { ExportCSV } from '../../components/admin/ExportCSV';
 
 
 function mapStateToProps(state) {
@@ -24,6 +24,7 @@ const AdminSmsCenter = ({adminReducer}) => {
   const [lastPage, setLastPage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [toList, setToList] = useState(15);
+  const [file, setFile] = useState([])
   const [loading, setLoading] = useState(true);
   const adminCookie = cookie.get('admin_token');
 
@@ -56,6 +57,92 @@ const AdminSmsCenter = ({adminReducer}) => {
     setPhoneNumber(e.target.value)
   }
 
+  const sendRequest = () => {
+    setLoading(true)
+    if(!phone && !start && !end) {
+      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {token: adminCookie}}, {headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res=> {
+        setLoading(false)
+        setFile(res.data)
+   
+      })
+    }
+    if(phone && !start && !end) {
+      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {token: adminCookie, phone: phone}}, {headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res=> {
+        setLoading(false)
+        setFile(res.data)
+      })
+    }
+    if(phone && start && !end) {
+      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
+        token: adminCookie,
+        phone: phone,
+        date_from: start
+      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res=> {
+        setLoading(false)
+        setFile(res.data)
+      })
+    }
+    if(phone && !start && end) {
+      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
+        token: adminCookie,
+        phone: phone,
+        date_to: end
+      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res=> {
+        setLoading(false)
+        setFile(res.data)
+      })
+    }
+    if(phone && start && end) {
+      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
+        token: adminCookie,
+        phone: phone,
+        date_from: start,
+        date_to: end,
+      }} ,{headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res=> {
+        setLoading(false)
+        setFile(res.data)
+      })
+    }
+    if(!phone && start && end) {
+      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
+        token: adminCookie,
+        date_from: start,
+        date_to: end,
+      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res=> {
+        setLoading(false)
+        setFile(res.data)
+      })
+    }
+
+    if(!phone && start && !end) {
+      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
+        token: adminCookie,
+        date_from: start,
+      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res=> {
+        setLoading(false)
+        setFile(res.data)
+      })
+    }
+
+    if(!phone && !start && end) {
+      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
+        token: adminCookie,
+        date_to: end,
+      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
+      .then(res=> {
+        setLoading(false)
+        setFile(res.data)
+      })
+    }
+  }
+
   const requestUpdate = (res) => {
     setCurrentPage(res.data.current_page)
     setSmsList(res.data.data);
@@ -63,10 +150,21 @@ const AdminSmsCenter = ({adminReducer}) => {
     setTotal(res.data.total);
     setToList(res.data.to);
   }
+
+  const clearForm = (e) => {
+    setFile([])
+    setDateFrom('')
+    setDateTo('')
+    setPhoneNumber('')
+    router.push('/admin/smscenter')
+
+    e.preventDefault()
+  }
   const onClear = () => {
-    if(phone === undefined && start === undefined && end === undefined) {
-      if(page !== undefined) {
-        axios.get('http://localhost:8000/api/sms', {params: {token: adminCookie, page: page}})
+    setFile([])
+    if(!phone  && !start  && !end ) {
+      if(page) {
+        axios.get(`${process.env.BASE_URL}/sms`, {params: {token: adminCookie, page: page}}, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res => {
             setLoading(false)
             if(!res.data.message) {
@@ -74,7 +172,7 @@ const AdminSmsCenter = ({adminReducer}) => {
             }
           })
       }else {
-        axios.get('http://localhost:8000/api/sms', {params: {token: adminCookie}})
+        axios.get(`${process.env.BASE_URL}/sms`, {params: {token: adminCookie}}, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res => {
           setLoading(false)
           if(!res.data.message) {
@@ -88,7 +186,7 @@ const AdminSmsCenter = ({adminReducer}) => {
       const finalPage = () => page=== undefined ? 1 : page
       setLoading(true)
       if(start && !end) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&phone=${phone}&date_from=${start}&page=${finalPage}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${phone}&date_from=${start}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res=> {
             setLoading(false)
             if(!res.data.message) {
@@ -97,7 +195,7 @@ const AdminSmsCenter = ({adminReducer}) => {
           })
       }
       if(!start && !end) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&phone=${phone}&page=${finalPage}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${phone}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res=> {
             setLoading(false)
             if(!res.data.message) {
@@ -106,7 +204,7 @@ const AdminSmsCenter = ({adminReducer}) => {
           })
       }
       if(end && !start) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&phone=${phone}&date_to=${end}&page=${finalPage}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${phone}&date_to=${end}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res=> {
             setLoading(false)
             if(!res.data.message) {
@@ -115,7 +213,7 @@ const AdminSmsCenter = ({adminReducer}) => {
           })
       }
       if(start && end) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&phone=${phone}&date_from=${start}&date_to=${end}&page=${finalPage}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${phone}&date_from=${start}&date_to=${end}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res=> {
             setLoading(false)
             if(!res.data.message) {
@@ -126,7 +224,7 @@ const AdminSmsCenter = ({adminReducer}) => {
     } else {
       if(start && end) {
         const finalPage = () => page=== undefined ? 1 : page
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&date_from=${start}&date_to=${end}&page=${finalPage}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${start}&date_to=${end}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -136,7 +234,7 @@ const AdminSmsCenter = ({adminReducer}) => {
       }
       if(start && !end) {
         const finalPage = () => page=== undefined ? 1 : page
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&date_from=${start}&page=${finalPage}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${start}&page=${finalPage}`,{headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -146,7 +244,7 @@ const AdminSmsCenter = ({adminReducer}) => {
       }
       if(end && !start) {
         const finalPage = () => page=== undefined ? 1 : page
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&date_to=${end}&page=${finalPage}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_to=${end}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -158,9 +256,9 @@ const AdminSmsCenter = ({adminReducer}) => {
    
   }
   const changePage = (n) => {
-    if(phone ===undefined && start === undefined && end === undefined) {
+    if(!phone && !start && !end) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/sms?token=${adminCookie}&page=${n}`)
+      axios.get(`${process.env.BASE_URL}/sms?token=${adminCookie}&page=${n}`,{headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -169,9 +267,9 @@ const AdminSmsCenter = ({adminReducer}) => {
           }
         })
     }
-    if(phone !==undefined && start === undefined && end === undefined) {
+    if(phone && !start && !end) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}`)
+      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}`, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -180,9 +278,9 @@ const AdminSmsCenter = ({adminReducer}) => {
           }
         })
     }
-    if(phone !==undefined && start !== undefined && end === undefined) {
+    if(phone && start && !end) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&dateFrom=${start}`)
+      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&dateFrom=${start}`, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -191,9 +289,9 @@ const AdminSmsCenter = ({adminReducer}) => {
           }
         })
     }
-    if(phone !==undefined && start === undefined && end !== undefined) {
+    if(phone && !start && end) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&date_to=${end}`)
+      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&date_to=${end}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -202,9 +300,9 @@ const AdminSmsCenter = ({adminReducer}) => {
           }
         })
     }
-    if(phone !==undefined && start !== undefined && end !== undefined) {
+    if(phone && start && end) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&date_to=${end}&date_from=${start}`)
+      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&date_to=${end}&date_from=${start}`,{headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -213,9 +311,9 @@ const AdminSmsCenter = ({adminReducer}) => {
           }
         })
     }
-    if(phone ===undefined && start !== undefined && end !== undefined) {
+    if(!phone && start && end) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&page=${n}&date_to=${end}&date_from=${start}`)
+      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&date_to=${end}&date_from=${start}`, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -224,9 +322,9 @@ const AdminSmsCenter = ({adminReducer}) => {
           }
         })
     }
-    if(phone ===undefined && start === undefined && end !== undefined) {
+    if(!phone && !start && end) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&page=${n}&date_to=${end}`)
+      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&date_to=${end}`, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -235,9 +333,9 @@ const AdminSmsCenter = ({adminReducer}) => {
           }
         })
     }
-    if(phone ===undefined && start !== undefined && end === undefined) {
+    if(!phone && start && !end) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&date_from=${start}&page=${n}`)
+      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${start}&page=${n}`, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -249,6 +347,7 @@ const AdminSmsCenter = ({adminReducer}) => {
   }
   
   const onSearch = (e) => {
+    setFile([])
     function replaceDate(val) {
       return String(val).replace(/[^A-Z0-9]/g, '')
     }
@@ -257,7 +356,7 @@ const AdminSmsCenter = ({adminReducer}) => {
     }
     if(!phoneNumber && !dateFrom && !dateTo) {
       setLoading(true)
-      axios.get(`http://localhost:8000/api/sms?token=${adminCookie}`)
+      axios.get(`${process.env.BASE_URL}/sms?token=${adminCookie}` , {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -270,7 +369,7 @@ const AdminSmsCenter = ({adminReducer}) => {
       setLoading(true)
       let ph = replaceDate(phoneNumber)
       if(dateFrom && !dateTo) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&phone=${ph}&date_from=${dateFrom}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${ph}&date_from=${dateFrom}`, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res=> {
             setLoading(false)
             if(!res.data.message) {
@@ -280,7 +379,7 @@ const AdminSmsCenter = ({adminReducer}) => {
           })
       }
       if(dateTo && !dateFrom) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&phone=${ph}&date_to=${dateTo}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${ph}&date_to=${dateTo}`, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res=> {
             setLoading(false)
             if(!res.data.message) {
@@ -290,7 +389,7 @@ const AdminSmsCenter = ({adminReducer}) => {
           })
       }
       if(dateFrom && dateTo) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&phone=${ph}&date_from=${dateFrom}&date_to=${dateTo}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${ph}&date_from=${dateFrom}&date_to=${dateTo}`, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res=> {
             setLoading(false)
             if(!res.data.message) {
@@ -301,7 +400,7 @@ const AdminSmsCenter = ({adminReducer}) => {
       }
 
       if(!dateFrom && !dateTo) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&phone=${ph}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${ph}`, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res=> {
             setLoading(false)
             if(!res.data.message) {
@@ -313,7 +412,7 @@ const AdminSmsCenter = ({adminReducer}) => {
     } else {
       setLoading(true)
       if(dateFrom && dateTo) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&date_from=${dateFrom}&date_to=${dateTo}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${dateFrom}&date_to=${dateTo}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -323,7 +422,7 @@ const AdminSmsCenter = ({adminReducer}) => {
         })
       }
       if(dateFrom && !dateTo) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&date_from=${dateFrom}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${dateFrom}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -333,7 +432,7 @@ const AdminSmsCenter = ({adminReducer}) => {
         })
       }
       if(dateTo && !dateFrom) {
-        axios.get(`http://localhost:8000/api/smsFilter?token=${adminCookie}&date_to=${dateTo}`)
+        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_to=${dateTo}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -377,13 +476,12 @@ const AdminSmsCenter = ({adminReducer}) => {
           </div>
           <div className='text-center'>
           <button  type='submit' className='mr-2 mt-3 btn btn-dark'>Искать</button>
-          <a href='/admin/smscenter' type='button' className='mr-2 mt-3 btn btn-light' onClick={() => {props.onClear}}>Сбросить</a>
+          <a href='/admin/smscenter' type='button' className='mr-2 mt-3 btn btn-light' onClick={(e) => {clearForm(e)}}>Сбросить</a>
           </div>
         </form>
-
-
-        <button className='btn'>Выгрузить результат</button>
-        {/* Search bar sms end */}
+        
+        {file.length !==0 ?    <ExportCSV fileName={(!phone && !end && !start) ? 'allresult' : 'phone: '+ phone + ' date_from: '+ start+ ' date_to: '+ end } csvData={file}  /> : <button className='btn btn-info' onClick={sendRequest}>Готовить файл для выгрузки</button>}
+ 
 
 
 

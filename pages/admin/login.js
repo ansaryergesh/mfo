@@ -10,14 +10,11 @@ function AdminLogin() {
 
   const dispatch = useDispatch();
   const handleLogin = (e) => {
-    axios.post(`http://localhost:8000/api/login`, {password: password, email: email})
+    axios.post(`${process.env.BASE_URL}/login`, {password: password, email: email}, {headers: {'Access-Control-Allow-Origin': '*'}})
       .then(res=> {
         if(res.data.success){ 
           cookie.set('admin_token', res.data.token, {expires: 60})
           Router.push('/admin/main')
-          setTimeout(() =>{
-            location.reload()
-          },200)
         }else {
           dispatch({type:'ADM_ERROR_MESSAGE', payload: res.data.message})
         }
@@ -27,6 +24,11 @@ function AdminLogin() {
     // console.log(email)
   }
 
+  useEffect(() => {
+    if(cookie.get('admin_token')) {
+      Router.push('/admin/main')
+    }
+  })
   return (
 		<div className='admloginpage'>
       <Flash />

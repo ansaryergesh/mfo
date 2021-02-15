@@ -9,11 +9,11 @@ const AdminCabinet = ({user, active}) => {
     const [userDate, setUserDate] = useState({name: user.name, email: user.email})
 
     const editOwn = (e) => {
-      axios.put('http://localhost:8000/api/editOwn', {
+      axios.put(`${process.env.BASE_URL}/editOwn`, {
         token: cookie.get('admin_token'),
         email: userDate.email,
         name: userDate.name,
-      })
+      }, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res => {
           if(res.data.success) {
             dispatch({type: 'ADM_SUCCESS_MESSAGE', payload: res.data.message})
@@ -34,10 +34,10 @@ const AdminCabinet = ({user, active}) => {
       }
       else {
         dispatch({type: 'ADM_CLOSE_MESSAGE'})
-        axios.get('http://localhost:8000/api/changePassword', {params: {
+        axios.get(`${process.env.BASE_URL}/changePassword`, {params: {
           token: cookie.get('admin_token'),
           password: password
-        }})
+        }}, {headers: {'Access-Control-Allow-Origin': '*'}})
           .then(res => {
             if(res.data.success) {
               setPassword('')

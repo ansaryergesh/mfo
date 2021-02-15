@@ -13,7 +13,7 @@ const Header = ({adminReducer}) => {
 
 
     const handleLogout = () => {
-      axios.get(`http://localhost:8000/api/logout?email=${adminReducer.user.email}`)
+      axios.get(`${process.env.BASE_URL}/logout?email=${adminReducer.user.email}`,{headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           router.push('/admin/login')
           cookie.remove('admin_token')

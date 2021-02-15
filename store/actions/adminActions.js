@@ -1,8 +1,9 @@
 import cookie from 'js-cookie'
 export const fetchAdmin = () => dispatch => {
     dispatch({type: 'AUTHENTICATING_ADMIN'});
-    fetch(`http://localhost:8000/api/getProfile?token=${cookie.get('admin_token')}`, {
+    fetch(`${process.env.BASE_URL}/getProfile?token=${cookie.get('admin_token')}`, {
       method: 'GET',
+      'Access-Control-Allow-Origin': '*'
     })
     .then(response => {
       if (response.ok) {

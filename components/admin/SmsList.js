@@ -3,13 +3,13 @@ import React,{useState,useEffect} from 'react'
 const SmsList = (props) => {
   const status = (st) => {
     if(st === '100') {
-      return ['danger', 'в ожиданий']
+      return 'danger'
     }
     if(st === '101') {
-      return ['info', 'отправлено']
+      return 'info'
     }
     if(st==='102') {
-      return ['success', 'доставлено']
+      return 'success'
     }
   }
   const indexList = props.toList - 14;
@@ -22,11 +22,11 @@ const SmsList = (props) => {
           <thead>
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Phone</th>
-              <th scope="col">Type</th>
-              <th scope='col'>Text</th>
-              <th scope="col">Status</th>
-              <th scope='col'>Date</th>
+              <th scope="col">Номер</th>
+              <th scope="col">Тип</th>
+              <th scope='col'>Текст</th>
+              <th scope="col">Статус</th>
+              <th scope='col'>Изменен</th>
             </tr>
           </thead>
         <tbody>
@@ -36,7 +36,7 @@ const SmsList = (props) => {
                <td>{s.phone}</td>
                <td>{s.type}</td>
                <td>{s.text}</td>
-               <td className={`alert alert-${status(s.status)[0]}`}><b>{status(s.status)[1]}</b></td>
+               <td className={`alert alert-${status(s.status_id)}`}><b>{s.status}</b></td>
                <td>{new Intl.DateTimeFormat('ru', { year: 'numeric', month: 'short', day: '2-digit', hour:'numeric', minute:'numeric' }).format(new Date(Date.parse(s.created_at)))}</td>
             </tr>
           ))}

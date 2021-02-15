@@ -28,7 +28,7 @@ const AdminUsers = ({adminReducer}) => {
     };
     const handleShow = () => setShowModal(true);
     const getUser = () => {
-      axios.get(`http://localhost:8000/api/users`)
+      axios.get(`${process.env.BASE_URL}/users`, {headers: {'Access-Control-Allow-Origin': '*'}})
             .then(res => {
                 setUsers(res.data)
                 setLoading(false)
@@ -47,13 +47,13 @@ const AdminUsers = ({adminReducer}) => {
 
 
     const userAdd = (e) => {
-      axios.post('http://localhost:8000/api/users', {
+      axios.post('${process.env.BASE_URL}/users', {
         name: newUser.name,
         email: newUser.email,
         password: newUser.password,
         role_id: newUser.role_id,
         token: cookie.get('admin_token')
-      })
+      }, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           if(res.data.success) {
             dispatch({type: 'ADM_SUCCESS_MESSAGE', payload: res.data.message})
@@ -67,13 +67,13 @@ const AdminUsers = ({adminReducer}) => {
       e.preventDefault()
     }
     const saveEdit = () => {
-      axios.put('http://localhost:8000/api/edit', {
+      axios.put('${process.env.BASE_URL}/edit', {
         token: cookie.get('admin_token'),
         email: userDate.email,
         name: userDate.name,
         role_id: userDate.role_id,
         user_id: userDate.id
-      })
+      }, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res => {
           if(res.data.success) {
             dispatch({type: 'ADM_SUCCESS_MESSAGE', payload: res.data.message})
@@ -98,7 +98,7 @@ const AdminUsers = ({adminReducer}) => {
         }).then(value=>{
           switch (value){
             case 'yes':
-              axios.get(`http://localhost:8000/api/deleteAccount?token=${cookie.get('admin_token')}&user_id=${id}`)
+              axios.get(`${process.env.BASE_URL}/deleteAccount?token=${cookie.get('admin_token')}&user_id=${id}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
               .then(response => {
                 if(response.data.success) {
                   dispatch({type: 'ADM_SUCCESS_MESSAGE', payload: response.data.message})
