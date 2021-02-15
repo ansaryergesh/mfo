@@ -11,6 +11,7 @@ import SmsList from '../../components/admin/SmsList';
 import InputMask from "react-input-mask";
 import { phoneCheck } from '../../defaults/validations';
 import { ExportCSV } from '../../components/admin/ExportCSV';
+import { date } from 'yup';
 
 
 function mapStateToProps(state) {
@@ -20,6 +21,7 @@ function mapStateToProps(state) {
 const AdminSmsCenter = ({adminReducer}) => {
   const router = useRouter();
   const [smsList, setSmsList] = useState([]);
+  const [smsTypes, setSmsTypes] = useState([]);
   const [total, setTotal] = useState(null);
   const [lastPage, setLastPage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,11 +34,12 @@ const AdminSmsCenter = ({adminReducer}) => {
   const {start} = router.query;
   const {end} = router.query;
   const {page} = router.query;
+  const {sms_type} = router.query;
 
   const [phoneNumber, setPhoneNumber] = useState(phone ? phone : '')
   const [dateFrom, setDateFrom] = useState(start ? start : '')
   const [dateTo, setDateTo] = useState(end ? end : '')
-  
+  const [smsType, setSmsType] = useState(sms_type ? sms_type : '')
 
   
   const beforeMaskedValueChange = (newState, oldState, userInput) => {
@@ -59,88 +62,17 @@ const AdminSmsCenter = ({adminReducer}) => {
 
   const sendRequest = () => {
     setLoading(true)
-    if(!phone && !start && !end) {
-      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {token: adminCookie}}, {headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res=> {
-        setLoading(false)
-        setFile(res.data)
-   
-      })
-    }
-    if(phone && !start && !end) {
-      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {token: adminCookie, phone: phone}}, {headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res=> {
+    axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
+      token: adminCookie,
+      phone: phone,
+      date_from: start,
+      date_to: end,
+      sms_type: sms_type
+    }})
+      .then(res => {
         setLoading(false)
         setFile(res.data)
       })
-    }
-    if(phone && start && !end) {
-      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
-        token: adminCookie,
-        phone: phone,
-        date_from: start
-      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res=> {
-        setLoading(false)
-        setFile(res.data)
-      })
-    }
-    if(phone && !start && end) {
-      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
-        token: adminCookie,
-        phone: phone,
-        date_to: end
-      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res=> {
-        setLoading(false)
-        setFile(res.data)
-      })
-    }
-    if(phone && start && end) {
-      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
-        token: adminCookie,
-        phone: phone,
-        date_from: start,
-        date_to: end,
-      }} ,{headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res=> {
-        setLoading(false)
-        setFile(res.data)
-      })
-    }
-    if(!phone && start && end) {
-      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
-        token: adminCookie,
-        date_from: start,
-        date_to: end,
-      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res=> {
-        setLoading(false)
-        setFile(res.data)
-      })
-    }
-
-    if(!phone && start && !end) {
-      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
-        token: adminCookie,
-        date_from: start,
-      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res=> {
-        setLoading(false)
-        setFile(res.data)
-      })
-    }
-
-    if(!phone && !start && end) {
-      axios.get(`${process.env.BASE_URL}/exportSms`, {params: {
-        token: adminCookie,
-        date_to: end,
-      }}, {headers: {'Access-Control-Allow-Origin': '*'}})
-      .then(res=> {
-        setLoading(false)
-        setFile(res.data)
-      })
-    }
   }
 
   const requestUpdate = (res) => {
@@ -156,194 +88,75 @@ const AdminSmsCenter = ({adminReducer}) => {
     setDateFrom('')
     setDateTo('')
     setPhoneNumber('')
+    setSmsType('')
+
+    setLoading(true)
+    axios.get(`${process.env.BASE_URL}/smsFilter`, {params: {
+      token: adminCookie,
+      phone: '',
+      page: '',
+      date_from: '',
+      date_to: '',
+      sms_type: '',
+      page: '' }
+    }, {headers: {'Access-Control-Allow-Origin': '*'}})
+        .then(res=> {
+          setLoading(false)
+          if(!res.data.message) {
+            requestUpdate(res)
+          }
+        })
     router.push('/admin/smscenter')
 
     e.preventDefault()
   }
   const onClear = () => {
-    setFile([])
-    if(!phone  && !start  && !end ) {
-      if(page) {
-        axios.get(`${process.env.BASE_URL}/sms`, {params: {token: adminCookie, page: page}}, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res => {
-            setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-            }
-          })
-      }else {
-        axios.get(`${process.env.BASE_URL}/sms`, {params: {token: adminCookie}}, {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res => {
+    setFile([]);
+    setLoading(true);
+    axios.get(`${process.env.BASE_URL}/smsFilter`, {params: {
+      token: adminCookie,
+      phone: phone,
+      page: page,
+      date_from: start,
+      date_to: end,
+      sms_type: sms_type,
+      page: page }
+    }, {headers: {'Access-Control-Allow-Origin': '*'}})
+        .then(res=> {
           setLoading(false)
           if(!res.data.message) {
             requestUpdate(res)
           }
         })
-      }
-    }
 
-    if(phone) {
-      const finalPage = () => page=== undefined ? 1 : page
-      setLoading(true)
-      if(start && !end) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${phone}&date_from=${start}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res=> {
+    
+    axios.get(`${process.env.BASE_URL}/smsTypes`, {headers:  {'Access-Control-Allow-Origin': '*'}})
+        .then(res => {
             setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-            }
-          })
-      }
-      if(!start && !end) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${phone}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res=> {
-            setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-            }
-          })
-      }
-      if(end && !start) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${phone}&date_to=${end}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res=> {
-            setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-            }
-          })
-      }
-      if(start && end) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${phone}&date_from=${start}&date_to=${end}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res=> {
-            setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-            }
-          })
-      }
-    } else {
-      if(start && end) {
-        const finalPage = () => page=== undefined ? 1 : page
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${start}&date_to=${end}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-          }
+            setSmsTypes(res.data)
         })
-      }
-      if(start && !end) {
-        const finalPage = () => page=== undefined ? 1 : page
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${start}&page=${finalPage}`,{headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-          }
-        })
-      }
-      if(end && !start) {
-        const finalPage = () => page=== undefined ? 1 : page
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_to=${end}&page=${finalPage}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-          }
-        })
-      }
-    }
-   
   }
   const changePage = (n) => {
-    if(!phone && !start && !end) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/sms?token=${adminCookie}&page=${n}`,{headers: {'Access-Control-Allow-Origin': '*'}})
+    function replaceDate(val) {
+      return String(val).replace(/[^A-Z0-9]/g, '')
+    }
+    setLoading(true)
+    axios.get(`${process.env.BASE_URL}/smsFilter`, {params: {
+      token: adminCookie,
+      phone: phone,
+      page: page,
+      date_from: start,
+      date_to: end,
+      sms_type: sms_type,
+      page: n }
+    }, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
             requestUpdate(res)
-            router.push(`/admin/smscenter?page=${n}`)
+            router.push(`/admin/smscenter?page=${n}&phone=${replaceDate(phoneNumber)}&start=${dateFrom}&end=${dateTo}&sms_type=${smsType}`)
           }
         })
-    }
-    if(phone && !start && !end) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?phone=${phone}&page=${n}`)
-          }
-        })
-    }
-    if(phone && start && !end) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&dateFrom=${start}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?phone=${phone}&start=${start}&page=${n}`)
-          }
-        })
-    }
-    if(phone && !start && end) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&date_to=${end}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?phone=${phone}&end=${end}&page=${n}`)
-          }
-        })
-    }
-    if(phone && start && end) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&phone=${phone}&date_to=${end}&date_from=${start}`,{headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?phone=${phone}&start=${start}&end=${end}&page=${n}`)
-          }
-        })
-    }
-    if(!phone && start && end) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&date_to=${end}&date_from=${start}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?start=${start}&end=${end}&page=${n}`)
-          }
-        })
-    }
-    if(!phone && !start && end) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&page=${n}&date_to=${end}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?end=${end}&page=${n}`)
-          }
-        })
-    }
-    if(!phone && start && !end) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${start}&page=${n}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?start=${start}&page=${n}`)
-          }
-        })
-    }
   }
   
   const onSearch = (e) => {
@@ -354,95 +167,22 @@ const AdminSmsCenter = ({adminReducer}) => {
     if(!phoneCheck(phoneNumber)) {
       setPhoneNumber('')
     }
-    if(!phoneNumber && !dateFrom && !dateTo) {
-      setLoading(true)
-      axios.get(`${process.env.BASE_URL}/sms?token=${adminCookie}` , {headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter`)
-          }
-        })
+    setLoading(true)
+    axios.get(`${process.env.BASE_URL}/smsFilter`, {params: {
+      token: adminCookie,
+      phone: replaceDate(phoneNumber),
+      date_from: dateFrom,
+      date_to: dateTo,
+      sms_type: smsType,
     }
-    if(phoneNumber) {
-      setLoading(true)
-      let ph = replaceDate(phoneNumber)
-      if(dateFrom && !dateTo) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${ph}&date_from=${dateFrom}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res=> {
-            setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-              router.push(`/admin/smscenter?phone=${ph}&start=${dateFrom}`)
-            }
-          })
-      }
-      if(dateTo && !dateFrom) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${ph}&date_to=${dateTo}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res=> {
-            setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-              router.push(`/admin/smscenter?phone=${ph}&end=${dateTo}`)
-            }
-          })
-      }
-      if(dateFrom && dateTo) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${ph}&date_from=${dateFrom}&date_to=${dateTo}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res=> {
-            setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-              router.push(`/admin/smscenter?phone=${ph}&start=${dateFrom}&end=${dateTo}`)
-            }
-          })
-      }
-
-      if(!dateFrom && !dateTo) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&phone=${ph}`, {headers: {'Access-Control-Allow-Origin': '*'}})
-          .then(res=> {
-            setLoading(false)
-            if(!res.data.message) {
-              requestUpdate(res)
-              router.push(`/admin/smscenter?phone=${ph}`)
-            }
-          })
-      }
-    } else {
-      setLoading(true)
-      if(dateFrom && dateTo) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${dateFrom}&date_to=${dateTo}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
+    }, {headers: {'Access-Control-Allow-Origin': '*'}})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
             requestUpdate(res)
-            router.push(`/admin/smscenter?start=${dateFrom}&end=${dateTo}`)
+            router.push(`/admin/smscenter?phone=${replaceDate(phoneNumber)}&start=${dateFrom}&end=${dateTo}&sms_type=${smsType}`)
           }
         })
-      }
-      if(dateFrom && !dateTo) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_from=${dateFrom}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?start=${dateFrom}`)
-          }
-        })
-      }
-      if(dateTo && !dateFrom) {
-        axios.get(`${process.env.BASE_URL}/smsFilter?token=${adminCookie}&date_to=${dateTo}` ,{headers: {'Access-Control-Allow-Origin': '*'}})
-        .then(res=> {
-          setLoading(false)
-          if(!res.data.message) {
-            requestUpdate(res)
-            router.push(`/admin/smscenter?end=${dateTo}`)
-          }
-        })
-      }
-    }
-
     
     e.preventDefault()
   }
@@ -473,7 +213,18 @@ const AdminSmsCenter = ({adminReducer}) => {
             <label>Дата до:</label>
             <input type='date' value={dateTo} onChange={(e) => setDateTo(e.target.value)} />
           </div>
+
+          <div className='input-groups d-flex flex-column mr-2'>
+            <label>Тип сообщений:</label>
+            
+            <select value={smsType} onChange={(e) => {setSmsType(e.target.value)}}><option value=''>Все</option>
+              {smsTypes.map(type=> (
+                <option value={type.id}>{type.name}</option>
+              ))}
+            </select>
           </div>
+          </div>
+          
           <div className='text-center'>
           <button  type='submit' className='mr-2 mt-3 btn btn-dark'>Искать</button>
           <a href='/admin/smscenter' type='button' className='mr-2 mt-3 btn btn-light' onClick={(e) => {clearForm(e)}}>Сбросить</a>
