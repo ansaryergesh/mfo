@@ -13,7 +13,10 @@ const Header = ({adminReducer}) => {
 
 
     const handleLogout = () => {
-      axios.get(`${process.env.BASE_URL}/logout?email=${adminReducer.user.email}`,{headers: {'Access-Control-Allow-Origin': '*'}})
+      axios.get(`${process.env.BASE_URL}/logout?email=${adminReducer.user.email}`,{headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }})
         .then(res=> {
           router.push('/admin/login')
           cookie.remove('admin_token')
@@ -31,7 +34,7 @@ const Header = ({adminReducer}) => {
         <>
         <Flash />
         <header role="banner">
-          <h1>I-credit</h1>
+          <h1><a href='/'>I-credit</a></h1>
           <ul className="utilities">
             <li className="users"><a href="/admin/main">{adminReducer.user.name}</a></li>
             <li className="logout warn"  onClick={handleLogout}><a href>Log Out</a></li>

@@ -11,7 +11,6 @@ import SmsList from '../../components/admin/SmsList';
 import InputMask from "react-input-mask";
 import { phoneCheck } from '../../defaults/validations';
 import { ExportCSV } from '../../components/admin/ExportCSV';
-import { date } from 'yup';
 
 
 function mapStateToProps(state) {
@@ -26,6 +25,7 @@ const AdminSmsCenter = ({adminReducer}) => {
   const [lastPage, setLastPage] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [toList, setToList] = useState(15);
+  const [from, setFrom] = useState(1);
   const [file, setFile] = useState([])
   const [loading, setLoading] = useState(true);
   const adminCookie = cookie.get('admin_token');
@@ -81,6 +81,7 @@ const AdminSmsCenter = ({adminReducer}) => {
     setLastPage(res.data.last_page)
     setTotal(res.data.total);
     setToList(res.data.to);
+    setFrom(res.data.from)
   }
 
   const clearForm = (e) => {
@@ -99,7 +100,10 @@ const AdminSmsCenter = ({adminReducer}) => {
       date_to: '',
       sms_type: '',
       page: '' }
-    }, {headers: {'Access-Control-Allow-Origin': '*'}})
+    }, {headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -121,7 +125,10 @@ const AdminSmsCenter = ({adminReducer}) => {
       date_to: end,
       sms_type: sms_type,
       page: page }
-    }, {headers: {'Access-Control-Allow-Origin': '*'}})
+    }, {headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -130,13 +137,17 @@ const AdminSmsCenter = ({adminReducer}) => {
         })
 
     
-    axios.get(`${process.env.BASE_URL}/smsTypes`, {headers:  {'Access-Control-Allow-Origin': '*'}})
+    axios.get(`${process.env.BASE_URL}/smsTypes`, {headers:  {
+      'Access-Control-Allow-Origin': '*',
+      'Content-Type': 'application/json'
+    }})
         .then(res => {
             setLoading(false)
             setSmsTypes(res.data)
         })
   }
   const changePage = (n) => {
+    setFile([])
     function replaceDate(val) {
       return String(val).replace(/[^A-Z0-9]/g, '')
     }
@@ -149,9 +160,13 @@ const AdminSmsCenter = ({adminReducer}) => {
       date_to: end,
       sms_type: sms_type,
       page: n }
-    }, {headers: {'Access-Control-Allow-Origin': '*'}})
+    }, {headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }})
         .then(res=> {
           setLoading(false)
+         
           if(!res.data.message) {
             requestUpdate(res)
             router.push(`/admin/smscenter?page=${n}&phone=${replaceDate(phoneNumber)}&start=${dateFrom}&end=${dateTo}&sms_type=${smsType}`)
@@ -175,7 +190,10 @@ const AdminSmsCenter = ({adminReducer}) => {
       date_to: dateTo,
       sms_type: smsType,
     }
-    }, {headers: {'Access-Control-Allow-Origin': '*'}})
+    }, {headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }})
         .then(res=> {
           setLoading(false)
           if(!res.data.message) {
@@ -231,13 +249,13 @@ const AdminSmsCenter = ({adminReducer}) => {
           </div>
         </form>
         
-        {file.length !==0 ?    <ExportCSV fileName={(!phone && !end && !start) ? 'allresult' : 'phone: '+ phone + ' date_from: '+ start+ ' date_to: '+ end } csvData={file}  /> : <button className='btn btn-info' onClick={sendRequest}>Готовить файл для выгрузки</button>}
+        {file.length !==0 ?    <ExportCSV fileName={(!phone && !end && !start && !sms_type) ? 'allresult' : 'phone: '+ phone + ' date_from: '+ start+ ' date_to: '+ end + ' sms_type: ' + sms_type } csvData={file}  /> : <button className='btn btn-info' onClick={sendRequest}>Готовить файл для выгрузки</button>}
  
 
 
 
         {loading? 'loading....' : 
-        <SmsList toList={toList} sms={smsList} total={total} currentPage={currentPage}/>}
+        <SmsList  from={from} sms={smsList} total={total} currentPage={currentPage}/>}
 
         <SmsPagination max_page = {lastPage} current_page={currentPage} changePage={changePage}/>
      </section>

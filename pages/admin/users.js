@@ -19,8 +19,6 @@ const AdminUsers = ({adminReducer}) => {
     const [newUser, setNewUser] = useState({name: null, email: null, password: 'icredit123', role_id: 2})
     const [showModal, setShowModal] = useState(false);
 
-
-
     const finalUser = users.filter(user=>user.id !== adminReducer.user.id);
     const handleClose = () => {
       setShowModal(false)
@@ -28,7 +26,10 @@ const AdminUsers = ({adminReducer}) => {
     };
     const handleShow = () => setShowModal(true);
     const getUser = () => {
-      axios.get(`${process.env.BASE_URL}/users`, {headers: {'Access-Control-Allow-Origin': '*'}})
+      axios.get(`${process.env.BASE_URL}/users`, {headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }})
             .then(res => {
                 setUsers(res.data)
                 setLoading(false)
@@ -47,13 +48,16 @@ const AdminUsers = ({adminReducer}) => {
 
 
     const userAdd = (e) => {
-      axios.post('${process.env.BASE_URL}/users', {
+      axios.post(`${process.env.BASE_URL}/users`, {
         name: newUser.name,
         email: newUser.email,
         password: newUser.password,
         role_id: newUser.role_id,
         token: cookie.get('admin_token')
-      }, {headers: {'Access-Control-Allow-Origin': '*'}})
+      }, {headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }})
         .then(res=> {
           if(res.data.success) {
             dispatch({type: 'ADM_SUCCESS_MESSAGE', payload: res.data.message})
@@ -67,13 +71,16 @@ const AdminUsers = ({adminReducer}) => {
       e.preventDefault()
     }
     const saveEdit = () => {
-      axios.put('${process.env.BASE_URL}/edit', {
+      axios.put(`${process.env.BASE_URL}/edit`, {
         token: cookie.get('admin_token'),
         email: userDate.email,
         name: userDate.name,
         role_id: userDate.role_id,
         user_id: userDate.id
-      }, {headers: {'Access-Control-Allow-Origin': '*'}})
+      }, {headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }})
         .then(res => {
           if(res.data.success) {
             dispatch({type: 'ADM_SUCCESS_MESSAGE', payload: res.data.message})

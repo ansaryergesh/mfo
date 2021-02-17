@@ -10,11 +10,15 @@ function AdminLogin() {
 
   const dispatch = useDispatch();
   const handleLogin = (e) => {
-    axios.post(`${process.env.BASE_URL}/login`, {password: password, email: email}, {headers: {'Access-Control-Allow-Origin': '*'}})
+    axios.post(`${process.env.BASE_URL}/login`, {password: password, email: email}, {
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Content-Type': 'application/json'
+      }})
       .then(res=> {
         if(res.data.success){ 
           cookie.set('admin_token', res.data.token, {expires: 60})
-          Router.push('/admin/main')
+          Router.push('/admin/smscenter')
         }else {
           dispatch({type:'ADM_ERROR_MESSAGE', payload: res.data.message})
         }

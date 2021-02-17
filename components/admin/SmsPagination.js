@@ -77,9 +77,7 @@ const SmsPagination = (props) => {
 
   return(
     <div className='paginations'>
-      {/* <a href='#'>пред</a> */}
       {paginationBtns}
-      {/* <a href='#'>след</a> */}
     </div>
   )
 }

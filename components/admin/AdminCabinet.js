@@ -13,7 +13,10 @@ const AdminCabinet = ({user, active}) => {
         token: cookie.get('admin_token'),
         email: userDate.email,
         name: userDate.name,
-      }, {headers: {'Access-Control-Allow-Origin': '*'}})
+      }, {headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }})
         .then(res => {
           if(res.data.success) {
             dispatch({type: 'ADM_SUCCESS_MESSAGE', payload: res.data.message})
@@ -37,7 +40,11 @@ const AdminCabinet = ({user, active}) => {
         axios.get(`${process.env.BASE_URL}/changePassword`, {params: {
           token: cookie.get('admin_token'),
           password: password
-        }}, {headers: {'Access-Control-Allow-Origin': '*'}})
+        }},
+        {headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json'
+        }})
           .then(res => {
             if(res.data.success) {
               setPassword('')

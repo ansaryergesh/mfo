@@ -5,22 +5,6 @@ module.exports = withImages({
   },
 
   env: {
-    BASE_URL: 'http://localhost:8000/api'
+    BASE_URL: 'http://37.18.30.37/api'
   }
 })
-
-// module.exports = {
-  // webpack: (config, { isServer }) => {
-  //   // Fixes npm packages that depend on `fs` module
-  //   if (!isServer) {
-  //     config.node = {
-  //       fs: 'empty'
-  //     }
-  //   }
-
-  //   return config
-  // },
-//   rules: [
-
-//   ]
-// }

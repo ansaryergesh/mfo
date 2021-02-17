@@ -12,7 +12,6 @@ const SmsList = (props) => {
       return 'success'
     }
   }
-  const indexList = props.toList - 14;
   return (
     <div>
       <p className='text-center mt-2 mb-2'>Найдено: {props.total} записей</p>
@@ -32,7 +31,7 @@ const SmsList = (props) => {
         <tbody>
           {props.sms.map((s,index) => (
             <tr key={s.id}>
-               <th scope="row">{props.toList >15 ? index+indexList : index+1}</th>
+               <th scope="row">{props.from + index}</th>
                <td>{s.phone}</td>
                <td>{s.type}</td>
                <td>{s.text}</td>
