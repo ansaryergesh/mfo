@@ -107,21 +107,9 @@ class Home extends React.Component {
                 </div>
               </div>
             </div>
-            <div className="presents pt-5 mt-5">
-              <div className="row">
-                <div className="mb-5 col-md-6 present">
-                  <div className="content">
-                    <h2 className="red">iPhone 11 <span className="d-block">Pro</span></h2>
-                    <p>в подарок каждому <span className="d-block">тысячному заемщику</span></p>
-                  </div>
-                  <AppLink href="/get_money">
-                  <div className="content-bottom red">
-                        Получить деньги
-                  </div>
-                  </AppLink>
-                  <img src={require("../img/Bitmap1.png")} alt="" />
-                </div>
-                <div className="col-md-6 mb-5 present">
+            <div className="presents pt-5 mt-5 d-flex justify-content-center mx-auto">
+              <div className="row presentblock">
+              <div className="col-md-6 mb-5  present">
                   <div className="content">
                     <h2 className="red">100</h2>
                     <p>Каждому 100-му <span className="d-block">заемщиком</span><span className="d-block">прощаем
@@ -136,6 +124,19 @@ class Home extends React.Component {
 
 
                 </div>
+                {/* <div className="mb-5 col-md-6 present">
+                  <div className="content">
+                    <h2 className="red">Онлайн  <span className="d-block">заим</span></h2>
+                    <p>по всему <span className="d-block">Казахстану</span></p>
+                  </div>
+                  <AppLink href="/get_money">
+                  <div className="content-bottom red">
+                        Получить деньги
+                  </div>
+                  </AppLink>
+                  <img src={require("../img/Bitmap1.png")} alt="" />
+                </div> */}
+                
 
               </div>
             </div>

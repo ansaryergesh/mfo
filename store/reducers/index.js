@@ -20,8 +20,6 @@ export default combineReducers ({
   moneyVal: MoneyVal,
   message: messages,
   userReducer,
-  adminReducer,
-  admmessage,
   registrationValues: registration,
   stepregistration: stepregistration,
   regionsReducer: regionsReducer,

@@ -1819,11 +1819,20 @@ main {
 }
 
 .present .content {
-  right: 15%;
+  right:15%;
+  background-color: rgba(150, 141, 141, 0.544);
+  border-radius: 5px;
+  padding: 5px;
   top: 15%;
   position: absolute;
   font-family: "CTCSplachRounded";
   text-align: left;
+}
+.presentblock {
+  -webkit-box-shadow: 4px 0px 8px 0px rgba(99, 50, 50, 0.306);
+  -moz-box-shadow:    4px 0px 8px 0px rgba(99, 50, 50, 0.265);
+  box-shadow:         4px 0px 8px 0px rgba(99, 50, 50, 0.211);
+  background-color: transparent!important;
 }
 
 .present .content h2 {
