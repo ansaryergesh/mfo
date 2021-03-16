@@ -65,8 +65,8 @@ const Footer = () => {
             </div>
             <div className="col-md-4 footerCol">
               <div className="extra-info">
-                <img src={require("../../img/Group 14.svg")} />
-                <h5>Онлайн консультант <br /> по всем вопросам</h5>
+                <img src={require("../../img/svg/Оферта.svg")} />
+                <a href="https://i-credit.kz/docs/licence.pdf" target="_blank"><h5>Лицензия на осуществление микрофинансовой<br /> деятельности</h5></a>
               </div>
             </div>
           </div>

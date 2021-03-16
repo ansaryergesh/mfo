@@ -51,6 +51,7 @@ class ProgressBar extends Component {
 
       }
       async handleRepeatedZaim(values) {
+        console.log("clicked")
         values.UF_2 = this.props.moneyVal;
         values.UF_3 = this.props.dayVal;
 
@@ -123,7 +124,9 @@ class ProgressBar extends Component {
             });
             }
             else {
-              swal("Oops!", `${response.errors || 'У вас анкета заполнена не до конца. Напишите на WhatsApp или звоните на номер +7 727 250 15 00'}`, "error");
+              swal("Oops!", `${response.errors || 'У вас анкета заполнена не до конца. Напишите на WhatsApp или звоните на номер +7 727 250 15 00'}`, "error").then(() => {
+                Router.push('/cabinet/loans')
+              });
             }
           })
           .catch(error => {

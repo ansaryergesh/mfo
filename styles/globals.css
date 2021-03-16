@@ -1,13 +1,13 @@
 @font-face {
   font-family: "AvenirNext";
-  src: url("../fonts/AvenirNext-Regular.ttf") format("truetype");
+  src: url("../fonts/avenirnextcyr-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: "AvenirNext";
-  src: url("../fonts/AvenirNext-Bold.ttf") format("truetype");
+  src: url("../fonts/avenirnextcyr-bold.ttf") format("truetype");
   font-weight: bold;
   font-style: normal;
 }
@@ -138,6 +138,9 @@ body {
 .center-line {
   text-decoration: line-through;
 }
+form {
+  font-family: 'AvenirNext';
+}
 
 @media (max-width: 740px) {
   .view {
@@ -230,7 +233,7 @@ ul.complete li {
 }
 
 ul.complete li:last-child {
-  display: none;
+  /* display: none; */
 }
 
 .complete img {

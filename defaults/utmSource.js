@@ -1,4 +1,3 @@
-import { get } from 'jquery';
 import cookie from 'js-cookie';
 
 function getUrlParameter(name) {
@@ -143,6 +142,15 @@ export const controlUtm = () => {
       newCookie();
       localStorage.clear();
       cookie.set('utm_source', getUrlParameter('utm_source'), {expires:30})
+    }
+  }
+  if(getUrlParameter('affiliate_id').length>0 && getUrlParameter('transaction_id').length>0 && getUrlParameter('utm_source').length>0) {
+    if(getUrlParameter('utm_source').includes('leadssu')) {
+      newCookie();
+      localStorage.clear();
+      cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 30})
+      cookie.set('clickid', getUrlParameter('transaction_id'), {expires: 30})
+      cookie.set('wmid', getUrlParameter('affiliate_id'), {expires: 30})
     }
   }
   

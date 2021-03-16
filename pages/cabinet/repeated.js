@@ -25,32 +25,13 @@ class Cabinet extends React.Component {
   }
 
   componentDidMount() {
-    // if(localStorage.getItem('step') && localStorage.getItem('step') < 3) {
-    //   Router.push('/get_money')
-    // }else {
-    //   axios.get(`https://api.money-men.kz/api/repeatUser?iin=${this.props.userReducer.user.UF_4}`)
-    //   .then((response) => {
-    //     this.setState ({
-    //       btnLoading: true
-    //     })
-    //     console.log(response)
-    //     if(response.data.success === false) {
-    //       Router.push('/cabinet')
-    //     }else {
-    //       this.setState ({
-    //         btnLoading: false
-    //       })
-    //     }
-    //   })
-    // }
     axios.get(`https://api.money-men.kz/api/repeatUser?iin=${this.props.userReducer.user.UF_4}`)
     .then((response) => {
       this.setState ({
         btnLoading: true
       })
-      console.log(response)
       if(response.data.success === false) {
-        Router.push('/cabinet')
+        Router.push('/cabinet/loans')
       }else {
         this.setState ({
           btnLoading: false
@@ -76,9 +57,5 @@ class Cabinet extends React.Component {
     )
   }
 }
-
-// const mapStateToProps = ({ usersReducer: { user: { UF9} } }) => ({
-//   username: UF9
-// })
 
 export default withAuth(connect(mapStateToProps)(Cabinet));

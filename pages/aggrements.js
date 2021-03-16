@@ -115,6 +115,30 @@ class Aggrement extends React.Component {
     }
   }
 
+  sendAgreementStatusWithRest() {
+    this.setState({
+      loading:true
+    })
+    axios.get(`https://api.money-men.kz/api/prolongationAgreement?sign=y&request_id=${this.state.id}`)
+      .then(res=> {
+        this.setState({
+          loading: false
+        })
+        if(res.data.success){
+          swal("Успешно!", "success").then(()=>{
+            Router.push('/')
+          })
+        }
+      })
+      .catch(error=>{
+        this.setState({
+          loading: false
+        })
+        console.log(error)
+        Router.push('/')
+      })
+  }
+
   async sendAgreementStatus(){
     this.setState({
       loading: true
@@ -133,7 +157,7 @@ class Aggrement extends React.Component {
         })
 
         if(response.data.success){
-          swal("Успешно!", `${response.data.message}`, "success").then(()=>{
+          swal("Успешно!", "success").then(()=>{
             Router.push('/')
           })
         }
@@ -156,13 +180,7 @@ class Aggrement extends React.Component {
         token: getUrlParameter('token')
       })
     }
-    // console.log("ko" + userToken())
     this.getUserDocument(userToken())
-
-    // setTimeout(() => {
-    //   this.getUserDocument(this.state.token)
-    // },100)
-
   }
 
 
@@ -178,11 +196,14 @@ class Aggrement extends React.Component {
 
                 <ul className='complete'>
                 {this.state.docs.map(doc=> (
-                    <li><img className='checkedComplete' src={require("../img/checked.png")} /><a href={doc.link} target="_blank">{doc.name}</a></li>
+                    <li className={doc.link===null? 'd-none' : ''}><img className='checkedComplete' src={require("../img/checked.png")} /><a href={doc.link} target="_blank">{doc.name}</a></li>
                 ))
                 }</ul>
           <div className="repeatBtn form-group" >
-            <button onClick={() => this.sendAgreementStatus()} className='mt-5' >Соглашаюсь</button>
+            {this.state.rest === true ?   <button onClick={() => this.sendAgreementStatusWithRest()} className='mt-5' >Соглашаюсь</button> :
+              <button onClick={() => this.sendAgreementStatus()} className='mt-5' >Соглашаюсь</button>
+            }
+
           </div>
             </div>
         </div>

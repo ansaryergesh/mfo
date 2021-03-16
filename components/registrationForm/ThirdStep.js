@@ -94,7 +94,6 @@ class FormRegister extends React.Component {
   }
 
   handleSubmit(values) {
-    console.log(values);
     var other = {};
     other.bank_name = isValidIBANNumber(values.iban_account);
     other.source = 'i-credit.kz'
@@ -123,6 +122,11 @@ class FormRegister extends React.Component {
         other.webID = cookie.get('wmid')
         other.cpa_clickid = cookie.get('clickid')
       }
+      if(cookie.get('utm_source') === 'leadssu') {
+        other.source = cookie.get('utm_source')
+        other.cpa_source = cookie.get('utm_source')
+        other.cpa_clickid = cookie.get('clickid')
+      }
       if(cookie.get('utm_source').includes('smartzaim')) {
         other.source = cookie.get('utm_source');
         other.cpa_source = cookie.get('utm_source');
@@ -146,7 +150,6 @@ class FormRegister extends React.Component {
         other.webID = cookie.get('wmid');
       }
     }
-
     other.finished_step = 3;
     const finalObjects = {
       ...other,

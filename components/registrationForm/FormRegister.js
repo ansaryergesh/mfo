@@ -4,6 +4,7 @@ import {changingMoney, changingDay, postRegistration} from '../../store/actions/
 import {Modal, ModalHeader, ModalBody, Label, Row} from 'reactstrap';
 import { Formik, Form,  Field  } from 'formik';
 import InputMask from "react-input-mask";
+import Router from 'next/router'
 import ProgressBar from '../shared/Progressbar';
 import swal from "sweetalert";
 import {
@@ -24,6 +25,7 @@ import {
 import Spinner from 'react-spinner-material';
 import disableScroll from 'disable-scroll';
 import $ from 'jquery';
+import { ifBlckList } from '../../defaults/blacklistPhones';
 
 
 
@@ -84,23 +86,7 @@ class FormRegister extends React.Component {
         phone: '',
       }],
       test: ''
-      
-      // const firstreg = () => {
-      //   if(localStorage.getItem('firstreg')) {
-      //     [{
-      //       name: '',
-      //       middlename: '',
-      //       last_name: '',
-      //       iin: '',
-      //       email: '',
-      //       password: '',
-      //       password_confirmation: '',
-      //       phone: '',
-      //    }]
-      //   }else {
-      //     return JSON.parse(localStorage.getItem('firstreg'))
-      //   }
-      // }
+
     };
     this.toggleModal = this
       .toggleModal
@@ -171,11 +157,22 @@ class FormRegister extends React.Component {
     }
 
     if(validage(values.iin) === false) {
+      // Проверка возвраста по иин
       swal("Oops!", `По внутренним нормативным документам  ТОО "МФО i-redit.kz"  выдача займа осуществляется  лицам достигшим 21-го года и не старше 63-х лет.`, "error");
-    }else {
+      setTimeout(() => {
+        Router.push('/')
+      }, 5000)
+    }
+    if(ifBlckList(values.phone) === true) {
+      // Черный список телефонов которые не может подавать
+      swal ('Важно',"Вы не можете подавать заявку в нашу организацию!", "error")
+      setTimeout(() => {
+        Router.push('/')
+      }, 5000)
+    }
+    if(validage(values.iin) === true && ifBlckList(values.phone) === false)  {
       this.props.postRegistration(finalObjects);
     }
-
   }
 
   handleFocus() {
@@ -191,12 +188,6 @@ class FormRegister extends React.Component {
   }
 
   componentDidMount() {
-    // this.userData = JSON.parse(localStorage.getItem('firstreg'));
-    // if(localStorage.getItem('firstreg')) {
-    //   this.setState({test: this.userData.name})
-    // }
-
-    // console.log(this.state.test)
     const progress = document.querySelector('.progress-done');
     progress.style.width = progress.getAttribute('data-done') + '%';
     progress.append(progress.getAttribute('data-done') + "%")

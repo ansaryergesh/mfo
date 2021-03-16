@@ -11,6 +11,7 @@ import Head from 'next/head'
 import axios from 'axios'
 import Status from '../../components/shared/userStatus'
 import History from '../../components/shared/userHistory'
+import { ifSaled } from '../../defaults/saled'
 const mapStateToProps = state => {
   return {userReducer: state.userReducer, userStatus: state.userStatus, userHistory: state.userHistory}
 }
@@ -55,6 +56,25 @@ class Cabinet extends React.Component {
   }
 
   render() {
+    if(ifSaled(this.props.userReducer.user.UF_4)) {
+      // проданные на ID collect
+      return (
+        <div className='container otherPages'>
+          <p className='welcome text-center'>{helloUser()} {this.props.userReducer.user.UF_5}
+          {" "+this.props.userReducer.user.UF_6}
+          !</p>
+          <div className="alert alert-info" role="alert">
+            <h4 className="alert-heading">Ваш контракт продан</h4>
+            <p>Ваш контракт ПРОДАН в <b>ТОО “Коллекторское агентство “АйДи Коллект”</b></p>
+            <p className="m-b-0">
+            контактный номер <b ><a href='tel:+77000037733'>телефона</a>/<a  href="https://api.whatsapp.com/send?phone=+77000037733" target="_blank">Whatsapp</a>: +7 700 003 77 33</b>
+            <br></br>Email: <a href='mailto:info@idcollect.kz'><b>info@idcollect.kz</b></a>
+            </p>
+          </div>
+      </div>
+      )
+      
+    }else {
     return (
       <div className='otherPages'>
         <Head>
@@ -119,6 +139,7 @@ class Cabinet extends React.Component {
 
       </div>
     )
+          }
   }
 }
 
