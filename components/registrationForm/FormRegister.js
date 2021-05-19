@@ -26,6 +26,8 @@ import Spinner from 'react-spinner-material';
 import disableScroll from 'disable-scroll';
 import $ from 'jquery';
 import { ifBlckList } from '../../defaults/blacklistPhones';
+import { ifSaled } from '../../defaults/saled';
+import { isFord } from '../../defaults/frods';
 
 
 
@@ -165,14 +167,29 @@ class FormRegister extends React.Component {
     }
     if(ifBlckList(values.phone) === true) {
       // Черный список телефонов которые не может подавать
-      swal ('Важно',"Вы не можете подавать заявку в нашу организацию!", "error")
+      swal ('Важно',"Вы не можете подавать заявку в нашу организацию! (Черный список)", "error")
       setTimeout(() => {
-        Router.push('/')
+        // Router.push('/')
       }, 5000)
     }
-    if(validage(values.iin) === true && ifBlckList(values.phone) === false)  {
-      this.props.postRegistration(finalObjects);
+    if(ifSaled(values.iin) === true) {
+      swal ('Важно',"Вы не можете подавать заявку в нашу организацию! (Проданный лид)", "error")
+      setTimeout(() => {
+        // Router.push('/')
+      }, 5000)
     }
+    if(isFord(values.iin) === true) {
+      swal ('Важно',"Вы не можете подавать заявку в нашу организацию! (Фрод)", "error")
+      setTimeout(() => {
+        // Router.push('/')
+      }, 5000)
+    }
+
+    if(validage(values.iin) === true
+      && ifBlckList(values.phone) === false &&
+      ifSaled(values.iin) === false && isFord(values.iin)===false)  {
+        this.props.postRegistration(finalObjects);
+      }
   }
 
   handleFocus() {

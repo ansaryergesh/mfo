@@ -27,6 +27,8 @@ class MyDocument extends Document {
 
           <script src="/js/myscript.js"></script>
           <script type="text/javascript" src="/js/myscript2.js"></script>
+          <script defer src='/js/verilive_1.4.4.js'></script>
+          <script defer src='/js/veridoc.js'></script>
           <noscript>
             <div>
               <img src="https://mc.yandex.ru/watch/66946039" style={{position: 'absolute', left: '-9999px'}} alt=""  />

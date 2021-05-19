@@ -105,8 +105,8 @@ ${this.state.answer.split('%0A')}%0A%0A
       this.setState({code: event.target.value})
     }
     submitCode = () => {
-      if(this.state.code === 'admin123') {
-        cookie.set('botmsg','3917', {expires: 60})
+      if(this.state.code === 'icredit21') {
+        cookie.set('tgmsg','3215', {expires: 60})
         location.reload();
       }else {
         alert('Ошибка кода')
@@ -130,7 +130,7 @@ ${this.state.answer.split('%0A')}%0A%0A
     }
 
     render() {
-        if(cookie.get('botmsg') === undefined) {
+        if(cookie.get('tgmsg') !== '3215') {
             return (
                 <div className='container text-center otherPages'>
                     <form onSubmit={this.submitCode}>

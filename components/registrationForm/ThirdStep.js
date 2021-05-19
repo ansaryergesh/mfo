@@ -106,7 +106,12 @@ class FormRegister extends React.Component {
         other.cpa_source = cookie.get('utm_source')
         other.cpa_clickid = cookie.get('afclick')
       }
-      if(cookie.get('utm_source') === 'upsala' || cookie.get('utm_source')=== 'doaff' || cookie.get('utm_source') === 'goodaff'){
+      if(cookie.get('utm_source') === 'upsala' ||
+        cookie.get('utm_source')=== 'doaff' ||
+        cookie.get('utm_source') === 'goodaff' ||
+        cookie.get('utm_source') === 'finpublic_cpa' ||
+        cookie.get('utm_source') === 'pdl-profit'
+      ){
         other.source = cookie.get('utm_source')
         other.cpa_source = cookie.get('utm_source')
         other.cpa_clickid = cookie.get('clickid')
@@ -238,8 +243,8 @@ class FormRegister extends React.Component {
       <div>
 
 
-        <div class="progressBar">
-          <div class="progress-done" id="progress-done" data-done="68.5"></div>
+        <div className="progressBar">
+          <div className="progress-done" id="progress-done" data-done="68.5"></div>
           <p className="counter">Вероятность одобрения</p>
         </div>
         {this.props.loading === true
@@ -255,13 +260,13 @@ class FormRegister extends React.Component {
           model='registration3'
           onSubmit={(values) => this.handleSubmit(values)}>
           {this.props.somemessage.error !== null
-            ? <div class="alert alert-danger" role="alert">
+            ? <div className="alert alert-danger" role="alert">
                 <strong>
                   {this.props.somemessage.error}</strong>
               </div>
             : null}
           {this.props.somemessage.error !== null
-            ? <div class="alert alert-danger" role="alert">
+            ? <div className="alert alert-danger" role="alert">
                 <strong>
                   {null || this.props.somemessage.error.email || this.props.somemessage.error}</strong>
               </div>
@@ -274,13 +279,13 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='name_of_workplace'>Место работы * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.text
                 model='.name_of_workplace'
                 id='name_of_workplace'
                 name='name_of_workplace'
                 placeholder='Место работы'
-                class="form-control"
+                className="form-control"
                 className='form-control'
                 validators={{
                 required
@@ -298,13 +303,13 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='type_id'>Должность * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.select
                 model='.type_id'
                 id='type_id'
                 name='type_id'
                 placeholder=''
-                class="form-control"
+                className="form-control"
                 className='form-control'
                 validators={{
                 required
@@ -327,13 +332,13 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='work_experience'>Стаж работы на последнем месте работы* :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.select
                 model='.work_experience'
                 id='work_experience'
                 name='work_experience'
                 placeholder=''
-                class="form-control"
+                className="form-control"
                 className='form-control'
                 validators={{
                 required
@@ -362,14 +367,14 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='birth_place'>Место рождения * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.text
                 model='.birth_place'
                 id='birth_place'
                 name='birth_place'
 								placeholder='Место рождения'
 								autocomplete = 'off'
-                class="form-control"
+                className="form-control"
                 className='form-control'
                 validators={{
                 required
@@ -389,7 +394,7 @@ class FormRegister extends React.Component {
 
             <Label htmlFor='id_card_number'>Номер удостворения личности * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control
                 component={idCardNumber}
                 model=".id_card_number"
@@ -415,7 +420,7 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='date_of_issue'>Дата выдачи(дд.мм.гггг) * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control
                 component={dateofIdCard}
                 model=".date_of_issue"
@@ -442,7 +447,7 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='expiration_date_of_icard'>Срок действия(дд.мм.гггг) * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control
                 component={dateofIdCard}
                 model=".expiration_date_of_icard"
@@ -462,21 +467,21 @@ class FormRegister extends React.Component {
               show='touched'
               messages={{
               required: 'Поле обязательно для заполнения! ',
-              expDateCardId: "Введите корректную дату"
+              expDateCardId: "Формат даты неправильный или уд. личности просрочен"
             }}/>
           </Row>
 
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='place_of_issue'>Кем выдано * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.select
                 model='.place_of_issue'
                 id='place_of_issue'
                 name='place_of_issue'
                 placeholder='МВД РК'
                 type="number"
-                class="form-control"
+                className="form-control"
                 className='form-control'
                 validators={{
                 required
@@ -500,7 +505,7 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
               <Label htmlFor='income'>Доход * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.input
                 model='.income'
                 id='income'
@@ -508,7 +513,7 @@ class FormRegister extends React.Component {
 								autocomplete = 'off'
                 placeholder='150000'
                 type="number"
-                class="form-control"
+                className="form-control"
                 className='form-control'
                 validators={{
                 required
@@ -528,7 +533,7 @@ class FormRegister extends React.Component {
             <Label htmlFor='balance_on_deposit'>Остаток на депозите * :
             </Label>
 
-            <div class="input-group">
+            <div className="input-group">
               <Control.input
                 model='.balance_on_deposit'
                 id='balance_on_deposit'
@@ -536,12 +541,12 @@ class FormRegister extends React.Component {
 								autocomplete = 'off'
                 placeholder='500000'
                 type="number"
-                class="form-control"
+                className="form-control"
                 className='form-control'
                 validators={{
                 required
               }}/>
-              <div class="hint">Чем больше сумма депозита тем больше сумма при одобрении заима</div>
+              <div className="hint">Чем больше сумма депозита тем больше сумма при одобрении заима</div>
             </div>
 
             <Errors
@@ -556,7 +561,7 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='amount_of_payments_for_current_loans'>Сумма * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.input
                 model='.amount_of_payments_for_current_loans'
                 id='amount_of_payments_for_current_loans'
@@ -564,7 +569,6 @@ class FormRegister extends React.Component {
 								autocomplete = 'off'
                 placeholder='Сумма платежей действующих кредитов:'
                 type="number"
-                class="form-control"
                 className='form-control'
                 validators={{
                 required
@@ -583,14 +587,14 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='amount_of_paid_loans_in_last_six_month'>Сумма платежей закрытых кредитов последний 6 мес. * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.input
                 model='.amount_of_paid_loans_in_last_six_month'
                 id='amount_of_paid_loans_in_last_six_month'
 								name='amount_of_paid_loans_in_last_six_month'
 								autocomplete = 'off'
                 placeholder='Сумма:'
-                class="form-control"
+                className="form-control"
                 className='form-control'
                 validators={{
                 required
@@ -668,7 +672,7 @@ class FormRegister extends React.Component {
           <Row className="form-group  mb-3 col-12 mx-auto">
             <Label htmlFor='name_of_owner'>Имя владельца карты латинскими буквами * :
             </Label>
-            <div class="input-group">
+            <div className="input-group">
               <Control.text
 								model='.name_of_owner'
 								autocomplete = 'off'
@@ -696,7 +700,7 @@ class FormRegister extends React.Component {
           </Row>
 
           {this.props.somemessage.error !== null
-            ? <div class="alert alert-danger" role="alert">
+            ? <div className="alert alert-danger" role="alert">
                 <strong>
                   {this.props.somemessage.error}</strong>
               </div>

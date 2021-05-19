@@ -5,7 +5,6 @@ import {Control, Errors, Form} from 'react-redux-form';
 import InputMask from "react-input-mask";
 import {postRegistrationSecond, fetchRegions, emptyMessage} from '../../store/actions/ActionCreators'
 import {relative_type, gorods, addition_contact_type} from '../../defaults/defaultRelative'
-import {Prompt} from 'react-router-dom';
 import $ from 'jquery'
 import {required, phoneCheck, acceptCirrilic} from '../../defaults/validationredux';
 import Spinner from 'react-spinner-material';
@@ -147,8 +146,6 @@ class SecondStep extends React.Component {
   render() {
     return (
       <div>
-
-
         <div class="progressBar">
           <div class="progress-done" id="progress-done" data-done="55"></div>
           <p className="counter">Вероятность одобрения</p>

@@ -253,31 +253,38 @@ export const givenDateCardId = (val) => {
     if(myDate == 'Invalid Date') {
         return false
     }
-	const today = new Date()
-	var todayM = today.getMonth() + 1;
-	var todayD = today.getDate();
-	var todayY = today.getFullYear();
-	var myM = myDate.getMonth() + 1;
-	var myD = myDate.getDate();
-	var myY = myDate.getFullYear();
-
-	if(myY>todayY) {
-		return false;
-	}
-	if(myY < todayY-25) {
-		return false;
-	}
-	if(myY === todayY) {
-		if(myM === todayM && myD > todayD) {
-			return false
-		}
-		if(myM > todayM) {
-			return false
-		}
-		return true
-	}
-	return true
+  const today = new Date()
+  var todayM = today.getMonth() + 1;
+  var todayD = today.getDate();
+  var todayY = today.getFullYear();
+  var myM = myDate.getMonth() + 1;
+  var myD = myDate.getDate();
+  var myY = myDate.getFullYear();
+    if(myDate == 'Invalid Date') {
+        return false
+    }
+  if(myY>todayY) {
+    return false;
+  }
+  if(myY < todayY-50) {
+    return false;
+  }
+    if(myY>todayY) {
+    return false;
+  }
+    if(myY===todayY) {
+        if(myM>todayM) {
+            return false
+        }
+    }
+    if(myY===todayY && myM===todayM) {
+        if(myD>todayD) {
+            return false
+        }
+    }
+  return true
 }
+
 export const expDateCardId = (val) => {
     var res = String(val).replace(/_/g, "");
     if(res.length !== 10) {
@@ -287,19 +294,29 @@ export const expDateCardId = (val) => {
     if(myDate == 'Invalid Date') {
         return false
     }
-	const today = new Date()
-	var todayM = today.getMonth() + 1;
-	var todayD = today.getDate();
-	var todayY = today.getFullYear();
-	var myM = myDate.getMonth() + 1;
-	var myD = myDate.getDate();
-	var myY = myDate.getFullYear();
-
-	if(myY<todayY) {
-		return false;
-	}
-	return true
-}
+  const today = new Date()
+  var todayM = today.getMonth() + 1;
+  var todayD = today.getDate();
+  var todayY = today.getFullYear();
+  var myM = myDate.getMonth() + 1;
+  var myD = myDate.getDate();
+  var myY = myDate.getFullYear();
+  
+  if(myY<todayY) {
+    return false;
+  }
+    if(myY===todayY) {
+        if(myM<todayM) {
+            return false
+        }
+    }
+    if(myY===todayY && myM===todayM) {
+        if(myD<todayD) {
+            return false
+        }
+    }
+  return true
+  }
 // export const givenDateCardId = (val) => {
 //     var res = String(val).replace(/_/g, "");
 //     if(res.length !== 10) {

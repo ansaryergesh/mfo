@@ -27,8 +27,56 @@ class Cabinet extends React.Component {
     this.state = {
       btnLoading: false
     }
+    this.state = {
+      sendRepeat: true,
+    }
+    this.state = {
+      step: ''
+    }
+    this.state = {
+      repeatMessage: ''
+    }
   }
+
+
+  canSendRepeat() {
+    axios
+        .get(`https://api.money-men.kz/api/repeatUser?iin=${this.props.userReducer.user.UF_4}`)
+        .then((response) => {
+          if (response.data.success == true) {
+            // Router.push('/cabinet/repeated')
+            this.setState({sendRepeat: true})
+            // this.setState({btnLoading: false})
+          }
+          if (response.data.success == false) {
+            this.setState({sendRepeat: false})
+            this.setState({repeatMessage: response.data.message})
+          } else {
+            console.log(response)
+          }
+        })
+  }
+  getCurrentStep() {
+    axios.get(`https://api.money-men.kz/api/notFull?iin=${this.props.userReducer.user.UF_4}`, {headers: {
+      "Access-Control-Allow-Origin": "*",
+    }})
+      .then(res => {
+        console.log(res)
+        if(res.data.success) {
+          this.setState({
+            step: res.data.step
+          })
+        }
+      })
+      .catch (
+        console.log('log')
+      )
+  }
+
+  
   componentDidMount() {
+    this.getCurrentStep()
+    this.canSendRepeat()
     window.scrollTo(0, 0);
     this
       .props
@@ -38,21 +86,47 @@ class Cabinet extends React.Component {
       .fetchUserHistory()
   }
   async handleRepeated() {
-    this.setState({btnLoading: true})
-    await axios
-      .get(`https://api.money-men.kz/api/repeatUser?iin=${this.props.userReducer.user.UF_4}`)
-      .then((response) => {
-        if (response.data.success == true) {
-          Router.push('/cabinet/repeated')
-          this.setState({btnLoading: false})
-        }
-        if (response.data.success == false) {
-          this.setState({btnLoading: false})
-          swal("Oops!", `${response.data.message || "Заполнение анкета не завершена. свяжитесь с нами по телефону +7 700 750 15 00"} `, "error");
-        } else {
-          console.log(response)
-        }
-      })
+    if(this.state.sendRepeat === false) {
+      swal("Oops!", `${this.state.repeatMessage || "Вам пока отказано подавать повторный займ"} `, "error");
+    }
+    if(this.state.step!==3 && this.state.canSendRepeat === true) {
+      Router.push(`/cabinet/continue`)
+    }
+    if(this.state.sendRepeat === true && this.state.step === 3) {
+      this.setState({btnLoading: true})
+      await axios
+        .get(`https://api.money-men.kz/api/repeatUser?iin=${this.props.userReducer.user.UF_4}`)
+        .then((response) => {
+          if (response.data.success == true) {
+            Router.push('/cabinet/repeated')
+            this.setState({btnLoading: false})
+          }
+          if (response.data.success == false) {
+            this.setState({btnLoading: false})
+            swal("Oops!", `${response.data.message || "Вам пока отказано подавать повторный займ"} `, "error");
+          } else {
+            console.log(response)
+          }
+        })
+    }
+    else {
+      console.log('hello')
+      // this.setState({btnLoading: true})
+      // await axios
+      //   .get(`https://api.money-men.kz/api/repeatUser?iin=${this.props.userReducer.user.UF_4}`)
+      //   .then((response) => {
+      //     if (response.data.success == true) {
+      //       Router.push('/cabinet/repeated')
+      //       this.setState({btnLoading: false})
+      //     }
+      //     if (response.data.success == false) {
+      //       this.setState({btnLoading: false})
+      //       swal("Oops!", `${response.data.message || "Вам пока отказано подавать повторный займ"} `, "error");
+      //     } else {
+      //       console.log(response)
+      //     }
+      //   })
+    }
   }
 
   render() {

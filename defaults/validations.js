@@ -328,6 +328,89 @@ export const isValidIBANNumber2 = (input)=> {
 }
 
 
+export const isValidIBANNumberContinue = (input)=> {
+    var CODE_LENGTHS = 20;
+
+    var BANKS = [
+        {id: '947', name: 'АО "Дочерний Банк "АЛЬФА-БАНК"'},
+        {id: '826', name: 'АО "АТФБанк"'},
+        {id: '913', name: 'АО ДБ "БАНК КИТАЯ В КАЗАХСТАНЕ"'},
+        {id: '722', name: 'АО "KASPI BANK"'},
+        {id: '766', name: 'АО "Центральный Депозитарий Ценных Бумаг"'},
+        {id: '832', name: 'АО "Ситибанк Казахстан"'},
+        {id: '907', name: 'АО "Банк Развития Казахстана"'},
+        {id: '700', name: 'ЕВРАЗИЙСКИЙ БАНК РАЗВИТИЯ'},
+        {id: '948', name: 'АО "Евразийский Банк"'},
+        {id: '009', name: 'НАО Государственная корпорация "Правительство для граждан"'},
+        {id: '972', name: 'АО "Жилстройсбербанк Казахстана"'},
+        {id: '246', name: 'АО "Исламский Банк "Al Hilal"'},
+        {id: '601', name: 'АО "Народный Банк Казахстана"'},
+        {id: '930', name: 'АО "Торгово-промышленный Банк Китая в г. Алматы"'},
+        {id: '550', name: 'г.Москва Межгосударственный Банк'},
+        {id: '886', name: 'ДБ АО "Хоум Кредит энд Финанс Банк"'},
+        {id: '965', name: 'АО "ForteBank"'},
+        {id: '927', name: 'АО "Казахстанская фондовая биржа"'},
+        {id: '821', name: 'АО "Банк "Bank RBK"'},
+        {id: '224', name: 'РГП "Казахстанский центр межбанковских расчетов НБРК"'},
+        {id: '070', name: 'РГУ "Комитет казначейства Министерства финансов РК"'},
+        {id: '551', name: 'АО "Банк Kassa Nova" (Дочерний банк АО "ForteBank")'},
+        {id: '885', name: 'АО "ДБ "КАЗАХСТАН-ЗИРААТ ИНТЕРНЕШНЛ БАНК"'},
+        {id: '774', name: 'АО "AsiaCredit Bank (АзияКредит Банк)" '},
+        {id: '553', name: 'АО ДБ "Национальный Банк Пакистана" в Казахстане'},
+        {id: '147', name: '"Банк-кастодиан АО  "ЕНПФ"'},
+        {id: '125', name: 'РГУ Национальный Банк Республики Казахстан'},
+        {id: '849', name: 'АО "Нурбанк"'},
+        {id: '914', name: 'ДБ АО "Сбербанк"'},
+        {id: '435', name: 'АО "Шинхан Банк Казахстан"'},
+        {id: '781', name: 'АО "Capital Bank Kazakhstan"'},
+        {id: '620', name: 'АО "Tengri Bank"'},
+        {id: '998', name: 'АО "First Heartland Jysan Bank"'},
+        {id: '432', name: 'ДО АО Банк ВТБ (Казахстан)'},
+        {id: '896', name: 'АО "Исламский банк "Заман-Банк"'},
+''
+    ];
+    var iban = String(input).toUpperCase().replace(/[^A-Z0-9]/g, ''),
+        code = iban.match(/^([A-Z]{2})(\d{2})(\d{3})([A-Z\d]+)$/), digits;
+    if (!code || iban.length !== CODE_LENGTHS) {
+        return false
+    }
+    var bank_code = code[3];
+
+    var bank = BANKS.filter(function(item) {
+        return item.id == bank_code
+    });
+
+
+    if(bank.length >0){
+        return bank[0].name
+    }else{
+        return false
+    }
+
+
+
+
+    digits = (code[3] + code[4] + code[1] + code[2]).replace(/[A-Z]/g, function (letter) {
+        return letter.charCodeAt(0) - 55;
+    });
+
+    if(this.mod97(digits) === 1){
+        return true
+    }else{
+        return "Неправильно"
+    }
+
+}
+
+
+export const ibanContinue = (val) => {
+    let error;
+    if(isValidIBANNumberContinue(val)=== false) {
+        error = 'Некорректный счет'
+    }
+    return error
+}
+
 // Third step
 
 export const givenDateCardId = (val) => {
@@ -346,23 +429,44 @@ export const givenDateCardId = (val) => {
 	var myM = myDate.getMonth() + 1;
 	var myD = myDate.getDate();
 	var myY = myDate.getFullYear();
-
+    if(myDate == 'Invalid Date') {
+        return false
+    }
 	if(myY>todayY) {
 		return false;
 	}
 	if(myY < todayY-25) {
 		return false;
 	}
-	if(myY === todayY) {
-		if(myM === todayM && myD > todayD) {
-			return false
-		}
-		if(myM > todayM) {
-			return false
-		}
-		return true
+    if(myY>todayY) {
+		return false;
 	}
+    if(myY===todayY) {
+        if(myM>todayM) {
+            return false
+        }
+    }
+    if(myY===todayY && myM===todayM) {
+        if(myD>todayD) {
+            return false
+        }
+    }
 	return true
+}
+export const CheckGivedDate = (val) => {
+    let error;
+    if(!givenDateCardId(val)) {
+        error = 'Дата указана неправильно'
+    }
+    return error;
+}
+
+export const CheckExpDate = (val) => {
+    let error;
+    if(!expDateCardId(val)) {
+        error = 'Формат даты неправильный или уд. личности просрочен '
+    }
+    return error;
 }
 export const expDateCardId = (val) => {
     var res = String(val).replace(/_/g, "");
@@ -384,6 +488,16 @@ export const expDateCardId = (val) => {
 	if(myY<todayY) {
 		return false;
 	}
+    if(myY===todayY) {
+        if(myM<todayM) {
+            return false
+        }
+    }
+    if(myY===todayY && myM===todayM) {
+        if(myD<todayD) {
+            return false
+        }
+    }
 	return true
 }
 // export const givenDateCardId = (val) => {
@@ -444,12 +558,14 @@ export const checkStringName = val => {
 
 export const idNumber = (val)=> {
 	var res = String(val).replace(/_/g, "");
+    var error;
     if(res.length !== 9) {
-        return false
-    }else {
-        return true
+        error = 'Неправильный номер'
     }
+    return error
 }
+
+
 
 export const isExpDateOfCardValid = (input) =>{
 	var expDate = String(input).toUpperCase().replace(/[^0-9]/g, '');
@@ -493,6 +609,16 @@ export const checkCardValid= (value) => {
 			return true;
 		}
 	}
+}
+
+
+
+export const textCheckCardValid = (value) => {
+    let error;
+    if(!checkCardValid) {
+        error = 'Неправильный номер'
+    }
+    return error;
 }
 
 

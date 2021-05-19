@@ -29,7 +29,7 @@ export const newCookie = () => {
 }
 
 export const controlUtm = () => {
-  if (getUrlParameter('utm_source').length > 0 && getUrlParameter('utm_medium').length > 0 && getUrlParameter('utm_campaign').length > 0 && getUrlParameter('utm_term').length > 0 && getUrlParameter('clickid').length > 0) {
+  if (getUrlParameter('utm_source').length > 0 && getUrlParameter('utm_medium').length > 0 && getUrlParameter('utm_campaign').length > 0 && getUrlParameter('utm_term').length > 0 && getUrlParameter('click_id').length > 0) {
     newCookie()
     if (getUrlParameter('utm_source').includes('qaz')) {
       localStorage.clear();
@@ -38,6 +38,16 @@ export const controlUtm = () => {
       cookie.set('utm_campaign', getUrlParameter('utm_campaign'), {expires: 1})
       cookie.set('utm_term', getUrlParameter('utm_term'), {expires: 1})
       cookie.set('clickid', getUrlParameter('clickid'), {expires: 1})
+    }
+
+    if (getUrlParameter('utm_source').includes('finpublic')) {
+      localStorage.clear();
+      console.log(getUrlParameter('click_id'))
+      cookie.set('clickid', getUrlParameter('click_id'), {expires: 30})
+      cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 30})
+      cookie.set('utm_medium', getUrlParameter('utm_medium'), {expires: 30})
+      cookie.set('utm_campaign', getUrlParameter('utm_campaign'), {expires: 30})
+      cookie.set('utm_term', getUrlParameter('utm_term'), {expires: 30})
     }
   }
   if (getUrlParameter('utm_source').length > 0 && getUrlParameter('afclick').length > 0) {
@@ -77,6 +87,15 @@ export const controlUtm = () => {
       cookie.set('wmid', 'nothing', {expires: 30})
     }
   }
+  if(getUrlParameter('utm_source').length>0 && getUrlParameter('click_id').length>0) {
+    if(getUrlParameter('utm_source') === 'pdl-profit') {
+      newCookie()
+      localStorage.clear();
+      cookie.set('utm_source', getUrlParameter('utm_source'), {expires: 30})
+      cookie.set('clickid', getUrlParameter('click_id'), {expires: 30})
+      cookie.set('wmid', getUrlParameter('web_id'), {expires: 30})
+    }
+  }
   if(getUrlParameter('utm_source').length>0 && getUrlParameter('utm_medium').length>0
     && getUrlParameter('utm_campaign').length>0 && getUrlParameter('web_id').length>0 && getUrlParameter('click_id').length>0) {
       if(getUrlParameter('utm_source') === 'goodaff') {
@@ -100,7 +119,8 @@ export const controlUtm = () => {
   if (getUrlParameter('utm_source').length > 0 
     && getUrlParameter('utm_medium').length > 0 
     && getUrlParameter('utm_campaign').length > 0
-    && getUrlParameter('utm_term').length > 0) {
+    && getUrlParameter('utm_term').length > 0 &&
+    !getUrlParameter('utm_source').includes('finpublic'))  {
     newCookie()
     localStorage.clear();
     cookie.set('clickid', 'notexist', {expires: 30})

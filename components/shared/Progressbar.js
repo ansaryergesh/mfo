@@ -51,7 +51,6 @@ class ProgressBar extends Component {
 
       }
       async handleRepeatedZaim(values) {
-        console.log("clicked")
         values.UF_2 = this.props.moneyVal;
         values.UF_3 = this.props.dayVal;
 
@@ -78,7 +77,7 @@ class ProgressBar extends Component {
           UF18:values.UF_18 ,
           UF19:values.UF_19 ,
           UF20:values.UF_20,
-          UF21:values.UF_21,
+          UF21:values.UF_21 || 'Частный дом',
           UF22:values.UF_22,
           UF23:values.UF_23,
           UF24:values.UF_24,
@@ -115,6 +114,7 @@ class ProgressBar extends Component {
         })
 
           .then((response) => {
+            console.log(response)
             this.setState ({
               repeatedLoading: false
             })
@@ -196,9 +196,8 @@ class ProgressBar extends Component {
             {this.state.repeatedLoading ? <div className="modelLoader"></div> : <div className="modelLoader loaded"></div>}
             <button className="calculator-take repeatedBtn" onClick={() => this.handleRepeatedZaim(this.props.userReducer.user)}>Получить деньги</button>
             <h5 className="text-center mt-3 mb-3 availableDay" style={{display: this.props.dayVal ===30 ? 'block': 'none' }}>В данный момент Вам доступен срок между 15 и 30 днями</h5>
-           <AppLink href="/get_money"> <button className="takebtn calculator-take" onClick={this.open}>Получить деньги</button></AppLink>
+           {this.props.pathname ==='/cabinet/continue' ? <h4 className='mt-4'>Выберите сумму и срок</h4> : <AppLink href="/get_money"> <button className="takebtn calculator-take" onClick={this.open}>Получить деньги</button></AppLink>}
           </div>
-
 
           <div className="calculator-info col-md-8">
             <div className="main-info">

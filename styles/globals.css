@@ -436,6 +436,8 @@ select:focus~div {
   opacity: 1;
 }
 
+
+
 .hint {
   content: "asd";
   opacity: 0;
@@ -3280,9 +3282,63 @@ nav[role="navigation"] .users a:before {
     background-color: rgb(181, 173, 173);
     padding: 19.5px;
   }
-
+  .inputs_continue {
+    width: 50%;
+    margin:15px auto;
+    padding: 25px;
+    border-radius: 5px;
+    border:.2px solid rgba(86, 86, 95, 0.32)
+  }
+  @media(max-width:768px) {
+    .inputs_continue {
+      width: 100%;
+    }
+  }
+  .range-group {
+    display: flex;
+    flex-direction: column;
+    /* width: 40%; */
+    padding-bottom: 15px;
+  }
   
 /* admin panel end */
 
 
 
+/* Verilive style */
+.vrbtn {
+  margin: 150px auto;
+  font-size: 25px;
+  cursor: pointer;
+  padding: 8px 32px;
+  margin-bottom: 6px;
+  outline: none;
+  background: transparent;
+  border-radius: 4px;
+  transition: .2s ease-in-out;
+}
+.vrbtn:active {
+  opacity: 0.9;
+}
+#start {
+  border: 2px solid #4CAF50;
+  color: #4CAF50;
+}
+#start:hover {
+  background: #4CAF50;
+  color: #fff;
+}
+#id_verilive {
+  margin-bottom: 150px!important;
+}
+#stop {
+  border: 2px solid #727272;
+  color: #727272;
+}
+#stop:hover {
+  background: #727272;
+  color: #fff;
+}
+.veridoc {
+  padding-top: 150px;
+}

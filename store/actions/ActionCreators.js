@@ -8,7 +8,7 @@ export const changingMoney = money => ({
 });
 
 function replaceDate(val) {
-    return String(val).replace(/[^A-Z0-9]/g, '')
+  return String(val).replace(/[^A-Z0-9]/g, '')
 }
 export const changingDay = day => ({
     type: ActionTypes.DAY_CHANGE,
@@ -214,7 +214,11 @@ export const postRegistrationThird = (registration) => (dispatch) => {
         .then(response=> setTimeout(() => {localStorage.clear()},5000))
         .then(response => Router.push('/thanks'))
         .then(response=> newCookie())
-        .catch(r => r.json().then(e =>  dispatch(errorMessage(e.errors.id_card_number ? "Номер удостворение личности уже зарегистрирован" : "" || e.errors.iban_account || e.errors.card_number || e.errors ||  null)))).then(() => dispatch(isLoading(false)))
+        .catch(e=> {
+            console.log(e)
+        })
+        // .catch(r => r.json().then(e =>
+        //     console.log(e)).then(()=>dispatch(errorMessage(e.errors.id_card_number ? "Номер удостворение личности уже зарегистрирован" : "" || e.errors.iban_account || e.errors.card_number || e.errors ||  null)))).then(() => dispatch(isLoading(false)))
 }
 
 function testingAction(history) {
